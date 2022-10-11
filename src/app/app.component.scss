@@ -1,0 +1,12 @@
+.ts-app-sidebar {
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  width: 192px;
+  overflow: hidden;
+  word-break: keep-all;
+}
+
+.ts-app-sidebar.closed {
+  width: 0px;
+  margin-right: 0;
+  margin-left: 0;
+}
