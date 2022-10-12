@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-
-export const LocalStorageKey = {
-  openTimes: 'open_times'
-}
+import { LocalStorageKey } from '@shared/LocalStorageKey';
 
 @Injectable({
   providedIn: 'root'
 })
 
+/** 全站使用服務 */
 export class WebService {
   /** App已開啟的次數 */
   openedTimes?: number;

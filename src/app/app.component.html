@@ -1,22 +1,29 @@
 <mat-drawer-container class="example-container">
   <mat-drawer mode="over" #drawer>
     <mat-nav-list>
-      <mat-list-item *ngFor="let link of links">
-         <a matLine [routerLink]="link.path">{{ link.name }}</a>
+      <mat-list-item *ngFor="let link of links" [routerLink]="link.path" fxLayout="row" fxLayoutGap="8px"
+        fxLayoutAlign="space-between center">
+        <a matLine >{{ link.name }}</a>
+        <button mat-button color="accent" *ngIf="link.extra">
+          {{link.extra()}}
+        </button>
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <mat-toolbar color="primary">
-      <mat-toolbar-row>
-        <button mat-icon-button (click)="drawer.toggle();" class="example-icon"
-          aria-label="Example icon-button with menu icon">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span class="example-spacer"></span>
-        <span>xFly PWA</span>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
+    <div fxLayout="column" fxFlexFill>
+      <mat-toolbar color="primary">
+        <mat-toolbar-row fxLayout="row" fxLayoutGap="8px">
+          <button mat-icon-button (click)="drawer.toggle();" class="example-icon"
+            aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span>{{CurrentFunctionName || 'xFly PWA'}}</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <div fxLayout="column" style="overflow: auto; padding: 8px;">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

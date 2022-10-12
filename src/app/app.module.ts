@@ -12,15 +12,44 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { IndexComponent } from './apps/index/index.component';
 import { MatListModule } from '@angular/material/list';
+import { TodoComponent } from './apps/todo/todo.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatBadgeModule} from '@angular/material/badge';
+import { MatInputModule } from '@angular/material/input';
 
+const MatModules = [
+  MatSidenavModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatButtonModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatDialogModule,
+  MatInputModule,
+  MatBadgeModule,
+  DragDropModule,
+  FlexLayoutModule,
+  FormsModule,
+  ReactiveFormsModule
+]
+
+const components = [
+  AppComponent,
+  IndexComponent,
+  TodoComponent
+]
 @NgModule({
   declarations: [
-    AppComponent,
-    IndexComponent
+    ...components
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ...MatModules,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -28,11 +57,7 @@ import { MatListModule } from '@angular/material/list';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatListModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

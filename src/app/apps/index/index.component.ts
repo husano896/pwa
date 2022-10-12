@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WebService } from 'src/app/web.service';
+import { WebService } from 'src/app/services/web.service';
 
 @Component({
   selector: 'app-index',
