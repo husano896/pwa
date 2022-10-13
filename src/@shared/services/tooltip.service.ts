@@ -36,7 +36,7 @@ export class TooltipService {
         case 2:
         case 3:
         case 4:
-          return '好好上班，除了摸我之外不要看手機了！？'
+          return '好好上班，\n除了摸我之外不要看手機了！？'
         case 5:
           return '喔耶，準備要快樂周末！';
       }
@@ -48,11 +48,11 @@ export class TooltipService {
         case 2:
         case 3:
         case 4:
-          return '下班辛苦了！\n聽點音樂，上個VRC，刷個音遊，放鬆一下─'
+          return '下班辛苦了！\n聽點音樂，上個VRC，\n刷個音遊，放鬆一下─'
         case 5:
-          return '明天周末了，想要去哪裡玩嗎？帶著我一起去吧！'
+          return '明天周末了，想要去哪裡玩嗎？\n帶著我一起去吧！'
         case 6:
-          return '今天不論是出毛還是出去玩都辛苦了！好好休息─'
+          return '今天不論是出毛還是出去玩都辛苦了！\n好好休息─'
       }
     } // else if (currentHours <= 24) {
     return '時間晚囉！注意不要太晚睡！'

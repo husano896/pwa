@@ -20,4 +20,8 @@ export class IndexComponent implements OnInit {
   getTooltip() {
     return this.tooltipServ.getTooltip();
   }
+
+  prevent($event: Event) {
+    $event.preventDefault();
+  }
 }
