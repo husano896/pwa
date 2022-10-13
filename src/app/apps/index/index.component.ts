@@ -1,5 +1,6 @@
+import { TooltipService } from './../../../@shared/services/tooltip.service';
 import { Component, OnInit } from '@angular/core';
-import { WebService } from 'src/app/services/web.service';
+import { WebService } from '@shared/services/web.service';
 
 @Component({
   selector: 'app-index',
@@ -8,11 +9,15 @@ import { WebService } from 'src/app/services/web.service';
 })
 export class IndexComponent implements OnInit {
 
-  constructor(private webServ: WebService) { }
+  constructor(private webServ: WebService, private tooltipServ: TooltipService) { }
 
   ngOnInit(): void {
   }
-  public get openedTimes() {
+  get openedTimes() {
     return this.webServ.openedTimes;
+  }
+
+  getTooltip() {
+    return this.tooltipServ.getTooltip();
   }
 }

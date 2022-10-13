@@ -1,7 +1,13 @@
-<blockquote>
-    - 還沒有想好要寫什麼
-    <br/>
+<div class="index" fxLayout="column" fxFlexFill>
+
+  <blockquote>
+    <br />
     - come back later!
-    <br/>
+    <br />
     - 已開啟App {{openedTimes}} 次
-</blockquote>
+  </blockquote>
+
+  <img [matTooltip]="getTooltip()" matTooltipClass="new-lines" matTooltipPosition="left" [matTooltipHideDelay]="3000"
+  [matTooltipShowDelay]="0"
+    matTooltipTouchGestures="on" class="avatar" alt="xFly-avatar" src="./assets/imgs/bg.gif" />
+</div>

@@ -18,8 +18,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MatModules = [
   MatSidenavModule,
@@ -31,6 +32,7 @@ const MatModules = [
   MatDialogModule,
   MatInputModule,
   MatBadgeModule,
+  MatTooltipModule,
   DragDropModule,
   FlexLayoutModule,
   FormsModule,

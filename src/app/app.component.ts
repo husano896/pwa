@@ -1,5 +1,5 @@
-import { TodoService } from './services/todo.service';
-import { WebService } from './services/web.service';
+import { TodoService } from '../@shared/services/todo.service';
+import { WebService } from '../@shared/services/web.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';

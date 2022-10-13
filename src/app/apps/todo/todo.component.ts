@@ -1,4 +1,4 @@
-import { TodoService } from './../../services/todo.service';
+import { TodoService } from '@shared/services/todo.service'
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

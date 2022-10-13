@@ -1,0 +1,11 @@
+.avatar {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: min(50vw, 50vh);
+  opacity: 0.5;
+  z-index: 1;
+}
+::ng-deep .new-lines {
+  white-space: pre-line !important;
+}
