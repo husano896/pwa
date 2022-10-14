@@ -1,12 +1,27 @@
+import { EviatComponent } from './apps/eviat/eviat.component';
+import { SettingsComponent } from './apps/settings/settings.component';
 import { TodoComponent } from './apps/todo/todo.component';
 import { IndexComponent } from './apps/index/index.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './apps/about/about.component';
 
 const routes: Routes = [
   {
     path: 'todo',
     component: TodoComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
+  },
+  {
+    path: 'eviat',
+    component: EviatComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   },
   {
     path: '',

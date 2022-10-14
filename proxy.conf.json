@@ -1,0 +1,6 @@
+{
+  "/grafanaAPI/*": {
+    "target": "http://localhost:88/api",
+    "pathRewrite": {"^/grafana" : ""}
+  }
+}

@@ -3,7 +3,8 @@
     <mat-nav-list>
       <mat-list-item *ngFor="let link of links" [routerLink]="link.path" fxLayout="row" fxLayoutGap="8px"
         fxLayoutAlign="space-between center">
-        <a matLine >{{ link.name }}</a>
+        <mat-icon matListIcon> {{link.icon}}</mat-icon>
+        <a matLine>{{ link.name }}</a>
         <button mat-button color="accent" *ngIf="link.extra">
           {{link.extra()}}
         </button>
@@ -21,7 +22,7 @@
           <span>{{CurrentFunctionName || 'xFly PWA'}}</span>
         </mat-toolbar-row>
       </mat-toolbar>
-      <div fxLayout="column" style="overflow: auto; padding: 8px;">
+      <div fxLayout="column" style="overflow: auto; padding: 8px; height: 100%">
         <router-outlet></router-outlet>
       </div>
     </div>

@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 @include mat.core();
 
@@ -8,33 +8,57 @@ $light-accent: mat.define-palette(mat.$pink-palette);
 
 $negative: mat.define-palette(mat.$red-palette);
 
-$light-theme: mat.define-light-theme((
- color: (
-   primary: $light-primary,
-   accent: $light-accent,
-   warn: $negative
- )
-));
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $light-primary,
+      accent: $light-accent,
+      warn: $negative,
+    ),
+  )
+);
 
 // Define a dark theme
-$dark-primary: mat.define-palette(mat.$pink-palette);
-$dark-accent: mat.define-palette(mat.$blue-grey-palette);
-$dark-theme: mat.define-dark-theme((
- color: (
-   primary: $dark-primary,
-   accent: $dark-accent,
-   warn: $negative
- )
-));
-
-// Apply the dark theme by default
-@include mat.all-component-themes($light-theme);
+$dark-primary: mat.define-palette(mat.$blue-palette);
+$dark-accent: mat.define-palette(mat.$pink-palette);
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+      warn: $negative,
+    ),
+  )
+);
 
 body {
   margin: 0;
   overscroll-behavior-y: contain;
+  @media (prefers-color-scheme: light) {
+    // Apply the dark theme by default
+    @include mat.all-component-themes($light-theme);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    // Apply the dark theme by default
+    @include mat.all-component-themes($dark-theme);
+  }
+}
+
+body[theme="light"] {
+  @include mat.all-component-themes($light-theme);
+}
+
+body[theme="dark"] {
+  @include mat.all-component-themes($dark-theme);
 }
 
 mat-drawer-container {
   height: 100vh;
+}
+
+a {
+  position: relative;
+  color: #108ee9;
+  text-decoration: none;
 }

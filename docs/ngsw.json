@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1665669908245,
+  "timestamp": 1665717674129,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.3cdf0fac8583fb4e.js",
+        "/main.c094a9150115e2c6.js",
         "/manifest.webmanifest",
         "/polyfills.bdb1307fddae9ffa.js",
         "/runtime.7d4f326d2d8d0f8e.js",
-        "/styles.d126fd77c6ce6be9.css"
+        "/styles.aa97e635b738e634.css"
       ],
       "patterns": []
     },
@@ -37,7 +37,8 @@
         "/assets/icons/icon-512x512.png",
         "/assets/icons/icon-72x72.png",
         "/assets/icons/icon-96x96.png",
-        "/assets/imgs/bg.gif"
+        "/assets/imgs/bg.gif",
+        "/assets/imgs/eviat.webp"
       ],
       "patterns": []
     }
@@ -53,13 +54,14 @@
     "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/assets/imgs/bg.gif": "df29f3fa0a55bc20677ab3b1c1aa650f1a387027",
+    "/assets/imgs/eviat.webp": "58f67061df17c87b88a8226ddfa789ae1184188b",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/index.html": "1ecf9887cb17b9ae3854cbfc320d6eebb79659f3",
-    "/main.3cdf0fac8583fb4e.js": "0fd7a44fe22eca4655c78016eb02fcaa600c4a4f",
-    "/manifest.webmanifest": "551d0efa60bc011b95408acbd9dbaa1fd381fb18",
+    "/index.html": "d0491f340bbfaffbe9532794bb208502c6975755",
+    "/main.c094a9150115e2c6.js": "cc4049154e7fbd6fd90f3f4470cc61a4b73f8f83",
+    "/manifest.webmanifest": "49389ec6dca7de2f509726520bd3887d12aa8957",
     "/polyfills.bdb1307fddae9ffa.js": "f658cf83ca2e24529e682469e8624a48c037acc7",
     "/runtime.7d4f326d2d8d0f8e.js": "34bf873efa8203fe3e67cee3f2a09032d3079635",
-    "/styles.d126fd77c6ce6be9.css": "204536f1633059f10130815406880094b9dc12dd"
+    "/styles.aa97e635b738e634.css": "b136611440ed59a76363fe19a1dd6057954bd6de"
   },
   "navigationUrls": [
     {

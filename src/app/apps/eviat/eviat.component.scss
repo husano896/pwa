@@ -1,0 +1,155 @@
+@media screen and (orientation: landscape) {
+  img {
+    width: auto;
+    height: 100%;
+  }
+}
+@media screen and (orientation: portrait) {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+:host {
+  height: 100%;
+}
+
+#eviat.shaking {
+  filter: blur(8px);
+  animation-name: shaking;
+  animation-duration: 0.001s;
+  animation-iteration-count: infinite;
+}
+
+#eviat.invert {
+  filter: invert(1);
+}
+
+#eviat.fadeout {
+  animation-name: fadeout;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+#eviat.rotate {
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+#eviat.squeeze {
+  animation-name: squeeze;
+  animation-duration: 0.01s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+#eviat.squeezed {
+  transform: scaleY(0.25);
+  transform-origin: center bottom;
+}
+
+#eviat.moveleft {
+  animation-name: moveleft;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transform-origin: center;
+}
+
+#eviat.jumpjump {
+  animation-name: jumpjump;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes shaking {
+  0% {
+    transform: translate(0px, 0px);
+  }
+
+  50% {
+    transform: translate(0px, 8px);
+  }
+
+  to {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    filter: opacity(1);
+  }
+  50% {
+    filter: opacity(0);
+  }
+  to {
+    filter: opacity(1);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes squeeze {
+  0% {
+    transform: translate(4px, 0px) scaleX(0.5);
+  }
+
+  50% {
+    transform: translate(-4px, 0px) scaleX(0.5);
+  }
+
+  to {
+    transform: translate(4px, 0px) scaleX(0.5);
+  }
+}
+
+@keyframes moveleft {
+  0% {
+    transform: translateX(0%) scaleX(1);
+  }
+
+  49% {
+    transform: translateX(-100%) scaleX(1);
+  }
+  50% {
+    transform: translateX(-100%) scaleX(-1);
+  }
+  51% {
+    transform: translateX(-100%) scaleX(-1);
+  }
+
+  74% {
+    transform: translateX(100%) scaleX(-1);
+  }
+
+  75% {
+    transform: translateX(100%) scaleX(1);
+  }
+  to {
+    transform: translateX(0%) scaleX(1);
+  }
+}
+
+@keyframes jumpjump {
+  0% {
+    transform: scaleY(100%);
+  }
+  50% {
+    transform: scaleY(50%);
+  }
+  to {
+    transform: scaleY(100%);
+  }
+}

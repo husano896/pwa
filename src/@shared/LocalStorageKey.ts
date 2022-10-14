@@ -1,4 +1,6 @@
 export enum LocalStorageKey {
+  encounterDate = 'encounter_date',
   openTimes = 'open_times',
-  todo = 'todo'
+  todo = 'todo',
+  theme = 'theme'
 }

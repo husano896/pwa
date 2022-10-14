@@ -21,6 +21,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { SettingsComponent } from './apps/settings/settings.component';
+import { AboutComponent } from './apps/about/about.component';
+import { EviatComponent } from './apps/eviat/eviat.component';
 
 const MatModules = [
   MatSidenavModule,
@@ -33,9 +38,11 @@ const MatModules = [
   MatInputModule,
   MatBadgeModule,
   MatTooltipModule,
+  MatBottomSheetModule,
   DragDropModule,
   FlexLayoutModule,
   FormsModule,
+  MatCardModule,
   ReactiveFormsModule
 ]
 
@@ -46,7 +53,10 @@ const components = [
 ]
 @NgModule({
   declarations: [
-    ...components
+    ...components,
+    SettingsComponent,
+    AboutComponent,
+    EviatComponent
   ],
   imports: [
     BrowserModule,

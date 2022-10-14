@@ -9,6 +9,8 @@ import { WebService } from '@shared/services/web.service';
 })
 export class IndexComponent implements OnInit {
 
+  static IconName = 'home';
+  static AppName = '首頁'
   constructor(private webServ: WebService, private tooltipServ: TooltipService) { }
 
   ngOnInit(): void {
@@ -21,6 +23,7 @@ export class IndexComponent implements OnInit {
     return this.tooltipServ.getTooltip();
   }
 
+  /** 因matTooltipTouchGestures還是沒辦法防止內建的長壓事件 因此額外阻擋事件 */
   prevent($event: Event) {
     $event.preventDefault();
   }

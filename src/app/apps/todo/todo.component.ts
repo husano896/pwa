@@ -11,6 +11,10 @@ import { TodoDto } from '@shared/entities/TodoDto';
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent implements OnInit {
+
+  static IconName = 'checklist';
+  static AppName = '代辦事項'
+
   @ViewChild('editDialog') editDialog!: TemplateRef<any>;
 
   formGroup = new FormGroup({
@@ -52,8 +56,8 @@ export class TodoComponent implements OnInit {
     this.todoServ.Delete(item);
   }
 
-  IsOverDue() {
-
+  IsOverDue(item: TodoDto) {
+    return item.dueDate && new Date() > item.dueDate;
   }
   get todo() {
     return this.todoServ.todo;

@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutGap="8px">
+  <h2>一般</h2>
+  <mat-action-list>
+    <button mat-list-item>
+      <h3 matLine>初次相遇</h3>
+      <p matLine>{{getFirstEncounterDate()}} </p>
+    </button>
+    <button mat-list-item (click)="openThemeBottomSheet()">
+      <h3 matLine>主題顏色</h3>
+      <p matLine>目前設定：{{getCurrentThemeDisplayName()}}</p>
+    </button>
+  </mat-action-list>
+  <mat-divider></mat-divider>
+  <h2>進階</h2>
+  <mat-action-list>
+    <button mat-list-item (click)="resetAllSettings()">
+      <h3 matLine>重設所有設定</h3>
+      <p matLine>此動作將移除所有記錄且不可逆轉！</p>
+    </button>
+  </mat-action-list>
+  <mat-divider></mat-divider>
+</div>
+
+<ng-template #themeDialog>
+  <h2>設定主題</h2>
+  <mat-action-list>
+    <button mat-list-item (click)="selectTheme('')">
+      <h3 matLine>系統</h3>
+    </button>
+    <button mat-list-item (click)="selectTheme('light')">
+      <h3 matLine>明亮</h3>
+    </button>
+    <button mat-list-item (click)="selectTheme('dark')">
+      <h3 matLine>暗黑</h3>
+    </button>
+  </mat-action-list>
+</ng-template>
