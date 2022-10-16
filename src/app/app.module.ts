@@ -26,6 +26,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { SettingsComponent } from './apps/settings/settings.component';
 import { AboutComponent } from './apps/about/about.component';
 import { EviatComponent } from './apps/eviat/eviat.component';
+import { NotepadComponent } from './apps/notepad/notepad.component';
 
 const MatModules = [
   MatSidenavModule,
@@ -56,7 +57,8 @@ const components = [
     ...components,
     SettingsComponent,
     AboutComponent,
-    EviatComponent
+    EviatComponent,
+    NotepadComponent
   ],
   imports: [
     BrowserModule,

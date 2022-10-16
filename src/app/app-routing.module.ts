@@ -5,6 +5,7 @@ import { IndexComponent } from './apps/index/index.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './apps/about/about.component';
+import { NotepadComponent } from './apps/notepad/notepad.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'notepad',
+    component: NotepadComponent
   },
   {
     path: '',
