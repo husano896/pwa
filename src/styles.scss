@@ -31,9 +31,11 @@ $dark-theme: mat.define-dark-theme(
   )
 );
 
-body:not([theme="light"]):not([theme="dark"]) {
+body {
   margin: 0;
   overscroll-behavior-y: contain;
+}
+body:not([theme="light"]):not([theme="dark"]) {
   @media (prefers-color-scheme: light) {
     // Apply the dark theme by default
     @include mat.all-component-themes($light-theme);
@@ -42,6 +44,13 @@ body:not([theme="light"]):not([theme="dark"]) {
   @media (prefers-color-scheme: dark) {
     // Apply the dark theme by default
     @include mat.all-component-themes($dark-theme);
+    input,
+    select,
+    textarea {
+      background-color: #424242;
+      color: white;
+      -webkit-text-fill-color: white;
+    }
   }
 }
 

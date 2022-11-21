@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 
 import { Exception, Result } from '@zxing/library';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 @Component({
   selector: 'app-qrcode',
   templateUrl: './qrcode.component.html',
@@ -21,6 +22,13 @@ export class QrcodeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  isOpenable() {
+    return this.result?.includes('://');
+  }
+  open() {
+    open(this.result);
   }
 
   onScanSuccess($event: string) {

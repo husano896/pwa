@@ -2,6 +2,7 @@ import { ErrorCollectorService } from './../../../@shared/services/error-collect
 import { WebService } from '@shared/services/web.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-settings',
@@ -72,4 +73,5 @@ export class SettingsComponent implements OnInit {
   set debugMode(v) {
     this.webServ.debug = v;
   }
+
 }

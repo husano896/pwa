@@ -63,27 +63,36 @@ export class NotepadComponent implements OnInit, OnDestroy {
   }
 
   openFile() {
-    const inputEl = document.createElement('input');
-    inputEl.type = 'file'
-    inputEl.accept = '.txt, .json, .xml, .html';
-    inputEl.onchange = (ev) => {
-      if (!inputEl.files?.length) {
-        return;
+    if (this.checkIfModified()) {
+
+
+      const inputEl = document.createElement('input');
+      inputEl.type = 'file'
+      inputEl.accept = '.txt, .json, .xml, .html';
+      inputEl.onchange = (ev) => {
+        if (!inputEl.files?.length) {
+          return;
+        }
+        const selectedFile = inputEl.files[0];
+        this.fileName = selectedFile.name;
+        const reader = new FileReader();
+        reader.readAsText(selectedFile);
+        reader.onload = () => {
+          this.content = reader.result as string;
+        };
       }
-      const selectedFile = inputEl.files[0];
-      this.fileName = selectedFile.name;
-      const reader = new FileReader();
-      reader.readAsText(selectedFile);
-      reader.onload = () => {
-        this.content = reader.result as string;
-      };
+      inputEl.click();
+      this.modified = false;
     }
-    inputEl.click();
   }
 
   checkIfModified() {
     if (this.modified) {
-      return confirm(`${this.fileName} 已被變更, 是否儲存？`);
+      if (confirm(`${this.fileName} 已被變更, 是否儲存？`)) {
+        this.save();
+        this.modified = false;
+        return false;
+      }
     }
     return false;
   }
