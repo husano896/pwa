@@ -1,3 +1,34 @@
-<div *ngIf="notes">
-
+<div fxLayout="column" fxFlexFill>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex>
+        <button mat-icon-button (click)="back();">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <mat-form-field (blur)="onblur()" style="width: 100%;">
+          <input matInput [(ngModel)]="fileName" (blur)="onblur()" (ngModelChange)="modified = true;" style="width: 100%;" />
+          <label matSuffix *ngIf="modified">*</label>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+        <button mat-icon-button [matMenuTriggerFor]="actionMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #actionMenu="matMenu">
+          <button mat-menu-item (click)="newFile()">
+            <mat-icon>add</mat-icon>開新檔案
+          </button>
+          <button mat-menu-item (click)="openFile()">
+            <mat-icon>folder_open</mat-icon>開啟舊檔
+          </button>
+          <button mat-menu-item (click)="save()">
+            <mat-icon>save</mat-icon>儲存
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div fxLayout="column" style="overflow-y: auto;height: 100%;">
+    <textarea placeholder="開始輸入..." [(ngModel)]="content" (ngModelChange)="modified = true;"></textarea>
+  </div>
 </div>

@@ -1,3 +1,4 @@
+import { QrcodeComponent } from './apps/qrcode/qrcode.component';
 import { EviatComponent } from './apps/eviat/eviat.component';
 import { SettingsComponent } from './apps/settings/settings.component';
 import { TodoComponent } from './apps/todo/todo.component';
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'notepad',
     component: NotepadComponent
+  },
+  {
+    path: 'qrcode',
+    component: QrcodeComponent
   },
   {
     path: '',

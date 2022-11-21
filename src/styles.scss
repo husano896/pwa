@@ -31,7 +31,7 @@ $dark-theme: mat.define-dark-theme(
   )
 );
 
-body {
+body:not([theme="light"]):not([theme="dark"]) {
   margin: 0;
   overscroll-behavior-y: contain;
   @media (prefers-color-scheme: light) {
@@ -51,6 +51,17 @@ body[theme="light"] {
 
 body[theme="dark"] {
   @include mat.all-component-themes($dark-theme);
+  input,
+  select,
+  textarea {
+    background-color: #424242;
+    color: white;
+    -webkit-text-fill-color: white;
+  }
+}
+
+textarea::-webkit-input-placeholder {
+  color: gray !important;
 }
 
 mat-drawer-container {
@@ -61,4 +72,10 @@ a {
   position: relative;
   color: #108ee9;
   text-decoration: none;
+}
+
+mat-icon.large-icon {
+  font-size: 96px;
+  width: 96px;
+  height: 96px;
 }

@@ -3,5 +3,6 @@ export enum LocalStorageKey {
   openTimes = 'open_times',
   todo = 'todo',
   theme = 'theme',
-  notes = 'notes'
+  notes = 'notes',
+  debugMode = 'debug_mode'
 }

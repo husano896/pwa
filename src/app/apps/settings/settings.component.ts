@@ -1,3 +1,4 @@
+import { ErrorCollectorService } from './../../../@shared/services/error-collector.service';
 import { WebService } from '@shared/services/web.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -15,25 +16,30 @@ export class SettingsComponent implements OnInit {
 
   @ViewChild('themeDialog') themeDialog!: TemplateRef<any>;
 
-  constructor(private webServ: WebService, private bottomSheet: MatBottomSheet) { }
+  constructor(
+    private webServ: WebService,
+    private bottomSheet: MatBottomSheet,
+    private errorServ: ErrorCollectorService) { }
 
   ngOnInit(): void { }
 
-  // 主題設定
+  // 開啟主題設定視窗
   openThemeBottomSheet() {
     this.bottomSheet.open(this.themeDialog);
   }
 
+  // 設定主題
   selectTheme(theme: string) {
-    this.webServ.setTheme(theme);
+    this.webServ.theme = theme;
     this.bottomSheet.dismiss();
   }
 
   getFirstEncounterDate() {
-    return this.webServ.getEncounterDate().toLocaleString()
+    return this.webServ.encounterDate.toLocaleString()
   }
+
   getCurrentThemeDisplayName() {
-    const theme = this.webServ.getCurrentTheme();
+    const theme = this.webServ.theme;
     if (!theme) {
       return '系統';
     }
@@ -41,10 +47,29 @@ export class SettingsComponent implements OnInit {
   }
 
   // 進階
+  /** 下載偵錯Log */
+
+  get debugLogSize() {
+    return this.errorServ.errors.length;
+  }
+
+  downloadDebuglog() {
+    this.errorServ.downloadLog();
+  }
+
+  /** 重設所有設定 */
   resetAllSettings() {
     if (confirm('確定重設所有資料? 頁面將重新載入.')) {
       localStorage.clear();
       window.location.href = './';
     }
+  }
+
+  get debugMode() {
+    return this.webServ.debug;
+  }
+
+  set debugMode(v) {
+    this.webServ.debug = v;
   }
 }

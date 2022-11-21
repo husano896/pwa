@@ -13,16 +13,20 @@
   </mat-drawer>
   <mat-drawer-content>
     <div fxLayout="column" fxFlexFill>
-      <mat-toolbar color="primary">
-        <mat-toolbar-row fxLayout="row" fxLayoutGap="8px">
-          <button mat-icon-button (click)="drawer.toggle();" class="example-icon"
-            aria-label="Example icon-button with menu icon">
-            <mat-icon>menu</mat-icon>
-          </button>
-          <span>{{CurrentFunctionName || 'xFly PWA'}}</span>
+      <mat-toolbar color="primary" *ngIf="!hideToolbar">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+            <button mat-icon-button (click)="drawer.toggle();">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span>{{CurrentFunctionName || 'xFly PWA'}}</span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+            <ng-template [cdkPortalOutlet]="selectedPortal"></ng-template>
+          </div>
         </mat-toolbar-row>
       </mat-toolbar>
-      <div fxLayout="column" style="overflow: auto; padding: 8px; height: 100%">
+      <div fxLayout="column" style="overflow: auto; height: 100%">
         <router-outlet></router-outlet>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,10 +23,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+
+import { PortalModule } from '@angular/cdk/portal';
 import { SettingsComponent } from './apps/settings/settings.component';
 import { AboutComponent } from './apps/about/about.component';
 import { EviatComponent } from './apps/eviat/eviat.component';
 import { NotepadComponent } from './apps/notepad/notepad.component';
+import { QrcodeComponent } from './apps/qrcode/qrcode.component';
+import { NgxKjuaModule } from 'ngx-kjua';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ErrorCollectorService } from '@shared/services/error-collector.service';
 
 const MatModules = [
   MatSidenavModule,
@@ -44,7 +52,10 @@ const MatModules = [
   FlexLayoutModule,
   FormsModule,
   MatCardModule,
-  ReactiveFormsModule
+  MatCheckboxModule,
+  MatMenuModule,
+  ReactiveFormsModule,
+  PortalModule
 ]
 
 const components = [
@@ -58,13 +69,16 @@ const components = [
     SettingsComponent,
     AboutComponent,
     EviatComponent,
-    NotepadComponent
+    NotepadComponent,
+    QrcodeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ...MatModules,
     AppRoutingModule,
+    ZXingScannerModule,
+    NgxKjuaModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
@@ -73,7 +87,9 @@ const components = [
     }),
 
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorHandler, useClass: ErrorCollectorService },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

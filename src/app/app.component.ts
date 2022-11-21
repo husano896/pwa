@@ -1,3 +1,5 @@
+import { NotepadComponent } from './apps/notepad/notepad.component';
+import { QrcodeComponent } from './apps/qrcode/qrcode.component';
 import { EviatComponent } from './apps/eviat/eviat.component';
 import { AboutComponent } from './apps/about/about.component';
 import { TodoComponent } from './apps/todo/todo.component';
@@ -23,14 +25,20 @@ export class AppComponent {
     { name: IndexComponent.AppName, path: '', icon: IndexComponent.IconName },
     { name: TodoComponent.AppName, path: 'todo', icon: TodoComponent.IconName, extra: () => this.todoServ.todo.length },
     { name: EviatComponent.AppName, path: 'eviat', icon: EviatComponent.IconName },
+    { name: QrcodeComponent.AppName, path: 'qrcode', icon: QrcodeComponent.IconName },
+    { name: NotepadComponent.AppName, path: 'notepad', icon: NotepadComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },
-    { name: AboutComponent.AppName, path: 'about', icon: AboutComponent.IconName }
+    { name: AboutComponent.AppName, path: 'about', icon: AboutComponent.IconName },
   ]
 
   sidebarClosed: boolean = false;
   CurrentFunctionName?: string = 'xFly PWA';
 
-  constructor(private router: Router, private route: ActivatedRoute, private todoServ: TodoService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private todoServ: TodoService,
+    private webServ: WebService) {
 
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -42,5 +50,13 @@ export class AppComponent {
         this.CurrentFunctionName = this.links.find(l => l.path === fragment)?.name;
       }
     });
+  }
+
+  get hideToolbar() {
+    return this.webServ.hideToolbar;
+  }
+
+  get selectedPortal() {
+    return this.webServ.selectedPortal;
   }
 }

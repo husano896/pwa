@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutGap="8px" fxFlexFill fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutGap="32px" fxFlexFill fxLayoutAlign="center center" *ngIf="lastError">
+    <mat-icon class="large-icon">error</mat-icon>
+    <span>{{lastError}}</span>
+  </div>
+  <div fxLayout="column" fxLayoutGap="32px" fxFlexFill fxLayoutAlign="center center" *ngIf="result">
+    <h3>掃描結果</h3>
+    <span>{{result}}</span>
+    <button mat-raised-button (click)="result = undefined;">再次掃描</button>
+  </div>
+  <zxing-scanner (scanSuccess)="onScanSuccess($event)" (scanError)="onScanError($event)" *ngIf="!result"
+    (scanFailure)="onScanFailure($event)" (scanComplete)="onScanComplete($event)"
+    (camerasFound)="onCamerasFound($event)" (camerasNotFound)="onCamerasNotFound($event)"
+    (permissionResponse)="onPermissionResponse($event)" (hasDevices)="onHasDevices($event)"></zxing-scanner>
+
+</div>
