@@ -63,27 +63,25 @@ export class NotepadComponent implements OnInit, OnDestroy {
   }
 
   openFile() {
-    if (this.checkIfModified()) {
-
-
-      const inputEl = document.createElement('input');
-      inputEl.type = 'file'
-      inputEl.accept = '.txt, .json, .xml, .html';
-      inputEl.onchange = (ev) => {
-        if (!inputEl.files?.length) {
-          return;
-        }
-        const selectedFile = inputEl.files[0];
-        this.fileName = selectedFile.name;
-        const reader = new FileReader();
-        reader.readAsText(selectedFile);
-        reader.onload = () => {
-          this.content = reader.result as string;
-        };
+    this.checkIfModified();
+    const inputEl = document.createElement('input');
+    inputEl.type = 'file'
+    inputEl.accept = '.txt, .json, .xml, .html';
+    inputEl.onchange = (ev) => {
+      if (!inputEl.files?.length) {
+        return;
       }
-      inputEl.click();
-      this.modified = false;
+      const selectedFile = inputEl.files[0];
+      this.fileName = selectedFile.name;
+      const reader = new FileReader();
+      reader.readAsText(selectedFile);
+      reader.onload = () => {
+        this.content = reader.result as string;
+      };
     }
+    inputEl.click();
+    this.modified = false;
+
   }
 
   checkIfModified() {
