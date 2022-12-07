@@ -1,0 +1,20 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  @media only screen and (orientation: portrait) {
+    width: 100%;
+    height: auto;
+  }
+
+  @media only screen and (orientation: landscape) {
+    width: auto;
+    height: 100%;
+  }
+}
+
+.xfly-ether-clock {
+  height: 100%;
+}

@@ -1,13 +1,6 @@
-<div class="index" fxLayout="column" fxFlexFill>
+<div class="index" fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
 
-  <blockquote>
-    - hello world!
-    <br />
-    - come back later!
-    <br />
-    - 已開啟App {{openedTimes}} 次
-  </blockquote>
-
+  <xfly-ether-clock></xfly-ether-clock>
   <img alt="xFly-avatar" src="./assets/imgs/bg.gif" [matTooltip]="getTooltip()" matTooltipClass="new-lines"
     matTooltipPosition="left" [matTooltipHideDelay]="10000" [matTooltipShowDelay]="0" matTooltipTouchGestures="on"
     class="avatar" (contextmenu)="prevent($event)" (click)="prevent($event)" (dblclick)="prevent($event)" />

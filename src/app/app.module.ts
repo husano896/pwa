@@ -35,6 +35,7 @@ import { QrcodeComponent } from './apps/qrcode/qrcode.component';
 import { NgxKjuaModule } from 'ngx-kjua';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ErrorCollectorService } from '@shared/services/error-collector.service';
+import { XflyEtherClockComponent } from '../@shared/components/xfly-ether-clock/xfly-ether-clock.component';
 
 const MatModules = [
   MatSidenavModule,
@@ -70,7 +71,8 @@ const components = [
     AboutComponent,
     EviatComponent,
     NotepadComponent,
-    QrcodeComponent
+    QrcodeComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,7 @@ const components = [
     AppRoutingModule,
     ZXingScannerModule,
     NgxKjuaModule,
+    XflyEtherClockComponent,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

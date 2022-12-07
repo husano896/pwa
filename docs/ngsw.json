@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1669865600163,
+  "timestamp": 1670397743916,
   "index": "/pwa/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/pwa/favicon.ico",
         "/pwa/index.html",
-        "/pwa/main.19fb4f431d321e17.js",
+        "/pwa/main.81364d8c2867cd2d.js",
         "/pwa/manifest.webmanifest",
         "/pwa/polyfills.bdb1307fddae9ffa.js",
         "/pwa/runtime.83837fa4b4149c66.js",
@@ -56,8 +56,8 @@
     "/pwa/assets/imgs/bg.gif": "8a4ff4416af57a63dcc7fda975c3f3ef36d1cc9e",
     "/pwa/assets/imgs/eviat.webp": "58f67061df17c87b88a8226ddfa789ae1184188b",
     "/pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/pwa/index.html": "4d375eda49264dfb14e3101d0fb2b41eb2e5f7c5",
-    "/pwa/main.19fb4f431d321e17.js": "3575c28457664bcb136622338dd512bbe801626a",
+    "/pwa/index.html": "c03ef6f59de044dbaa3eeea167e40688de8f4014",
+    "/pwa/main.81364d8c2867cd2d.js": "8fef6d10e9d9dd804477614e0187a0b1173443a1",
     "/pwa/manifest.webmanifest": "49389ec6dca7de2f509726520bd3887d12aa8957",
     "/pwa/polyfills.bdb1307fddae9ffa.js": "f658cf83ca2e24529e682469e8624a48c037acc7",
     "/pwa/runtime.83837fa4b4149c66.js": "4e003f24de4c24c0e2165cb15d68f82b46d73281",
