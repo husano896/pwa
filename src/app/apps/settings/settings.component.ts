@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit {
   static AppName = '設定'
 
   @ViewChild('themeDialog') themeDialog!: TemplateRef<any>;
+  @ViewChild('animDialog') animDialog!: TemplateRef<any>;
 
   constructor(
     private webServ: WebService,
@@ -29,10 +30,24 @@ export class SettingsComponent implements OnInit {
     this.bottomSheet.open(this.themeDialog);
   }
 
+  // 開啟主題設定視窗
+  openAnimBottomSheet() {
+    this.bottomSheet.open(this.animDialog);
+  }
+
   // 設定主題
   selectTheme(theme: string) {
     this.webServ.theme = theme;
     this.bottomSheet.dismiss();
+  }
+
+  // 設定動畫開啟關閉
+  selectAnim(disable: boolean | null) {
+    this.webServ.disableAnimation = disable;
+    this.bottomSheet.dismiss();
+    if (confirm('選項將於重新讀取後生效, 是否重新讀取?')) {
+      location.reload();
+    }
   }
 
   getFirstEncounterDate() {
@@ -47,9 +62,16 @@ export class SettingsComponent implements OnInit {
     return theme === 'light' ? '明亮' : '暗黑';
   }
 
+  getCurrentAnimDisplayName() {
+    const disable = this.webServ.disableAnimation
+    if (disable === null) {
+      return '系統';
+    }
+    return disable ? '停用' : "啟用";
+  }
+
   // 進階
   /** 下載偵錯Log */
-
   get debugLogSize() {
     return this.errorServ.errors.length;
   }

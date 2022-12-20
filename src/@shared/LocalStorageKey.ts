@@ -4,5 +4,7 @@ export enum LocalStorageKey {
   todo = 'todo',
   theme = 'theme',
   notes = 'notes',
-  debugMode = 'debug_mode'
+  bmi = 'bmi',
+  debugMode = 'debug_mode',
+  disableAnimation = 'disable_animation'
 }

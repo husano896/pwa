@@ -1,3 +1,4 @@
+import { LocalStorageKey } from '@shared/LocalStorageKey';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -64,6 +65,14 @@ const components = [
   IndexComponent,
   TodoComponent
 ]
+
+/** 是否關閉動畫的判定 */
+function prefersReducedMotion(): boolean {
+  const mediaQueryList = window.matchMedia("(prefers-reduced-motion)");
+  const localStorageAnimState = JSON.parse(localStorage.getItem(LocalStorageKey.disableAnimation) || 'null')
+  return localStorageAnimState !== null ? localStorageAnimState : mediaQueryList.matches;
+}
+
 @NgModule({
   declarations: [
     ...components,
@@ -76,7 +85,9 @@ const components = [
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule.withConfig({
+      disableAnimations: prefersReducedMotion()
+    }),
     ...MatModules,
     AppRoutingModule,
     ZXingScannerModule,

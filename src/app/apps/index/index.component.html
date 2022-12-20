@@ -1,8 +1,7 @@
-<div class="index" fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
-
+<div class="index" fxLayout="column wrap"  fxLayoutAlign="start center" fxLayoutGap="16px" fxFlexFill>
   <xfly-ether-clock></xfly-ether-clock>
-  <img alt="xFly-avatar" src="./assets/imgs/bg.gif" [matTooltip]="getTooltip()" matTooltipClass="new-lines"
+  <!-- 飛飛！-->
+  <img alt="xFly-avatar" src="./assets/imgs/character.gif" [matTooltip]="getTooltip()" matTooltipClass="new-lines"
     matTooltipPosition="left" [matTooltipHideDelay]="10000" [matTooltipShowDelay]="0" matTooltipTouchGestures="on"
     class="avatar" (contextmenu)="prevent($event)" (click)="prevent($event)" (dblclick)="prevent($event)" />
-
 </div>

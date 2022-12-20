@@ -9,6 +9,11 @@
       <span matLine>主題顏色</span>
       <p matLine>目前設定：{{getCurrentThemeDisplayName()}}</p>
     </button>
+    <button mat-list-item (click)="openAnimBottomSheet()">
+      <span matLine>動畫</span>
+      <p matLine>目前設定：{{getCurrentAnimDisplayName()}}</p>
+    </button>
+
   </mat-action-list>
   <mat-divider></mat-divider>
   <h2>進階</h2>
@@ -46,6 +51,21 @@
     </button>
     <button mat-list-item (click)="selectTheme('dark')">
       <span matLine>暗黑</span>
+    </button>
+  </mat-action-list>
+</ng-template>
+
+<ng-template #animDialog>
+  <h2>設定動畫</h2>
+  <mat-action-list>
+    <button mat-list-item (click)="selectAnim(null)">
+      <span matLine>系統</span>
+    </button>
+    <button mat-list-item (click)="selectAnim(false)">
+      <span matLine>啟用</span>
+    </button>
+    <button mat-list-item (click)="selectAnim(true)">
+      <span matLine>停用</span>
     </button>
   </mat-action-list>
 </ng-template>

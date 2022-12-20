@@ -87,7 +87,7 @@ export class XflyEtherClockComponent implements OnInit, OnDestroy, AfterViewInit
     this.ctx.filter = 'drop-shadow(0px 8px 8px blue)';
     this.ctx.fillStyle = 'lightskyblue';
 
-    this.ctx.fillText(`${sec >= 10 ? '' : '0'}${Math.floor(sec)}`, this.canvas.nativeElement.width / 2, this.canvas.nativeElement.height / 2);
+    this.ctx.fillText(`${sec >= 10 ? '' : '0'}${Math.floor(sec)}`, this.canvas.nativeElement.width / 2, this.canvas.nativeElement.height / 2 - 16);
 
     // 時分文字繪製
     this.ctx.font = '192px Sitka Text';

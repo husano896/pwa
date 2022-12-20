@@ -49,29 +49,43 @@ export class WebService {
   // 主題區
   /** 自body取得目前使用中的主題 */
   get theme() {
-    return document.body.getAttribute('theme')
+    return localStorage.getItem(LocalStorageKey.theme)
   }
 
   /** 設定主題 */
   set theme(theme: string | null) {
-    document.body.setAttribute('theme', theme || '');
+    document.body.setAttribute('theme', theme || (window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light'));
     localStorage.setItem(LocalStorageKey.theme, theme || '');
   }
 
+  /** 偵錯選項 */
   get debug() {
     return Boolean(localStorage.getItem(LocalStorageKey.debugMode))
   }
 
-  /** 設定主題 */
   set debug(open: boolean) {
     localStorage.setItem(LocalStorageKey.debugMode, open ? 'true' : '')
+  }
+
+  /** 自body取得目前使用中的主題 */
+  get disableAnimation() {
+    return JSON.parse(localStorage.getItem(LocalStorageKey.disableAnimation) || 'null');
+  }
+
+  /** 設定主題 */
+  set disableAnimation(disable: boolean | null) {
+    console.log(disable);
+    if (disable === null) {
+      localStorage.removeItem(LocalStorageKey.disableAnimation)
+    } else {
+      localStorage.setItem(LocalStorageKey.disableAnimation, JSON.stringify(disable));
+    }
   }
 
   /** 從LocalStorage讀取先前設定的主題 */
   setThemeFromLocalStorage() {
     const theme = localStorage.getItem(LocalStorageKey.theme);
-    if (theme) {
-      this.theme = theme;
-    }
+    this.theme = theme || '';
+
   }
 }

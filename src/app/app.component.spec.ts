@@ -23,7 +23,6 @@ describe('AppComponent', () => {
   it(`should have as title 'xfly-pwa'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('xfly-pwa');
   });
 
   it('should render title', () => {
