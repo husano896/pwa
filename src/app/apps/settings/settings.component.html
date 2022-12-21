@@ -21,7 +21,7 @@
     <button mat-list-item (click)="debugMode = !debugMode">
       <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
         <span matLine>偵錯模式</span>
-        <mat-checkbox [checked]="debugMode"></mat-checkbox>
+        <mat-checkbox [checked]="debugMode" (click)="debugMode = !debugMode;$event.stopPropagation()"></mat-checkbox>
       </div>
     </button>
     <button mat-list-item (click)="downloadDebuglog()">

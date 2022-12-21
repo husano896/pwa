@@ -101,10 +101,22 @@ export class XflyEtherClockComponent implements OnInit, OnDestroy, AfterViewInit
 
     // (如果有的) 電池繪製
     if (this.batteryService.battery) {
+      const percent = this.batteryService.getPercent()
+      // 電量長條繪製
+      this.ctx.filter = 'none';
+      this.ctx.fillStyle = 'gray';
+      this.ctx.fillRect(widthStart - 100, heightStart + 304, 200, 8);
+      this.ctx.fillStyle = 'yellow';
+      this.ctx.fillRect(widthStart - 100, heightStart + 304, 2 * percent, 8);
+      if (percent < 100 && this.batteryService.battery.charging) {
+        this.ctx.fillStyle = 'orange';
+        this.ctx.fillRect(widthStart - 100, heightStart + 304, 2 * percent * ((sec % 6) / 6), 8);
+      }
+      // 電量文字繪製
       this.ctx.fillStyle = 'yellow';
       this.ctx.filter = 'drop-shadow(0px 4px 2px darkorange)';
       this.ctx.font = '48px Sitka Text';
-      this.ctx.fillText(`${this.batteryService.battery.charging ? '⚡' : ''}${this.batteryService.getPercent()}%`, widthStart, heightStart + 288);
+      this.ctx.fillText(`${this.batteryService.battery.charging ? '⚡' : ''}${percent}%`, widthStart, heightStart + 288);
     }
 
     this.ctx.filter = 'none';
