@@ -18,8 +18,8 @@ export class TodoComponent implements OnInit {
   @ViewChild('editDialog') editDialog!: TemplateRef<any>;
 
   formGroup = new FormGroup({
-    name: new FormControl('',[Validators.required]),
-    date: new FormControl('',[Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    date: new FormControl('', [Validators.required]),
     dueDate: new FormControl()
   })
   constructor(private todoServ: TodoService, private dialog: MatDialog) { }
@@ -56,11 +56,32 @@ export class TodoComponent implements OnInit {
     this.todoServ.Delete(item);
   }
 
-  IsOverDue(item: TodoDto) {
-    return item.dueDate && new Date() > item.dueDate;
-  }
+
   get todo() {
     return this.todoServ.todo;
   }
 
+  getTodoStyle(item: TodoDto) {
+
+    if (item.IsOverDue()) {
+      // 過期時給予紅色背景
+      return {
+        'background-color': 'rgba(237,28,36,0.5)'
+      }
+    }
+    return {
+
+    }
+  }
+
+  /** 如果開始日期晚於結束日期, 互換 */
+  swapDateIfLater() {
+    if (this.formGroup.value.date && this.formGroup.value.dueDate
+      && this.formGroup.value.date > this.formGroup.value.dueDate) {
+      this.formGroup.patchValue({
+        date: this.formGroup.value.dueDate,
+        dueDate: this.formGroup.value.date
+      })
+    }
+  }
 }

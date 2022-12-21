@@ -55,11 +55,11 @@ export class NotepadComponent implements OnInit, OnDestroy {
   }
 
   newFile() {
-    if (!this.checkIfModified()) {
-      this.fileName = DEFAULT_FILENAME;
-      this.content = ''
-      this.modified = false;
-    }
+    this.checkIfModified();
+    this.fileName = DEFAULT_FILENAME;
+    this.content = ''
+    this.modified = false;
+
   }
 
   openFile() {
@@ -89,12 +89,13 @@ export class NotepadComponent implements OnInit, OnDestroy {
       if (confirm(`${this.fileName} 已被變更, 是否儲存？`)) {
         this.save();
         this.modified = false;
-        return false;
+        return;
       }
     }
-    return false;
+    return;
   }
   back() {
+    this.checkIfModified();
     this.router.navigate(['..']);
   }
 

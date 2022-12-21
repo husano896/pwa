@@ -45,9 +45,7 @@ export class SettingsComponent implements OnInit {
   selectAnim(disable: boolean | null) {
     this.webServ.disableAnimation = disable;
     this.bottomSheet.dismiss();
-    if (confirm('選項將於重新讀取後生效, 是否重新讀取?')) {
-      location.reload();
-    }
+    location.reload();
   }
 
   getFirstEncounterDate() {

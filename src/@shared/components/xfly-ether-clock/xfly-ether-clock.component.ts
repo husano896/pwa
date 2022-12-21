@@ -1,6 +1,7 @@
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BatteryService } from '@shared/services/battery.service';
 
 @Component({
   selector: 'xfly-ether-clock',
@@ -18,7 +19,8 @@ export class XflyEtherClockComponent implements OnInit, OnDestroy, AfterViewInit
   private ctx: CanvasRenderingContext2D | null = null;
   private requestFrame?: number;
   private gradient?: CanvasGradient;
-  constructor() { }
+
+  constructor(private batteryService: BatteryService) { }
   ngAfterViewInit(): void {
     if (!this.canvas) {
       return;
@@ -81,18 +83,29 @@ export class XflyEtherClockComponent implements OnInit, OnDestroy, AfterViewInit
     this.ctx.arc(this.canvas.nativeElement.width / 2, this.canvas.nativeElement.height / 2, 348, Math.PI * 2 * hours / 24 + startRadHour, startRadHour, true);
     this.ctx.fill();
 
-
+    let widthStart = this.canvas.nativeElement.width / 2
+    let heightStart = this.canvas.nativeElement.height / 2
     // 秒數文字繪製
     this.ctx.font = '320px Sitka Text';
     this.ctx.filter = 'drop-shadow(0px 8px 8px blue)';
     this.ctx.fillStyle = 'lightskyblue';
 
-    this.ctx.fillText(`${sec >= 10 ? '' : '0'}${Math.floor(sec)}`, this.canvas.nativeElement.width / 2, this.canvas.nativeElement.height / 2 - 16);
+    this.ctx.fillText(`${sec >= 10 ? '' : '0'}${Math.floor(sec)}`,
+      widthStart, heightStart - 16);
 
     // 時分文字繪製
     this.ctx.font = '192px Sitka Text';
+    this.ctx.fillText(`${hours >= 10 ? '' : '0'}${Math.floor(hours)}:${minutes >= 10 ? '' : '0'}${Math.floor(minutes)}`,
+      widthStart, heightStart + 192);
 
-    this.ctx.fillText(`${hours >= 10 ? '' : '0'}${Math.floor(hours)}:${minutes >= 10 ? '' : '0'}${Math.floor(minutes)}`, this.canvas.nativeElement.width / 2, this.canvas.nativeElement.height / 2 + 192);
+
+    // (如果有的) 電池繪製
+    if (this.batteryService.battery) {
+      this.ctx.fillStyle = 'yellow';
+      this.ctx.filter = 'drop-shadow(0px 4px 2px darkorange)';
+      this.ctx.font = '48px Sitka Text';
+      this.ctx.fillText(`${this.batteryService.battery.charging ? '⚡' : ''}${this.batteryService.getPercent()}%`, widthStart, heightStart + 288);
+    }
 
     this.ctx.filter = 'none';
   }

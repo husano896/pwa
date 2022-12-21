@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1671530155202,
+  "timestamp": 1671593281123,
   "index": "/pwa/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/pwa/favicon.ico",
         "/pwa/index.html",
-        "/pwa/main.b8ddc9c3308bacc5.js",
+        "/pwa/main.179af9be5ad8e331.js",
         "/pwa/manifest.webmanifest",
         "/pwa/polyfills.bdb1307fddae9ffa.js",
         "/pwa/runtime.83837fa4b4149c66.js",
-        "/pwa/styles.20ebde6b9ea72601.css"
+        "/pwa/styles.c417ff09ae14d3d8.css"
       ],
       "patterns": []
     },
@@ -37,7 +37,8 @@
         "/pwa/assets/icons/icon-72x72.png",
         "/pwa/assets/icons/icon-96x96.png",
         "/pwa/assets/imgs/character.gif",
-        "/pwa/assets/imgs/eviat.webp"
+        "/pwa/assets/imgs/eviat.webp",
+        "/pwa/sitka-small-652.c69ba2902c283f8d.ttf"
       ],
       "patterns": []
     }
@@ -54,12 +55,13 @@
     "/pwa/assets/imgs/character.gif": "8a4ff4416af57a63dcc7fda975c3f3ef36d1cc9e",
     "/pwa/assets/imgs/eviat.webp": "58f67061df17c87b88a8226ddfa789ae1184188b",
     "/pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/pwa/index.html": "07f7f0313cd575cfb0cdec30d398cf29d969586e",
-    "/pwa/main.b8ddc9c3308bacc5.js": "acb1399722efb41d8f564f9b1629c1acbb78c997",
+    "/pwa/index.html": "4c1dec6f3dc2ea9c36f17a772ca283b077f514e5",
+    "/pwa/main.179af9be5ad8e331.js": "5950cbd7376d8805be29819008a7da8f546d4396",
     "/pwa/manifest.webmanifest": "42d1c38208b5275bda9094e86107bb6bab3949c2",
     "/pwa/polyfills.bdb1307fddae9ffa.js": "f658cf83ca2e24529e682469e8624a48c037acc7",
     "/pwa/runtime.83837fa4b4149c66.js": "4e003f24de4c24c0e2165cb15d68f82b46d73281",
-    "/pwa/styles.20ebde6b9ea72601.css": "fc9ad57f85d23f9fbefd0f3a33290680d7e2dd0d"
+    "/pwa/sitka-small-652.c69ba2902c283f8d.ttf": "78890e7057fff4eff8d0c89a09580d2081f37d28",
+    "/pwa/styles.c417ff09ae14d3d8.css": "c0b54f43ac207ae8399f26a14885fa2aded6f064"
   },
   "navigationUrls": [
     {

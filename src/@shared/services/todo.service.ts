@@ -21,7 +21,8 @@ export class TodoService {
     const todoString = localStorage.getItem(LocalStorageKey.todo);
     // 讀取本地已有的TODO
     if (todoString) {
-      this.todo = (JSON.parse(todoString) as any[]).map(i => this.converter.serialize(i, TodoDto));
+      this.todo = this.converter.deserialize((JSON.parse(todoString) as any[]), TodoDto) as TodoDto[];
+      console.log(this.todo)
     }
   }
 

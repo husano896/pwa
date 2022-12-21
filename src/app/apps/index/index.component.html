@@ -1,5 +1,12 @@
-<div class="index" fxLayout="column wrap"  fxLayoutAlign="start center" fxLayoutGap="16px" fxFlexFill>
-  <xfly-ether-clock></xfly-ether-clock>
+<div class="index" fxLayout="column wrap" fxLayout.gt-md="row wrap" fxLayoutAlign="start center"
+  fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxFlexFill>
+  <!-- 手機版時時鐘呈中間, 橫向時靠左-->
+  <div style="width: auto; height: 100%">
+    <xfly-ether-clock></xfly-ether-clock>
+  </div>
+  <div class="-landspace-only" fxLayout="column" fxLayoutGap="8px" fxHide.lt-md>
+    <h3>Hello World！</h3>
+  </div>
   <!-- 飛飛！-->
   <img alt="xFly-avatar" src="./assets/imgs/character.gif" [matTooltip]="getTooltip()" matTooltipClass="new-lines"
     matTooltipPosition="left" [matTooltipHideDelay]="10000" [matTooltipShowDelay]="0" matTooltipTouchGestures="on"

@@ -11,4 +11,11 @@ export class TodoDto {
 
   @JsonProperty('dueDate', DateConverter, true)
   dueDate: Date | null = null;
+
+  @JsonProperty('color', String, true)
+  color?: string = undefined;
+
+  IsOverDue() {
+    return this.dueDate && new Date() > this.dueDate;
+  }
 }

@@ -3,28 +3,31 @@
     <h2>代辦事項</h2>
 
     <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" class="example-list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="example-box" fxLayout="row" *ngFor="let item of todo" cdkDrag fxLayoutAlign="space-bewteen center">
+      (cdkDropListDropped)="drop($event)" *ngIf="todo?.length">
+      <mat-card class="example-box" fxLayout="row" *ngFor="let item of todo" cdkDrag fxLayoutAlign="space-bewteen center"
+        [ngStyle]="getTodoStyle(item)">
         <div fxFlex>
           {{item.name}}
-
         </div>
         <div>
-          {{item.date | date:'yyyy/MM/dd HH:mm:ss'}}
+          <label>{{item.date | date:'yyyy/MM/dd HH:mm:ss'}}</label>
           <br />
-          {{ item.dueDate ? ((item.dueDate | date:'yyyy/MM/dd HH:mm:ss')) : ''}}
+          <label> {{ item.dueDate ? ((item.dueDate | date:'yyyy/MM/dd HH:mm:ss')) : ''}}</label>
         </div>
         <button mat-icon-button color="warn" (click)="Delete(item)">
           <mat-icon>delete</mat-icon>
         </button>
-      </div>
+      </mat-card>
+    </div>
 
-      <label *ngIf="!todo?.length">尚未有任何代辦</label>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="!todo?.length">
+      <mat-icon>info</mat-icon>
+      <label>尚未有任何代辦.</label>
     </div>
   </div>
   <mat-divider></mat-divider>
 
-  <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" (click)="openCreateDialog()">
+  <button mat-fab color="primary" aria-label="add task button" (click)="openCreateDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>
@@ -39,11 +42,11 @@
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>開始日期</mat-label>
-        <input matInput required formControlName="date" type="datetime-local">
+        <input #startDate matInput required formControlName="date" type="datetime-local" >
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>結束日期</mat-label>
-        <input matInput formControlName="dueDate" type="datetime-local">
+        <input #endDate matInput formControlName="dueDate" type="datetime-local" >
       </mat-form-field>
     </div>
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">

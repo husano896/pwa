@@ -36,7 +36,7 @@ body {
   overscroll-behavior-y: contain;
 }
 
-body[theme="light"]  {
+body[theme="light"] {
   $theme: light;
   @include mat.all-component-themes($light-theme);
 }
@@ -87,4 +87,21 @@ mat-icon.large-icon {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(192, 192, 192, 0.75);
   border-radius: 4px;
+}
+
+.-portrait-only {
+  @media screen and (orientation: landscape) {
+    display: none !important;
+  }
+}
+
+.-landscape-only {
+  @media screen and (orientation: portrait) {
+    display: none !important;
+  }
+}
+
+@font-face {
+  font-family: Sitka Text;
+  src: url(./assets/fonts/sitka-small-652.ttf);
 }
