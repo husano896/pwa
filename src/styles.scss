@@ -1,6 +1,7 @@
-@use "@angular/material" as mat;
 
+@use "@angular/material" as mat;
 @include mat.core();
+@import 'material-icons/iconfont/material-icons.scss';
 
 // Define a light theme
 $light-primary: mat.define-palette(mat.$blue-palette);

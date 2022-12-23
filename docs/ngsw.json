@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1671761300011,
+  "timestamp": 1671763827491,
   "index": "/pwa/index.html",
   "assetGroups": [
     {
@@ -14,16 +14,16 @@
         "/pwa/141.315c7dccf0e46d9a.js",
         "/pwa/286.9d90139e27887d33.js",
         "/pwa/384.35a46e14f8cf1d18.js",
-        "/pwa/491.7f00c585dca3d24d.js",
-        "/pwa/743.6d8380d2b777c216.js",
+        "/pwa/491.31f186e15694426e.js",
+        "/pwa/743.903e2c2d0a5deb85.js",
         "/pwa/773.7c59d0164a649767.js",
         "/pwa/favicon.ico",
         "/pwa/index.html",
-        "/pwa/main.81cc62b97a9560ed.js",
+        "/pwa/main.465f1a9021e41c8f.js",
         "/pwa/manifest.webmanifest",
         "/pwa/polyfills.03a48880c41302d7.js",
-        "/pwa/runtime.57a979f3d6a3af73.js",
-        "/pwa/styles.9bf5cf7a967ff4c2.css"
+        "/pwa/runtime.ec8b99a4a6d610d3.js",
+        "/pwa/styles.a28080dd0c8b40dc.css"
       ],
       "patterns": []
     },
@@ -45,6 +45,16 @@
         "/pwa/assets/imgs/asiaminor.webp",
         "/pwa/assets/imgs/character.gif",
         "/pwa/assets/imgs/eviat.webp",
+        "/pwa/material-icons-outlined.78a93b2079680a08.woff",
+        "/pwa/material-icons-outlined.f86cb7b0aa53f0fe.woff2",
+        "/pwa/material-icons-round.92dc7ca2f4c591e7.woff",
+        "/pwa/material-icons-round.b10ec9db5b7fbc74.woff2",
+        "/pwa/material-icons-sharp.3885863ee4746422.woff2",
+        "/pwa/material-icons-sharp.a71cb2bf66c604de.woff",
+        "/pwa/material-icons-two-tone.588d63134de807a7.woff",
+        "/pwa/material-icons-two-tone.675bd578bd14533e.woff2",
+        "/pwa/material-icons.4ad034d2c499d9b6.woff",
+        "/pwa/material-icons.59322316b3fd6063.woff2",
         "/pwa/sitka-small-652.c69ba2902c283f8d.ttf"
       ],
       "patterns": []
@@ -55,8 +65,8 @@
     "/pwa/141.315c7dccf0e46d9a.js": "77189b486e7654dbcb6e6d17f9dc8beb006976dd",
     "/pwa/286.9d90139e27887d33.js": "2a7368210c14370b44289187a536f1691a269787",
     "/pwa/384.35a46e14f8cf1d18.js": "dd2d671e82e56a2510b9be1e0c282a7d1e146b5c",
-    "/pwa/491.7f00c585dca3d24d.js": "7b545641249426306ef456716beb3c81fc02efea",
-    "/pwa/743.6d8380d2b777c216.js": "2919e03298b770494e4ac9ecce2fe953c5f562ec",
+    "/pwa/491.31f186e15694426e.js": "ef9c27f5ab82a51b8db26a0a784e2a062fc335c1",
+    "/pwa/743.903e2c2d0a5deb85.js": "cd484a33e76265337aa5c35863bfacabcead52a9",
     "/pwa/773.7c59d0164a649767.js": "cef2b482abad0534fa17047b580f99e9612de728",
     "/pwa/assets/icons/icon-128x128.png": "3b7240e1a73b9140e22a5b1fd5f821adb573606a",
     "/pwa/assets/icons/icon-144x144.png": "70e416357156e520f41481c52db5f0c5b2348157",
@@ -69,13 +79,23 @@
     "/pwa/assets/imgs/character.gif": "8a4ff4416af57a63dcc7fda975c3f3ef36d1cc9e",
     "/pwa/assets/imgs/eviat.webp": "58f67061df17c87b88a8226ddfa789ae1184188b",
     "/pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/pwa/index.html": "9d92658b1e24894681c8b01ddc674ef5015fb1da",
-    "/pwa/main.81cc62b97a9560ed.js": "12f691965b9b07668ffb62f6c859887fe25fefcd",
+    "/pwa/index.html": "e1fc3e408d425613c306396cee1155c0fd7f4371",
+    "/pwa/main.465f1a9021e41c8f.js": "00e562ff43b23e29fa82ec8741ae59883fe88877",
     "/pwa/manifest.webmanifest": "42d1c38208b5275bda9094e86107bb6bab3949c2",
+    "/pwa/material-icons-outlined.78a93b2079680a08.woff": "b52ccd8fca4199d257b2a9fe377db29862f2853e",
+    "/pwa/material-icons-outlined.f86cb7b0aa53f0fe.woff2": "2f9e28ab559782402f27332633c843c40209d95a",
+    "/pwa/material-icons-round.92dc7ca2f4c591e7.woff": "c41bfee3f01218e18d53f4f4cac00f385ac9fbb1",
+    "/pwa/material-icons-round.b10ec9db5b7fbc74.woff2": "abe05e0641f1050fbe00ef0dbb10c5ea72c26cff",
+    "/pwa/material-icons-sharp.3885863ee4746422.woff2": "cf1c7b4d066d18af44cf7bc664dd2e46652a3a30",
+    "/pwa/material-icons-sharp.a71cb2bf66c604de.woff": "829cb48cb2dd17ae5e425b82dc186eb670694a10",
+    "/pwa/material-icons-two-tone.588d63134de807a7.woff": "02225d888afe4eebc7312b7432878dc8aef1f50f",
+    "/pwa/material-icons-two-tone.675bd578bd14533e.woff2": "296ff0bff395a77c2e33e7e31fffe73980bd93cf",
+    "/pwa/material-icons.4ad034d2c499d9b6.woff": "e4bb7c1e40d3febee58df963db276b2bf68c117b",
+    "/pwa/material-icons.59322316b3fd6063.woff2": "0bc0c675480d94ec7e8609dda6227f88c5d08d2c",
     "/pwa/polyfills.03a48880c41302d7.js": "da03784baa7ca074f27af45702f993dc27e1be36",
-    "/pwa/runtime.57a979f3d6a3af73.js": "14fd6c78957f09efbe0860c2e0e72e42979f4313",
+    "/pwa/runtime.ec8b99a4a6d610d3.js": "0369e99ced30ba984bd38ad057a4a725a57e3cfa",
     "/pwa/sitka-small-652.c69ba2902c283f8d.ttf": "78890e7057fff4eff8d0c89a09580d2081f37d28",
-    "/pwa/styles.9bf5cf7a967ff4c2.css": "781086d580a816397d5eb15b755965a2746514fc"
+    "/pwa/styles.a28080dd0c8b40dc.css": "5017f53b020a9792b452e55e6117ce4be358d5b0"
   },
   "navigationUrls": [
     {

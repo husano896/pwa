@@ -1,3 +1,4 @@
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -35,6 +36,7 @@ const MatModules = [
   MatCheckboxModule,
   FlexLayoutModule,
   MatMenuModule,
+  MatBottomSheetModule,
   PortalModule
 ]
 

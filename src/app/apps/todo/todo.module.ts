@@ -1,3 +1,4 @@
+import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TodoComponent } from './todo.component';
@@ -26,6 +27,7 @@ const routes: Routes = [{
     ReactiveFormsModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatInputModule,
     MatIconModule,
     MatDividerModule,
     MatCardModule,
