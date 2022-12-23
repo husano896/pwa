@@ -1,0 +1,8 @@
+.asiaminor {
+  transform-origin: left bottom;
+}
+
+.asiaminor-container {
+  // 阻擋觸碰scroll事件
+  touch-action: none;
+}

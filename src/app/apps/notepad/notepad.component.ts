@@ -3,7 +3,7 @@ import { WebService } from '@shared/services/web.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LocalStorageKey } from '@shared/LocalStorageKey';
-import saveAs from 'file-saver';
+import { saveAs } from 'file-saver-es';
 
 const DEFAULT_FILENAME = '未命名';
 

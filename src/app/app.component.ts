@@ -1,3 +1,4 @@
+import { AsiaMinorComponent } from './apps/asiaminor/asiaminor.component';
 import { NotepadComponent } from './apps/notepad/notepad.component';
 import { QrcodeComponent } from './apps/qrcode/qrcode.component';
 import { EviatComponent } from './apps/eviat/eviat.component';
@@ -25,6 +26,7 @@ export class AppComponent {
     { name: IndexComponent.AppName, path: '', icon: IndexComponent.IconName },
     { name: TodoComponent.AppName, path: 'todo', icon: TodoComponent.IconName, extra: () => this.todoServ.todo.length },
     { name: EviatComponent.AppName, path: 'eviat', icon: EviatComponent.IconName },
+    { name: AsiaMinorComponent.AppName, path: 'asiaminor', icon: AsiaMinorComponent.IconName },
     { name: QrcodeComponent.AppName, path: 'qrcode', icon: QrcodeComponent.IconName },
     { name: NotepadComponent.AppName, path: 'notepad', icon: NotepadComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },

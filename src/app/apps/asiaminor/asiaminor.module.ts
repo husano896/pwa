@@ -1,24 +1,20 @@
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { AboutComponent } from './about.component';
+import { AsiaMinorComponent } from './asiaminor.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  component: AboutComponent
+  component: AsiaMinorComponent
 }];
 
 @NgModule({
-  declarations: [AboutComponent],
+  declarations: [AsiaMinorComponent],
   imports: [
     CommonModule,
-    MatIconModule,
-    MatCardModule,
     FlexLayoutModule,
     RouterModule.forChild(routes)
   ]
 })
-export class AboutModule { }
+export class AsiaMinorModule { }

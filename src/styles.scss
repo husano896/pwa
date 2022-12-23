@@ -101,6 +101,18 @@ mat-icon.large-icon {
   }
 }
 
+// 看有沒有更好的名稱...
+.-fit-width-or-height {
+  @media only screen and (orientation: portrait) {
+    width: 100%;
+    height: auto;
+  }
+
+  @media only screen and (orientation: landscape) {
+    width: auto;
+    height: 100%;
+  }
+}
 @font-face {
   font-family: Sitka Text;
   src: url(./assets/fonts/sitka-small-652.ttf);

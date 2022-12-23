@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1671603968981,
+  "timestamp": 1671761300011,
   "index": "/pwa/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,19 @@
         "ignoreVary": true
       },
       "urls": [
+        "/pwa/141.315c7dccf0e46d9a.js",
+        "/pwa/286.9d90139e27887d33.js",
+        "/pwa/384.35a46e14f8cf1d18.js",
+        "/pwa/491.7f00c585dca3d24d.js",
+        "/pwa/743.6d8380d2b777c216.js",
+        "/pwa/773.7c59d0164a649767.js",
         "/pwa/favicon.ico",
         "/pwa/index.html",
-        "/pwa/main.0d5013cabb4a009d.js",
+        "/pwa/main.81cc62b97a9560ed.js",
         "/pwa/manifest.webmanifest",
-        "/pwa/polyfills.bdb1307fddae9ffa.js",
-        "/pwa/runtime.83837fa4b4149c66.js",
-        "/pwa/styles.c417ff09ae14d3d8.css"
+        "/pwa/polyfills.03a48880c41302d7.js",
+        "/pwa/runtime.57a979f3d6a3af73.js",
+        "/pwa/styles.9bf5cf7a967ff4c2.css"
       ],
       "patterns": []
     },
@@ -36,6 +42,7 @@
         "/pwa/assets/icons/icon-256x256.png",
         "/pwa/assets/icons/icon-72x72.png",
         "/pwa/assets/icons/icon-96x96.png",
+        "/pwa/assets/imgs/asiaminor.webp",
         "/pwa/assets/imgs/character.gif",
         "/pwa/assets/imgs/eviat.webp",
         "/pwa/sitka-small-652.c69ba2902c283f8d.ttf"
@@ -45,6 +52,12 @@
   ],
   "dataGroups": [],
   "hashTable": {
+    "/pwa/141.315c7dccf0e46d9a.js": "77189b486e7654dbcb6e6d17f9dc8beb006976dd",
+    "/pwa/286.9d90139e27887d33.js": "2a7368210c14370b44289187a536f1691a269787",
+    "/pwa/384.35a46e14f8cf1d18.js": "dd2d671e82e56a2510b9be1e0c282a7d1e146b5c",
+    "/pwa/491.7f00c585dca3d24d.js": "7b545641249426306ef456716beb3c81fc02efea",
+    "/pwa/743.6d8380d2b777c216.js": "2919e03298b770494e4ac9ecce2fe953c5f562ec",
+    "/pwa/773.7c59d0164a649767.js": "cef2b482abad0534fa17047b580f99e9612de728",
     "/pwa/assets/icons/icon-128x128.png": "3b7240e1a73b9140e22a5b1fd5f821adb573606a",
     "/pwa/assets/icons/icon-144x144.png": "70e416357156e520f41481c52db5f0c5b2348157",
     "/pwa/assets/icons/icon-152x152.png": "7e5ec79a6652cb176b1d0cff855d2f1358c01f67",
@@ -52,16 +65,17 @@
     "/pwa/assets/icons/icon-256x256.png": "d2aff0acd8250e237a5f4450457933c573332174",
     "/pwa/assets/icons/icon-72x72.png": "14fb735f2d76e63e2018351259c220afdfbb17eb",
     "/pwa/assets/icons/icon-96x96.png": "935823d72f5dfee8198bef87d2b45bcce6c9a373",
+    "/pwa/assets/imgs/asiaminor.webp": "39fc07f877c7316b71c3bc535c5b50074afc9ca6",
     "/pwa/assets/imgs/character.gif": "8a4ff4416af57a63dcc7fda975c3f3ef36d1cc9e",
     "/pwa/assets/imgs/eviat.webp": "58f67061df17c87b88a8226ddfa789ae1184188b",
     "/pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/pwa/index.html": "4a732a470f8f5792f5eb2ef26d15df913303a3be",
-    "/pwa/main.0d5013cabb4a009d.js": "f2cb420fe9694036142bf6d7497fab3964ed9c4e",
+    "/pwa/index.html": "9d92658b1e24894681c8b01ddc674ef5015fb1da",
+    "/pwa/main.81cc62b97a9560ed.js": "12f691965b9b07668ffb62f6c859887fe25fefcd",
     "/pwa/manifest.webmanifest": "42d1c38208b5275bda9094e86107bb6bab3949c2",
-    "/pwa/polyfills.bdb1307fddae9ffa.js": "f658cf83ca2e24529e682469e8624a48c037acc7",
-    "/pwa/runtime.83837fa4b4149c66.js": "4e003f24de4c24c0e2165cb15d68f82b46d73281",
+    "/pwa/polyfills.03a48880c41302d7.js": "da03784baa7ca074f27af45702f993dc27e1be36",
+    "/pwa/runtime.57a979f3d6a3af73.js": "14fd6c78957f09efbe0860c2e0e72e42979f4313",
     "/pwa/sitka-small-652.c69ba2902c283f8d.ttf": "78890e7057fff4eff8d0c89a09580d2081f37d28",
-    "/pwa/styles.c417ff09ae14d3d8.css": "c0b54f43ac207ae8399f26a14885fa2aded6f064"
+    "/pwa/styles.9bf5cf7a967ff4c2.css": "781086d580a816397d5eb15b755965a2746514fc"
   },
   "navigationUrls": [
     {

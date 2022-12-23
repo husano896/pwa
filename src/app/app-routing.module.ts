@@ -1,17 +1,12 @@
-import { QrcodeComponent } from './apps/qrcode/qrcode.component';
-import { EviatComponent } from './apps/eviat/eviat.component';
-import { SettingsComponent } from './apps/settings/settings.component';
-import { TodoComponent } from './apps/todo/todo.component';
-import { IndexComponent } from './apps/index/index.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './apps/about/about.component';
-import { NotepadComponent } from './apps/notepad/notepad.component';
+import { SettingsComponent } from './apps/settings/settings.component';
+import { IndexComponent } from './apps/index/index.component';
 
 const routes: Routes = [
   {
     path: 'todo',
-    component: TodoComponent
+    loadChildren: () => import('./apps/todo/todo.module').then(m => m.TodoModule)
   },
   {
     path: 'settings',
@@ -19,19 +14,23 @@ const routes: Routes = [
   },
   {
     path: 'eviat',
-    component: EviatComponent
+    loadChildren: () => import('./apps/eviat/eviat.module').then(m => m.EviatModule)
+  },
+  {
+    path: 'asiaminor',
+    loadChildren: () => import('./apps/asiaminor/asiaminor.module').then(m => m.AsiaMinorModule)
   },
   {
     path: 'about',
-    component: AboutComponent
+    loadChildren: () => import('./apps/about/about.module').then(m => m.AboutModule)
   },
   {
     path: 'notepad',
-    component: NotepadComponent
+    loadChildren: () => import('./apps/notepad/notepad.module').then(m => m.NotepadModule)
   },
   {
     path: 'qrcode',
-    component: QrcodeComponent
+    loadChildren: () => import('./apps/qrcode/qrcode.module').then(m => m.QrcodeModule)
   },
   {
     path: '',
