@@ -19,7 +19,6 @@ import { IndexComponent } from './apps/index/index.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
-
 import { PortalModule } from '@angular/cdk/portal';
 import { SettingsComponent } from './apps/settings/settings.component';
 import { ErrorCollectorService } from '@shared/services/error-collector.service';
@@ -55,7 +54,7 @@ function prefersReducedMotion(): boolean {
 
 @NgModule({
   declarations: [
-    ...components
+    ...components,
   ],
   imports: [
     BrowserModule,

@@ -33,6 +33,10 @@ const routes: Routes = [
     loadChildren: () => import('./apps/qrcode/qrcode.module').then(m => m.QrcodeModule)
   },
   {
+    path: 'survey',
+    loadChildren: () => import('./apps/survey/survey.module').then(m => m.SurveyModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     component: IndexComponent

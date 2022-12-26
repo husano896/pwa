@@ -1,3 +1,4 @@
+import { SurveyComponent } from './apps/survey/survey.component';
 import { AsiaMinorComponent } from './apps/asiaminor/asiaminor.component';
 import { NotepadComponent } from './apps/notepad/notepad.component';
 import { QrcodeComponent } from './apps/qrcode/qrcode.component';
@@ -29,6 +30,7 @@ export class AppComponent {
     { name: AsiaMinorComponent.AppName, path: 'asiaminor', icon: AsiaMinorComponent.IconName },
     { name: QrcodeComponent.AppName, path: 'qrcode', icon: QrcodeComponent.IconName },
     { name: NotepadComponent.AppName, path: 'notepad', icon: NotepadComponent.IconName },
+    { name: SurveyComponent.AppName, path: 'survey', icon: SurveyComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },
     { name: AboutComponent.AppName, path: 'about', icon: AboutComponent.IconName },
   ]
