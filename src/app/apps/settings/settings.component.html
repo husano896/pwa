@@ -32,6 +32,10 @@
       <span matLine>確認Service Worker狀態</span>
     </a>
 
+    <button mat-list-item (click)="resetServiceWorker()">
+      <span matLine>清除快取與ServiceWorker </span>
+    </button>
+
     <button mat-list-item (click)="resetAllSettings()">
       <span matLine>重設所有設定</span>
       <p matLine>此動作將移除所有記錄且不可逆轉！</p>

@@ -1,82 +1,92 @@
-<div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start center" style="max-width: 720px;">
-  <mat-card fxLayout="column" fxLayoutAlign="start center">
-    <h2 fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
-      <mat-icon>article</mat-icon>
-      <mat-form-field style="max-width: 128px;">
-        <input matInput />
-      </mat-form-field>
-      <label>的自我認同表</label>
-    </h2>
+<div fxLayout="column" fxFlexFill>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex>
+        <button mat-icon-button (click)="back();">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <mat-form-field style="max-width: 128px">
+          <input matInput />
+        </mat-form-field>
+        <label>的自我認同表</label>
+      </div>
+      <!-- 小版顯示點點選單 -->
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
 
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex>
-      <label>男性</label>
-      <label>中性</label>
-      <label>女性</label>
+        <button mat-icon-button [matMenuTriggerFor]="actionMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #actionMenu="matMenu">
+          <ng-container *ngTemplateOutlet="menuActions"></ng-container>
+        </mat-menu>
+
+      </div>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div #result id="result" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start center" style="max-width: 720px;">
+    <mat-card fxLayout="column" fxLayoutAlign="start center" style="width: 100%;"
+      (click)="setEditingOption(undefined, undefined)">
+
+      <div fxLayout="row" *ngFor="let option of options; let optionIndex = index;">
+        <div fxLayout="column" fxFlex>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let subOption of option;let subOptionIndex = index;"
+              (click)="setEditingOption(option, subOptionIndex);$event.stopPropagation()">
+              <ng-container *ngIf="isEditingOption(option, subOptionIndex); else labelTemplate">
+                <input #input [(ngModel)]="options[optionIndex][subOptionIndex]" />
+              </ng-container>
+              <ng-template #labelTemplate>
+
+                <label>{{subOption || '-'}}</label>
+              </ng-template>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start space-between" fxFlex>
+            <mat-slider>
+              <input matSliderThumb>
+            </mat-slider>
+          </div>
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="optionMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #optionMenu="matMenu">
+          <button mat-menu-item (click)="removeItem(option)">
+            <label>移除該行</label>
+          </button>
+
+        </mat-menu>
+      </div>
+    </mat-card>
+  </div>
+
+
+  <ng-template #menuActions>
+    <button mat-menu-item (click)="addItem()">
+      <mat-icon>add</mat-icon>
+      <label>添加項目</label>
+    </button>
+    <button mat-menu-item (click)="shareWebsite()">
+      <mat-icon>share</mat-icon>
+      <label>分享網站</label>
+    </button>
+    <button mat-menu-item (click)="shareResult()">
+      <mat-icon>download</mat-icon>
+      <label>分享結果</label>
+    </button>
+  </ng-template>
+
+  <ng-template #resultDialog>
+    <div fxLayout="column" fxLayoutGap="8px">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <label>對圖片長壓/右鍵以下載.</label>
+        <button mat-icon-button (click)="closeResult()"><mat-icon>close</mat-icon></button>
+      </div>
+      <div style="overflow: auto">
+        <img alt='result-image' [src]="resultImageSrc" />
+      </div>
     </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start space-between" fxFlex>
-      <mat-slider>
-        <input matSliderThumb>
-      </mat-slider>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex>
-      <label>超陽剛</label>
-      <label>中性</label>
-      <label>超陰柔</label>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start space-between" fxFlex>
-      <mat-slider>
-        <input matSliderThumb>
-      </mat-slider>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex>
-      <label>異性戀</label>
-      <label>雙、泛性戀</label>
-      <label>同性戀</label>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start space-between" fxFlex>
-      <mat-slider>
-        <input matSliderThumb>
-      </mat-slider>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex>
-      <label>無性慾</label>
-      <label>有性慾</label>
-      <label>高度性慾</label>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start space-between" fxFlex>
-      <mat-slider>
-        <input matSliderThumb>
-      </mat-slider>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex>
-      <label>無戀愛傾向</label>
-      <label>有戀愛情感的</label>
-      <label>容易戀愛的</label>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start space-between" fxFlex>
-      <mat-slider>
-        <input matSliderThumb>
-      </mat-slider>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex>
-      <label>單一伴侶</label>
-      <label>接受開放關係</label>
-      <label>多角戀的</label>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start space-between" fxFlex>
-      <mat-slider>
-        <input matSliderThumb>
-      </mat-slider>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center" fxFlex>
-      <label>純純的性愛</label>
-      <label>有點好奇</label>
-      <label>全部的BDSM</label>
-    </div>
-    <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start space-between" fxFlex>
-      <mat-slider>
-        <input matSliderThumb>
-      </mat-slider>
-    </div>
-  </mat-card>
-</div>
+  </ng-template>

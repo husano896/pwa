@@ -12,6 +12,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SettingsComponent } from './apps/settings/settings.component';
+import { SwUpdate,VersionReadyEvent } from '@angular/service-worker';
 
 
 @Component({
@@ -42,7 +43,9 @@ export class AppComponent {
     private router: Router,
     private route: ActivatedRoute,
     private todoServ: TodoService,
-    private webServ: WebService) {
+    private webServ: WebService,
+    private swUpdate :SwUpdate
+    ) {
 
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -54,6 +57,12 @@ export class AppComponent {
         this.CurrentFunctionName = this.links.find(l => l.path === fragment)?.name;
       }
     });
+    this.swUpdate.versionUpdates.subscribe(event => {
+      if (event.type === 'VERSION_READY') {
+        // 飛飛好粗暴！？
+        location.reload();
+      }
+    })
   }
 
   get hideToolbar() {

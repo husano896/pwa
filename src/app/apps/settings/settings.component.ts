@@ -1,8 +1,7 @@
-import { ErrorCollectorService } from './../../../@shared/services/error-collector.service';
+import { ErrorCollectorService } from '@shared/services/error-collector.service';
 import { WebService } from '@shared/services/web.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-settings',
@@ -78,6 +77,20 @@ export class SettingsComponent implements OnInit {
     this.errorServ.downloadLog();
   }
 
+  /** 清除快取與ServiceWorker */
+  async resetServiceWorker() {
+    if (confirm('確定要清除快取? 頁面將重新載入, 且未連網時App將無法作用.')) {
+      self.caches.keys().then(keys => { keys.forEach(key => self.caches.delete(key)) })
+
+      const registrations = await navigator.serviceWorker.getRegistrations()
+
+      registrations.forEach(registration => {
+        registration.unregister()
+      })
+
+      window.location.href = './';
+    }
+  }
   /** 重設所有設定 */
   resetAllSettings() {
     if (confirm('確定重設所有資料? 頁面將重新載入.')) {

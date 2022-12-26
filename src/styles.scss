@@ -45,9 +45,9 @@ body[theme="light"] {
 body[theme="dark"] {
   $theme: dark;
   @include mat.all-component-themes($dark-theme);
-  input,
-  select,
-  textarea {
+  input:not(.mat-input-element),
+  select:not(.mat-input-element),
+  textarea:not(.mat-input-element) {
     background-color: #424242;
     color: white;
     -webkit-text-fill-color: white;
