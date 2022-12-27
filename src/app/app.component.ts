@@ -12,8 +12,8 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SettingsComponent } from './apps/settings/settings.component';
-import { SwUpdate,VersionReadyEvent } from '@angular/service-worker';
-
+import { SwUpdate } from '@angular/service-worker';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -44,9 +44,11 @@ export class AppComponent {
     private route: ActivatedRoute,
     private todoServ: TodoService,
     private webServ: WebService,
-    private swUpdate :SwUpdate
-    ) {
+    private swUpdate: SwUpdate,
+    private translate: TranslateService
+  ) {
 
+    // 目前功能名稱取得
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.drawer?.close();
@@ -57,12 +59,29 @@ export class AppComponent {
         this.CurrentFunctionName = this.links.find(l => l.path === fragment)?.name;
       }
     });
+    // Service worker更新部分
     this.swUpdate.versionUpdates.subscribe(event => {
       if (event.type === 'VERSION_READY') {
         // 飛飛好粗暴！？
         location.reload();
       }
     })
+
+    this.translate.use('zh-tw');
+    this.translate.setDefaultLang('zh-tw');
+    // Query參數訂閱
+    this.route.queryParams.subscribe((params: any) => {
+      if (!params) {
+        return;
+      }
+      // 語言參數
+      // Set完會一直觸發 為什麼！？
+      // 只能靠CurrentLanguage辨認有沒有改
+      if (params.l && this.translate.currentLang !== params.l) {
+        console.log('use lang ', params.l);
+        this.translate.use(params.l);
+      }
+    });
   }
 
   get hideToolbar() {

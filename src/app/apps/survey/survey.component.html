@@ -10,7 +10,7 @@
         <mat-form-field>
           <input matInput [(ngModel)]="userName" />
         </mat-form-field>
-        <label><span fxHide.lt-sm>的</span>自我認同表</label>
+        <label><span fxHide.lt-sm>{{'_S' | translate}}</span>{{'SURVEY_FORMNAME' | translate}}</label>
       </div>
       <!-- 小版顯示點點選單 -->
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
@@ -30,7 +30,7 @@
   <div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center" class="result-container">
     <div #result fxLayout="column" id="result" style="width: 100%;" fxLayoutAlign="center center">
       <mat-card fxLayout="column" fxLayoutAlign="start center" style="width: 100%;">
-        <h4 *ngIf="sharing && userName && userName.length > 0">{{userName}}的自我認同表</h4>
+        <h4 *ngIf="sharing && userName && userName.length > 0">{{userName}} {{'_S' | translate}}{{'SURVEY_FORMNAME' | translate}}</h4>
 
         <div fxLayout="row" *ngFor="let option of options; let optionIndex = index;" style="width: 100%">
           <div fxLayout="column" fxLayoutGap="8px" fxFlex>
@@ -58,16 +58,16 @@
           </button>
           <mat-menu #optionMenu="matMenu">
             <button mat-menu-item (click)="removeItem(option)">
-              <label>移除該行</label>
+              <label>{{'SURVEY_REMOVEITEM' | translate}}</label>
             </button>
           </mat-menu>
         </div>
 
-        <ng-container *ngIf="!sharing" >
-          <br/>
+        <ng-container *ngIf="!sharing">
+          <br />
           <button mat-button (click)="addItem()" color="accent">
             <mat-icon>add</mat-icon>
-            <label>添加項目</label>
+            <span>{{'SURVEY_ADDITEM' | translate}}</span>
           </button>
         </ng-container>
       </mat-card>
@@ -78,14 +78,14 @@
   <ng-template #menuActions>
     <button mat-menu-item (click)="addItem()">
       <mat-icon>add</mat-icon>
-      <label>添加項目</label>
+      <label>{{'SURVEY_ADDITEM' | translate}}</label>
     </button>
     <button mat-menu-item (click)="shareWebsite()">
       <mat-icon>share</mat-icon>
-      <label>分享網站</label>
+      <label>{{'SURVEY_SHAREWEBSITE' | translate}}</label>
     </button>
     <button mat-menu-item (click)="shareResult()">
       <mat-icon>download</mat-icon>
-      <label>分享結果</label>
+      <label>{{'SURVEY_SHARERESULT' | translate}}</label>
     </button>
   </ng-template>

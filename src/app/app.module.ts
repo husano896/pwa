@@ -23,7 +23,11 @@ import { PortalModule } from '@angular/cdk/portal';
 import { SettingsComponent } from './apps/settings/settings.component';
 import { ErrorCollectorService } from '@shared/services/error-collector.service';
 import { XflyEtherClockComponent } from '@shared/components/xfly-ether-clock/xfly-ether-clock.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 const MatModules = [
   MatFormFieldModule,
   MatListModule,
@@ -52,6 +56,11 @@ function prefersReducedMotion(): boolean {
   return localStorageAnimState !== null ? localStorageAnimState : mediaQueryList.matches;
 }
 
+/** i18n路徑 */
+function ImportTranslateJson(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [
     ...components,
@@ -64,11 +73,19 @@ function prefersReducedMotion(): boolean {
     ...MatModules,
     AppRoutingModule,
     XflyEtherClockComponent,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (ImportTranslateJson),
+        deps: [HttpClient]
+      }
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerImmediately'
     }),
 
   ],
