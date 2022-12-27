@@ -30,7 +30,7 @@
     "dayjs-es": "^1.0.0",
     "file-saver-es": "^2.0.5",
     "firebase": "^9.15.0",
-    "html2canvas": "^1.4.1",
+    "html-to-image": "^1.11.3",
     "json2typescript": "^1.5.1",
     "kjua-svg": "^1.13.1",
     "material-icons": "^1.13.1",

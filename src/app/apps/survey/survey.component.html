@@ -1,14 +1,16 @@
 <div fxLayout="column" fxFlexFill>
   <mat-toolbar color="primary">
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
         <button mat-icon-button (click)="back();">
           <mat-icon>arrow_back</mat-icon>
         </button>
-        <mat-form-field style="max-width: 128px">
-          <input matInput />
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+        <mat-form-field>
+          <input matInput [(ngModel)]="userName" />
         </mat-form-field>
-        <label>的自我認同表</label>
+        <label><span fxHide.lt-sm>的</span>自我認同表</label>
       </div>
       <!-- 小版顯示點點選單 -->
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
@@ -25,44 +27,54 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div #result id="result" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start center" style="max-width: 720px;">
-    <mat-card fxLayout="column" fxLayoutAlign="start center" style="width: 100%;"
-      (click)="setEditingOption(undefined, undefined)">
+  <div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center" class="result-container">
+    <div #result fxLayout="column" id="result" style="width: 100%;" fxLayoutAlign="center center">
+      <mat-card fxLayout="column" fxLayoutAlign="start center" style="width: 100%;">
+        <h4 *ngIf="sharing && userName && userName.length > 0">{{userName}}的自我認同表</h4>
 
-      <div fxLayout="row" *ngFor="let option of options; let optionIndex = index;">
-        <div fxLayout="column" fxFlex>
-          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-            <div *ngFor="let subOption of option;let subOptionIndex = index;"
-              (click)="setEditingOption(option, subOptionIndex);$event.stopPropagation()">
-              <ng-container *ngIf="isEditingOption(option, subOptionIndex); else labelTemplate">
-                <input #input [(ngModel)]="options[optionIndex][subOptionIndex]" />
-              </ng-container>
-              <ng-template #labelTemplate>
-
-                <label>{{subOption || '-'}}</label>
-              </ng-template>
+        <div fxLayout="row" *ngFor="let option of options; let optionIndex = index;" style="width: 100%">
+          <div fxLayout="column" fxLayoutGap="8px" fxFlex>
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+              <div *ngFor="let subOption of option;let subOptionIndex = index;"
+                (click)="setEditingOption(option, subOptionIndex);$event.stopPropagation()">
+                <!-- 編輯中Input-->
+                <ng-container *ngIf="isEditingOption(option, subOptionIndex); else labelTemplate">
+                  <mat-form-field>
+                    <input matInput (blur)="saveValueChange()" #input [ngModel]="options[optionIndex][subOptionIndex]"
+                      (ngModelChange)="onValueChange($event)" />
+                  </mat-form-field>
+                </ng-container>
+                <!-- 單純顯示文字 -->
+                <ng-template #labelTemplate>
+                  <span>{{subOption || '--'}}</span>
+                </ng-template>
+              </div>
             </div>
+            <!-- 比例滑條 -->
+            <input type="range" class="slider" min="0" max="100" value="50" style="width: 100%;">
           </div>
-          <div fxLayout="row" fxLayoutAlign="start space-between" fxFlex>
-            <mat-slider>
-              <input matSliderThumb>
-            </mat-slider>
-          </div>
-        </div>
-        <button mat-icon-button [matMenuTriggerFor]="optionMenu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #optionMenu="matMenu">
-          <button mat-menu-item (click)="removeItem(option)">
-            <label>移除該行</label>
+          <button mat-icon-button [matMenuTriggerFor]="optionMenu" *ngIf="!sharing">
+            <mat-icon>more_vert</mat-icon>
           </button>
+          <mat-menu #optionMenu="matMenu">
+            <button mat-menu-item (click)="removeItem(option)">
+              <label>移除該行</label>
+            </button>
+          </mat-menu>
+        </div>
 
-        </mat-menu>
-      </div>
-    </mat-card>
+        <ng-container *ngIf="!sharing" >
+          <br/>
+          <button mat-button (click)="addItem()" color="accent">
+            <mat-icon>add</mat-icon>
+            <label>添加項目</label>
+          </button>
+        </ng-container>
+      </mat-card>
+    </div>
   </div>
 
-
+  <!-- 右上角的動作選單 -->
   <ng-template #menuActions>
     <button mat-menu-item (click)="addItem()">
       <mat-icon>add</mat-icon>
@@ -76,17 +88,4 @@
       <mat-icon>download</mat-icon>
       <label>分享結果</label>
     </button>
-  </ng-template>
-
-  <ng-template #resultDialog>
-    <div fxLayout="column" fxLayoutGap="8px">
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-
-        <label>對圖片長壓/右鍵以下載.</label>
-        <button mat-icon-button (click)="closeResult()"><mat-icon>close</mat-icon></button>
-      </div>
-      <div style="overflow: auto">
-        <img alt='result-image' [src]="resultImageSrc" />
-      </div>
-    </div>
   </ng-template>

@@ -1,8 +1,12 @@
+import dayjs from 'dayjs-es';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebService } from '@shared/services/web.service';
-import html2canvas from 'html2canvas';
+
+import * as htmlToImage from 'html-to-image';
+import { saveAs } from 'file-saver-es';
+
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.component.html',
@@ -12,11 +16,9 @@ export class SurveyComponent implements OnInit, OnDestroy {
   static IconName = 'article';
   static AppName = '自我認同表'
 
+  /**  用於輸出結果的element */
   @ViewChild('result') result!: ElementRef<any>
 
-  @ViewChild('resultDialog') resultDialog!: TemplateRef<any>
-
-  resultImageSrc = ''
   options = [
     ['男性', '中性', '女性'],
     ['超陽剛', '中性', '超陰柔'],
@@ -30,12 +32,16 @@ export class SurveyComponent implements OnInit, OnDestroy {
 
   editingOption?: Array<string>
   editingIndex?: number;
+  editingString?: string;
+  sharing?: boolean;
+  userName?: string;
 
   constructor(
     private webServ: WebService,
-    private dialog: MatDialog,
-    private router: Router) { }
+    private router: Router,
+    private changeDetectionRef: ChangeDetectorRef) { }
 
+  // 這功能會隱藏原本有的動作列！
   ngOnInit(): void {
     this.webServ.hideToolbar = true;
   }
@@ -44,6 +50,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
     this.webServ.hideToolbar = false;
   }
 
+  /** 分享這網站給你的損友們 */
   shareWebsite() {
     const shareData = {
       title: '自我認同表',
@@ -55,13 +62,20 @@ export class SurveyComponent implements OnInit, OnDestroy {
 
   async shareResult() {
     console.log(this.result);
-    const canvasResult = await html2canvas(this.result.nativeElement)
-    const url = canvasResult.toDataURL("image/jpeg");
-    this.resultImageSrc = url;
-    this.dialog.open(this.resultDialog)
-  }
-  closeResult() {
-    this.dialog.closeAll();
+    this.sharing = true;
+    // 變更變數後要先進行變更偵測才能反映截圖時隱藏的選項！
+    this.changeDetectionRef.detectChanges();
+    const url = await htmlToImage.toJpeg(this.result.nativeElement, {quality: 0.95});
+
+    const fileName = `${dayjs().format('YYYYMMDD_HHmmss.jpg')}`
+    if (window.saveAs) {
+      window.saveAs(url, fileName);
+    } else {
+      saveAs(url, fileName);
+    }
+
+    this.sharing = false;
+    this.changeDetectionRef.detectChanges();
   }
   back() {
     this.router.navigate(['..']);
@@ -73,10 +87,23 @@ export class SurveyComponent implements OnInit, OnDestroy {
   setEditingOption(options?: Array<string>, index?: number) {
     this.editingOption = options;
     this.editingIndex = index;
+    if (options !== undefined && index !== undefined) {
+      this.editingString = options[index];
+    }
+  }
+
+  // 對應直接用ngModel會失焦的問題
+  onValueChange($event: string) {
+    this.editingString = $event;
+  }
+
+  saveValueChange() {
+    this.editingOption![this.editingIndex!] = this.editingString ?? '';
+    this.setEditingOption();
   }
 
   addItem() {
-    this.options.push(['','',''])
+    this.options.push(['', '', ''])
   }
 
   removeItem(opt: Array<string>) {
