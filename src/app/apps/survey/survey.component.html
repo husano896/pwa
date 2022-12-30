@@ -1,3 +1,4 @@
+<!-- TODO: 好多人來這裡了... 要不要直接先分流出去...? -->
 <div fxLayout="column" fxFlexFill>
   <mat-toolbar color="primary">
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
@@ -7,7 +8,7 @@
         </button>
       </div>
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-        <mat-form-field>
+        <mat-form-field class="user-name-field">
           <input matInput [(ngModel)]="userName" />
         </mat-form-field>
         <label><span fxHide.lt-sm>{{'_S' | translate}}</span>{{'SURVEY_FORMNAME' | translate}}</label>
@@ -30,7 +31,8 @@
   <div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="center center" class="result-container">
     <div #result fxLayout="column" id="result" style="width: 100%;" fxLayoutAlign="center center">
       <mat-card fxLayout="column" fxLayoutAlign="start center" style="width: 100%;">
-        <h4 *ngIf="sharing && userName && userName.length > 0">{{userName}} {{'_S' | translate}}{{'SURVEY_FORMNAME' | translate}}</h4>
+        <h4 *ngIf="sharing && userName && userName.length > 0">{{userName}} {{'_S' | translate}}{{'SURVEY_FORMNAME' |
+          translate}}</h4>
 
         <div fxLayout="row" *ngFor="let option of options; let optionIndex = index;" style="width: 100%">
           <div fxLayout="column" fxLayoutGap="8px" fxFlex>
@@ -40,13 +42,14 @@
                 <!-- 編輯中Input-->
                 <ng-container *ngIf="isEditingOption(option, subOptionIndex); else labelTemplate">
                   <mat-form-field>
-                    <input matInput (blur)="saveValueChange()" #input [ngModel]="options[optionIndex][subOptionIndex]"
-                      (ngModelChange)="onValueChange($event)" />
+                    <textarea matInput (blur)="saveValueChange()" #input
+                      [ngModel]="options[optionIndex][subOptionIndex]"
+                      (ngModelChange)="onValueChange($event)"></textarea>
                   </mat-form-field>
                 </ng-container>
                 <!-- 單純顯示文字 -->
                 <ng-template #labelTemplate>
-                  <span>{{subOption || '--'}}</span>
+                  <span class="option-label">{{subOption || '--'}}</span>
                 </ng-template>
               </div>
             </div>
@@ -65,10 +68,16 @@
 
         <ng-container *ngIf="!sharing">
           <br />
-          <button mat-button (click)="addItem()" color="accent">
-            <mat-icon>add</mat-icon>
-            <span>{{'SURVEY_ADDITEM' | translate}}</span>
-          </button>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex style="width: 100%">
+            <button mat-button (click)="addItem()" color="primary">
+              <mat-icon>add</mat-icon>
+              <span>{{'SURVEY_ADDITEM' | translate}}</span>
+            </button>
+            <button mat-button (click)="shareResult()" color="accent">
+              <mat-icon>download</mat-icon>
+              <span>{{'SURVEY_SHARERESULT' | translate}}</span>
+            </button>
+          </div>
         </ng-container>
       </mat-card>
     </div>

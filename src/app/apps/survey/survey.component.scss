@@ -1,10 +1,3 @@
-mat-slider {
-  width: 100%;
-}
-
-h3 {
-  margin-block: 0 !important;
-}
 
 mat-card {
   max-width: 720px;
@@ -14,7 +7,7 @@ img {
   width: 100%;
 }
 
-mat-form-field {
+mat-form-field.user-name-field {
   width: 100% !important;
   @media screen and (max-width: 299px) {
     display: none;
@@ -56,4 +49,8 @@ mat-form-field {
   max-width: 720px;
   height: 100%;
   overflow: auto;
+}
+
+.option-label {
+  white-space: pre-wrap;
 }

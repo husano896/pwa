@@ -32,6 +32,7 @@ const routes: Routes = [
     path: 'qrcode',
     loadChildren: () => import('./apps/qrcode/qrcode.module').then(m => m.QrcodeModule)
   },
+  /** TODO: 這個跟風太熱門了，應該分流到其他網站去...XD (用轉跳的) */
   {
     path: 'survey',
     loadChildren: () => import('./apps/survey/survey.module').then(m => m.SurveyModule)

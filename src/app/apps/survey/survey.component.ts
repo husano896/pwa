@@ -90,7 +90,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
     const shareData = {
       title: '自我認同表',
       text: '到底誰會為了這個跟風還寫網頁啊',
-      url: 'https://husano896.github.io/pwa/#/survey'
+      url: location.href
     }
     navigator.share(shareData);
   }

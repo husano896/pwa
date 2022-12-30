@@ -25,7 +25,6 @@ import { ErrorCollectorService } from '@shared/services/error-collector.service'
 import { XflyEtherClockComponent } from '@shared/components/xfly-ether-clock/xfly-ether-clock.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 const MatModules = [
