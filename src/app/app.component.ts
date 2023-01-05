@@ -52,7 +52,7 @@ export class AppComponent {
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.drawer?.close();
-        console.log(this.router, this.CurrentFunctionName);
+        // console.log(this.router, this.CurrentFunctionName);
 
         const fragments = router.url.split('/')
         const fragment = fragments[fragments.length - 1]
@@ -75,8 +75,6 @@ export class AppComponent {
         return;
       }
       // 語言參數
-      // Set完會一直觸發 為什麼！？
-      // 只能靠CurrentLanguage辨認有沒有改
       if (params.l && this.translate.currentLang !== params.l) {
         console.log('use lang ', params.l);
         this.translate.use(params.l);
@@ -84,11 +82,17 @@ export class AppComponent {
     });
   }
 
+  /**
+   * 隱藏網站自身導覽列, 各App內需自備工具列！
+  */
   get hideToolbar() {
     return this.webServ.hideToolbar;
   }
 
+  /*
+  // 原本要做為右上角的額外行動列使用, 但標題列也該可下放, 因此交給各App實作Toolbar.
   get selectedPortal() {
     return this.webServ.selectedPortal;
   }
+  */
 }

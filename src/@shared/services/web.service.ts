@@ -27,21 +27,27 @@ export class WebService {
    * 初次使用設定
    */
   setFirstEncounter() {
-    const enounter = localStorage.getItem(LocalStorageKey.encounterDate);
+    const enounter = localStorage.getItem(LocalStorageKey.encounterDate)
+    const oldEncounter = localStorage.getItem(LocalStorageKey.old_encounterDate);
     if (!enounter) {
-      localStorage.setItem(LocalStorageKey.encounterDate, new Date().toISOString());
+      if (oldEncounter) {
+        console.log('將舊的日期移轉至新日期.')
+        localStorage.setItem(LocalStorageKey.encounterDate, oldEncounter);
+      } else {
+        localStorage.setItem(LocalStorageKey.encounterDate, new Date().toISOString());
+      }
     }
   }
 
   get encounterDate() {
-    return new Date(localStorage.getItem(LocalStorageKey.encounterDate) || '');
+    return new Date(localStorage.getItem(LocalStorageKey.encounterDate) || localStorage.getItem(LocalStorageKey.old_encounterDate) || '');
   }
 
   /**
    * 每次App開啟時就把次數+1
    */
   setOpenTimes() {
-    this.openedTimes = Number(localStorage.getItem(LocalStorageKey.openTimes));
+    this.openedTimes = Number(localStorage.getItem(LocalStorageKey.openTimes) || localStorage.getItem(LocalStorageKey.old_openTimes));
     this.openedTimes += 1;
     localStorage.setItem(LocalStorageKey.openTimes, `${this.openedTimes}`);
   }
@@ -49,7 +55,7 @@ export class WebService {
   // 主題區
   /** 自body取得目前使用中的主題 */
   get theme() {
-    return localStorage.getItem(LocalStorageKey.theme)
+    return localStorage.getItem(LocalStorageKey.theme) || localStorage.getItem(LocalStorageKey.old_theme)
   }
 
   /** 設定主題 */
@@ -69,7 +75,8 @@ export class WebService {
 
   /** 自body取得目前使用中的主題 */
   get disableAnimation() {
-    return JSON.parse(localStorage.getItem(LocalStorageKey.disableAnimation) || 'null');
+    return JSON.parse(localStorage.getItem(LocalStorageKey.disableAnimation) ||
+      localStorage.getItem(LocalStorageKey.old_disableAnimation) || 'null');
   }
 
   /** 設定主題 */

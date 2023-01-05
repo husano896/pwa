@@ -5,12 +5,12 @@ import { IndexComponent } from './apps/index/index.component';
 
 const routes: Routes = [
   {
-    path: 'todo',
-    loadChildren: () => import('./apps/todo/todo.module').then(m => m.TodoModule)
-  },
-  {
     path: 'settings',
     component: SettingsComponent
+  },
+  {
+    path: 'todo',
+    loadChildren: () => import('./apps/todo/todo.module').then(m => m.TodoModule)
   },
   {
     path: 'eviat',

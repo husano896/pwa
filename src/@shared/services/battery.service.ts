@@ -31,7 +31,7 @@ export class BatteryService {
     if (!nav || !nav.getBattery) {
       return;
     }
-    console.log('init battery');
+    console.log('[BatteryService] 電池服務啟動.');
     return nav.getBattery().then((battery: BatteryManager) => {
       battery.onchargingchange = this.onBatteryChange.bind(this);
       battery.onchargingtimechange = this.onBatteryChange.bind(this);

@@ -18,11 +18,11 @@ export class TodoService {
 
   private converter = new JsonConvert()
   constructor() {
-    const todoString = localStorage.getItem(LocalStorageKey.todo);
+    const todoString = localStorage.getItem(LocalStorageKey.todo) || localStorage.getItem(LocalStorageKey.old_todo);
     // 讀取本地已有的TODO
     if (todoString) {
       this.todo = this.converter.deserialize((JSON.parse(todoString) as any[]), TodoDto) as TodoDto[];
-      console.log(this.todo)
+
     }
   }
 
