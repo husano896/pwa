@@ -9,6 +9,7 @@ import { IndexComponent } from './apps/index/index.component';
 import { TodoService } from '../@shared/services/todo.service';
 import { WebService } from '../@shared/services/web.service';
 import { Component, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SettingsComponent } from './apps/settings/settings.component';
@@ -45,7 +46,8 @@ export class AppComponent {
     private todoServ: TodoService,
     private webServ: WebService,
     private swUpdate: SwUpdate,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private snackbar: MatSnackBar
   ) {
 
     // 目前功能名稱取得
@@ -62,8 +64,9 @@ export class AppComponent {
     // Service worker更新部分
     this.swUpdate.versionUpdates.subscribe(event => {
       if (event.type === 'VERSION_READY') {
-        // 飛飛好粗暴！？
-        location.reload();
+        this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理').onAction().subscribe(() => {
+          location.reload();
+        })
       }
     })
 

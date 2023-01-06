@@ -9,7 +9,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
   styleUrls: ['./settings.component.scss']
 })
 
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
 
   static IconName = 'settings';
   static AppName = '設定'
@@ -21,8 +21,6 @@ export class SettingsComponent implements OnInit {
     private webServ: WebService,
     private bottomSheet: MatBottomSheet,
     private errorServ: ErrorCollectorService) { }
-
-  ngOnInit(): void { }
 
   // 開啟主題設定視窗
   openThemeBottomSheet() {
