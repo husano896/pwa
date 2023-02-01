@@ -18,7 +18,6 @@ export class XflyEtherClockComponent implements OnInit, OnDestroy, AfterViewInit
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   private ctx: CanvasRenderingContext2D | null = null;
   private requestFrame?: number;
-  private gradient?: CanvasGradient;
 
   constructor(private batteryService: BatteryService) { }
   ngAfterViewInit(): void {
@@ -31,10 +30,6 @@ export class XflyEtherClockComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     this.ctx.textAlign = "center";
-    this.gradient = this.ctx.createLinearGradient(0, 0, this.canvas.nativeElement.width, 0);
-    this.gradient.addColorStop(0, " magenta");
-    this.gradient.addColorStop(0.5, "blue");
-    this.gradient.addColorStop(1.0, "red");
     this.canvasUpdate();
   }
 

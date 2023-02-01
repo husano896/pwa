@@ -36,6 +36,10 @@ const routes: Routes = [
     path: 'subscription_manage',
     loadChildren: () => import('./apps/subscription-manage/subscription-manage.module').then(m => m.SubscriptionManageModule)
   },
+  {
+    path: 'app_sync',
+    loadChildren: () => import('./apps/app-sync/app-sync.module').then(m => m.AppSyncModule)
+  },
   /** TODO: 這個跟風太熱門了，應該分流到其他網站去...XD (用轉跳的) */
   {
     path: 'survey',

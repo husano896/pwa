@@ -16,6 +16,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SettingsComponent } from './apps/settings/settings.component';
 import { SwUpdate } from '@angular/service-worker';
 import { TranslateService } from '@ngx-translate/core';
+import { AppSyncComponent } from './apps/app-sync/app-sync.component';
 
 @Component({
   selector: 'app-root',
@@ -35,8 +36,10 @@ export class AppComponent {
     { name: NotepadComponent.AppName, path: 'notepad', icon: NotepadComponent.IconName },
     { name: SubscriptionManageComponent.AppName, path: 'subscription_manage', icon: SubscriptionManageComponent.IconName },
     { name: SurveyComponent.AppName, path: 'survey', icon: SurveyComponent.IconName },
+    { name: AppSyncComponent.AppName, path: 'app_sync', icon: AppSyncComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },
     { name: AboutComponent.AppName, path: 'about', icon: AboutComponent.IconName },
+
   ]
 
   sidebarClosed: boolean = false;
