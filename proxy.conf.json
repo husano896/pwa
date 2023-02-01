@@ -1,6 +1,8 @@
 {
-  "/grafanaAPI/*": {
-    "target": "http://localhost:88/api",
-    "pathRewrite": {"^/grafana" : ""}
+  "/api/currency": {
+    "target": "https://tw.rter.info/capi.php",
+    "pathRewrite": {"^/api/currency" : ""},
+    "secure": true,
+    "changeOrigin": true
   }
 }

@@ -28,6 +28,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 const MatModules = [
   MatFormFieldModule,
   MatListModule,

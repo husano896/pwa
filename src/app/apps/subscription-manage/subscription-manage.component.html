@@ -1,0 +1,45 @@
+<div fxLayout="column" fxFlexFill>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+      <!-- 返回按鈕 -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex>
+        <button mat-icon-button (click)="back();">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+      </div>
+      <!-- 新增按鈕 -->
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+        <button mat-icon-button (click)="openAddDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div fxLayout="column" style="overflow-y: auto;height: 100%;">
+    <mat-action-list>
+      <button mat-list-item *ngFor="let curr of currencyList">
+        <!-- 貨幣項目名 -->
+        <!-- TODO: 訂閱項目名 -->
+        <mat-icon matListItemIcon>payments</mat-icon>
+        <h3 matListItemTitle>{{curr.name}}</h3>
+        <p matListItemLine>
+          <span>{{curr.Exrate}}</span>
+          <span class="demo-2"> -- {{curr.UTC}}</span>
+        </p>
+      </button>
+    </mat-action-list>
+    <div *ngIf="currencyError" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start start">
+      <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
+        <mat-icon>warning</mat-icon>
+        <span>取得貨幣中發生錯誤：</span>
+      </div>
+      <span>{{currencyError | json}}</span>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #addDialog>
+
+</ng-template>

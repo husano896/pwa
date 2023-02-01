@@ -1,3 +1,4 @@
+import { SubscriptionManageComponent } from './apps/subscription-manage/subscription-manage.component';
 import { SurveyComponent } from './apps/survey/survey.component';
 import { AsiaMinorComponent } from './apps/asiaminor/asiaminor.component';
 import { NotepadComponent } from './apps/notepad/notepad.component';
@@ -32,6 +33,7 @@ export class AppComponent {
     { name: AsiaMinorComponent.AppName, path: 'asiaminor', icon: AsiaMinorComponent.IconName },
     { name: QrcodeComponent.AppName, path: 'qrcode', icon: QrcodeComponent.IconName },
     { name: NotepadComponent.AppName, path: 'notepad', icon: NotepadComponent.IconName },
+    { name: SubscriptionManageComponent.AppName, path: 'subscription_manage', icon: SubscriptionManageComponent.IconName },
     { name: SurveyComponent.AppName, path: 'survey', icon: SurveyComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },
     { name: AboutComponent.AppName, path: 'about', icon: AboutComponent.IconName },
@@ -54,7 +56,6 @@ export class AppComponent {
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.drawer?.close();
-        // console.log(this.router, this.CurrentFunctionName);
 
         const fragments = router.url.split('/')
         const fragment = fragments[fragments.length - 1]
@@ -62,6 +63,7 @@ export class AppComponent {
       }
     });
     // Service worker更新部分
+    this.swUpdate.checkForUpdate();
     this.swUpdate.versionUpdates.subscribe(event => {
       if (event.type === 'VERSION_READY') {
         this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理').onAction().subscribe(() => {
