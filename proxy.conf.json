@@ -1,7 +1,8 @@
 {
   "/api/currency": {
     "target": "https://tw.rter.info/capi.php",
-    "pathRewrite": {"^/api/currency" : ""},
+    "pathRewrite": {"/api/currency" : ""},
+    "logLevel": "debug",
     "secure": true,
     "changeOrigin": true
   }

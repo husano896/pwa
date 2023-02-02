@@ -6,12 +6,47 @@
   <link rel="icon" type="image/png" href="./assets/icons/icon-128x128.png">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
-<style>body{margin:0;overscroll-behavior-y:contain}</style><link rel="stylesheet" href="styles.5adcbf0217442e4d.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.5adcbf0217442e4d.css"></noscript></head>
+  <style>
+    .x-loading-container {
+      position: absolute;
+      transform-origin: center;
+      transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+    }
+
+    .x-logo {
+      transform-origin: center;
+      animation-name: x-rotate;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    @keyframes x-rotate {
+      0% {
+        transform: rotateZ(-45deg) rotateY(45deg);
+        filter: saturate(1);
+      }
+
+      50% {
+        transform: rotateZ(-45deg) rotateY(225deg);
+        filter: saturate(0);
+      }
+
+      100% {
+        transform: rotateZ(-45deg) rotateY(405deg);
+        filter: saturate(1);
+      }
+    }
+  </style>
+<style>body{margin:0;overscroll-behavior-y:contain}</style><link rel="stylesheet" href="styles.3caa266838cf816e.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.3caa266838cf816e.css"></noscript></head>
 
 <body class="mat-app-background">
-  <app-root></app-root>
+  <app-root>
+    <div class="x-loading-container"><img class="x-logo" alt="x-logo" src="assets/imgs/x.svg">
+    </div>
+  </app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
-<script src="runtime.cd3364a0fc71c432.js" type="module"></script><script src="polyfills.03a48880c41302d7.js" type="module"></script><script src="main.780cf212b3732369.js" type="module"></script>
+<script src="runtime.8d3126e29adcc253.js" type="module"></script><script src="polyfills.03a48880c41302d7.js" type="module"></script><script src="main.5423d8f0301fd727.js" type="module"></script>
 
 
 </body></html>

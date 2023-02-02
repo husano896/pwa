@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFlexFill>
+<div class="subscription-manage" fxLayout="column" fxFlexFill>
   <mat-toolbar color="primary">
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
       <!-- 返回按鈕 -->
@@ -6,29 +6,59 @@
         <button mat-icon-button (click)="back();">
           <mat-icon>arrow_back</mat-icon>
         </button>
-
+        <span>{{TotalExpense}}</span>
       </div>
       <!-- 新增按鈕 -->
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-        <button mat-icon-button (click)="openAddDialog()">
+        <button mat-icon-button (click)="openEditDialog()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  <div fxLayout="column" style="overflow-y: auto;height: 100%;">
-    <mat-action-list>
-      <button mat-list-item *ngFor="let curr of currencyList">
-        <!-- 貨幣項目名 -->
-        <!-- TODO: 訂閱項目名 -->
-        <mat-icon matListItemIcon>payments</mat-icon>
-        <h3 matListItemTitle>{{curr.name}}</h3>
-        <p matListItemLine>
-          <span>{{curr.Exrate}}</span>
-          <span class="demo-2"> -- {{curr.UTC}}</span>
-        </p>
+  <div fxLayout="column" style="overflow-y: auto;height: 100%; padding: 8px; box-sizing: border-box;">
+    <span>Powered by <a href="https://tw.rter.info/howto_currencyapi.php">集匯站 全球即時匯率API</a> </span>
+    <span>匯率僅供參考，實際付款金額請以發卡方為主。</span>
+    <br/>
+    <div fxLayout="column" fxLayoutGap="8px">
+
+      <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let i of subscriptionItems">
+        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+
+          <mat-icon>payments</mat-icon>
+          <div fxLayout="column">
+            <span matListItemTitle>{{i.name}}</span>
+            <p matListItemLine>
+              <span>{{i.amount}} {{i.currency}}</span>
+            </p>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+          <!-- 轉換後的訂閱金額 -->
+          <h3>{{exchangeCurrency(i.currency, displayCurrency, i.amount) | number:'0.4'}} {{displayCurrency}}</h3>
+          <button mat-icon-button [matMenuTriggerFor]="actionMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #actionMenu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <label>編輯</label>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <label>刪除</label>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+      <button mat-button *ngIf="!subscriptionItems?.length" color="primary">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <mat-icon>add</mat-icon>
+          <span (click)="openEditDialog()">沒有訂閱項目，點擊此處或按右上角新增按鈕以新增.</span>
+        </div>
       </button>
-    </mat-action-list>
+    </div>
     <div *ngIf="currencyError" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start start">
       <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
         <mat-icon>warning</mat-icon>
@@ -40,6 +70,32 @@
   </div>
 </div>
 
-<ng-template #addDialog>
-
+<ng-template #editDialog>
+  <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="8px">
+    <h1 mat-dialog-title>新增或編輯訂閱</h1>
+    <div mat-dialog-content>
+      <mat-form-field appearance="standard">
+        <mat-label>訂閱名稱</mat-label>
+        <input matInput requied formControlName="name">
+      </mat-form-field>
+      <div fxLayout="row" fxLayoutGap="8px">
+        <mat-form-field appearance="standard">
+          <mat-label>金額</mat-label>
+          <input #startDate matInput required formControlName="amount" type="number" min="0">
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 144px">
+          <mat-label>幣種</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option *ngFor="let cur of currencyNames" [value]="cur">
+              {{cur}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+      <button mat-button mat-dialog-close>取消</button>
+      <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="SaveForm()">儲存</button>
+    </div>
+  </form>
 </ng-template>

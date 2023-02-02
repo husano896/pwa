@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SettingsComponent } from './apps/settings/settings.component';
-import { SwUpdate } from '@angular/service-worker';
+import { SwPush, SwUpdate } from '@angular/service-worker';
 import { TranslateService } from '@ngx-translate/core';
 import { AppSyncComponent } from './apps/app-sync/app-sync.component';
 
@@ -51,6 +51,7 @@ export class AppComponent {
     private todoServ: TodoService,
     private webServ: WebService,
     private swUpdate: SwUpdate,
+    private swPush: SwPush,
     private translate: TranslateService,
     private snackbar: MatSnackBar
   ) {
@@ -66,15 +67,17 @@ export class AppComponent {
       }
     });
     // Service worker更新部分
-    this.swUpdate.checkForUpdate();
-    this.swUpdate.versionUpdates.subscribe(event => {
-      if (event.type === 'VERSION_READY') {
-        this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理').onAction().subscribe(() => {
-          location.reload();
-        })
-      }
-    })
-
+    if (this.swPush.isEnabled) {
+      console.log('[ServiceWorker] 已啟用.');
+      this.swUpdate.checkForUpdate();
+      this.swUpdate.versionUpdates.subscribe(event => {
+        if (event.type === 'VERSION_READY') {
+          this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理').onAction().subscribe(() => {
+            location.reload();
+          })
+        }
+      })
+    }
     this.translate.use('zh-tw');
     this.translate.setDefaultLang('zh-tw');
     // Query參數訂閱
