@@ -7,8 +7,8 @@ export enum LocalStorageKey {
   bmi = 'pwa_bmi',
   debugMode = 'pwa_debug_mode',
   disableAnimation = 'pwa_disable_animation',
-  subscriptionManage = 'pwa_subscription_manage',
-
+  subscriptionManageSave = 'pwa_subscription_manage_save',
+  subscriptionManageCurrencies = 'pwa_subscription_manage_currencies',
   old_encounterDate = 'encounter_date',
   old_openTimes = 'open_times',
   old_todo = 'todo',

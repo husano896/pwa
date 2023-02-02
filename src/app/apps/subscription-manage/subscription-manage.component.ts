@@ -1,9 +1,12 @@
+import { SubscriptionManageDto } from '@shared/entities/SubscriptionManage/SubscriptionManageDto';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebService } from '@shared/services/web.service';
 import { SubscriptionManageService } from './subscription-manage.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import _ from 'lodash-es'
 
 @Component({
   selector: 'app-subscription-manage',
@@ -53,6 +56,7 @@ export class SubscriptionManageComponent implements OnInit {
   }
 
   SaveForm() {
+    this.subscriptionItems.push(this.formGroup.value as SubscriptionManageDto)
     this.dialog.closeAll();
   }
 
@@ -60,12 +64,24 @@ export class SubscriptionManageComponent implements OnInit {
     return this.serv.exchangeCurrency(from, to, amount);
   }
 
+  /** 拖拉事件的處理 */
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.subscriptionItems, event.previousIndex, event.currentIndex);
+    this.serv.SaveToLocalStorage();
+  }
+
+  deleteItem(item: SubscriptionManageDto) {
+    _.remove(this.subscriptionItems, item)
+    this.serv.SaveToLocalStorage();
+  }
   get currency() {
     return this.serv.currency
   }
+
   get currencyList() {
     return this.serv.currencyList;
   }
+
   get currencyNames() {
     return this.serv.currencyNames;
   }
@@ -73,16 +89,17 @@ export class SubscriptionManageComponent implements OnInit {
   get subscriptionItems() {
     return this.serv.subscriptionItems;
   }
+
   get currencyError() {
     return this.serv.currencyError
   }
 
-  get displayCurrency() {
-    return this.serv.displayCurrency;
+  get TotalExpense() {
+    return this.serv.getTotalExpense();
   }
 
-  get TotalExpense() {
-    return this.serv.getTotalExpense()
+  get displayCurrency() {
+    return this.serv.displayCurrency;
   }
 
   set displayCurrency(value: string) {

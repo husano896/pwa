@@ -8,7 +8,6 @@ import _ from 'lodash-es'
 /** 預設使用的存檔 */
 const DEFAULT_SAVE: SubscriptionManageSave = {
   displayCurrency: 'TWD',
-  currency: Currencies,
   subscriptionItems: [
     /** 範例用 */
     { name: 'iCloud 50GB', amount: 1, currency: 'USD' },
@@ -79,12 +78,12 @@ export class SubscriptionManageService {
   /**
    * 計算訂閱項目合計費用
    * @param to 目標貨幣
-   * @returns 轉換成目標貨幣(帶單位)的訂閱合計費用
+   * @returns 轉換成目標貨幣的訂閱合計費用
   */
-  public getTotalExpense(): string {
+  public getTotalExpense() {
     return _.sum(
       this._save.subscriptionItems.map(i => this.exchangeCurrency(i.currency, this._save.displayCurrency, i.amount))
-    ).toFixed(4) + ' ' + this._save.displayCurrency;
+    );
   }
 
   /**
@@ -101,9 +100,9 @@ export class SubscriptionManageService {
               this.currency = resp;
               this._save.currency = resp;
               this.currencyList = Object.entries(resp).map(([name, currency]) => ({ name, ...currency }))
-              this.currencyNames = this.currencyList.map(l => l.name.substring(3))
+              this.currencyNames = this.currencyList.map(l => l.name.length > 3 ? l.name.substring(3) : l.name).sort()
               console.log('[SubscriptionManage] 成功取得貨幣資訊', resp);
-              this.SaveToLocalStorage();
+              localStorage.setItem(LocalStorageKey.subscriptionManageCurrencies, JSON.stringify(this.currency));
             },
           error: (err) => {
             this.currencyError = err;
@@ -114,15 +113,18 @@ export class SubscriptionManageService {
   /** 自LocalStorage讀取存檔 */
   public loadFromLocalStorage() {
     try {
-      this._save = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManage) || '');
-      this.currency = this._save?.currency;
+      this._save = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManageSave) || 'null');
+      this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManageCurrencies) || 'null');
       this.currencyList = Object.entries(this.currency).map(([name, currency]) => ({ name, ...currency }))
-      this.currencyNames = this.currencyList.map(l => l.name.substring(3))
+      this.currencyNames = this.currencyList.map(l => l.name.length > 3 ? l.name.substring(3) : l.name).sort()
     } catch (err) {
       console.warn('[SubscriptionManage] 讀檔時發生錯誤！', err);
     } finally {
       if (!this._save) {
         this._save = DEFAULT_SAVE;
+      }
+      if (!this.currency) {
+        this.currency = Currencies;
       }
     }
   }
@@ -130,7 +132,7 @@ export class SubscriptionManageService {
   /** 存檔至LocalStorage */
   public SaveToLocalStorage() {
     try {
-      localStorage.setItem(LocalStorageKey.subscriptionManage, JSON.stringify(this._save));
+      localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
     } catch (err) {
       console.warn('[SubscriptionManage] 存檔時發生錯誤！', err);
     }

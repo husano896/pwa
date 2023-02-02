@@ -14,7 +14,8 @@ import { SubscriptionManageComponent } from './subscription-manage.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { SubscriptionManageService } from './subscription-manage.service';
-
+import { MatCardModule } from '@angular/material/card';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 const routes: Routes = [{
   path: '',
   component: SubscriptionManageComponent
@@ -34,10 +35,12 @@ const routes: Routes = [{
     MatListModule,
     MatDialogModule,
     MatMenuModule,
+    MatCardModule,
     MatSelectModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule
 
   ],
   providers: [

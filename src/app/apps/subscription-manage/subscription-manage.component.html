@@ -6,7 +6,7 @@
         <button mat-icon-button (click)="back();">
           <mat-icon>arrow_back</mat-icon>
         </button>
-        <span>{{TotalExpense}}</span>
+        <span>訂閱項目管理</span>
       </div>
       <!-- 新增按鈕 -->
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
@@ -16,42 +16,51 @@
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  <div fxLayout="column" style="overflow-y: auto;height: 100%; padding: 8px; box-sizing: border-box;">
-    <span>Powered by <a href="https://tw.rter.info/howto_currencyapi.php">集匯站 全球即時匯率API</a> </span>
-    <span>匯率僅供參考，實際付款金額請以發卡方為主。</span>
-    <br/>
-    <div fxLayout="column" fxLayoutGap="8px">
-
-      <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let i of subscriptionItems">
-        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
-
-          <mat-icon>payments</mat-icon>
-          <div fxLayout="column">
-            <span matListItemTitle>{{i.name}}</span>
-            <p matListItemLine>
-              <span>{{i.amount}} {{i.currency}}</span>
-            </p>
-          </div>
-        </div>
-
-        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
-          <!-- 轉換後的訂閱金額 -->
-          <h3>{{exchangeCurrency(i.currency, displayCurrency, i.amount) | number:'0.4'}} {{displayCurrency}}</h3>
-          <button mat-icon-button [matMenuTriggerFor]="actionMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
+  <div fxLayout="column" style="overflow-y: auto;height: 100%; padding: 8px; box-sizing: border-box;" fxLayoutGap="8px">
+    <div fxLayout="column" style="color: gray">
+      <span>Powered by <a href="https://tw.rter.info/howto_currencyapi.php" target="_blank">集匯站 全球即時匯率API</a> </span>
+      <span>匯率僅供參考，實際付款金額請以發卡方為主。</span>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between end">
+      <span style="font-size: 24pt">總計花費</span>
+      <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="8px">
+        <span>{{TotalExpense | number:'0.0-6'}}</span>
+        <mat-select [(ngModel)]="displayCurrency">
+          <mat-option *ngFor="let cur of currencyNames" [value]="cur">
+            {{cur}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div cdkDropList fxLayout="column" fxLayoutGap="8px" (cdkDropListDropped)="drop($event)">
+      <mat-card cdkDrag fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let i of subscriptionItems"
+        fxLayoutGap="8px">
+        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" fxFlex>
+          <button mat-icon-button [matMenuTriggerFor]="actionMenu"> <mat-icon>more_vert</mat-icon></button>
           <mat-menu #actionMenu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>edit</mat-icon>
-              <label>編輯</label>
-            </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="deleteItem(i)">
               <mat-icon>delete</mat-icon>
               <label>刪除</label>
             </button>
           </mat-menu>
+
+          <div fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="8px" fxFlex>
+            <span matListItemTitle>{{i.name}}</span>
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="8px" fxFlex style="width: 100%;" >
+              <!-- 原始金額 -->
+              <span>{{i.amount}} {{i.currency}}</span>
+              <!-- 轉換後的訂閱金額 -->
+              <label>{{exchangeCurrency(i.currency, displayCurrency, i.amount) | number:'0.0-4'}}
+                {{displayCurrency}}</label>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+          <mat-icon>drag_handle</mat-icon>
+        </div>
+      </mat-card>
       <button mat-button *ngIf="!subscriptionItems?.length" color="primary">
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
           <mat-icon>add</mat-icon>
@@ -73,17 +82,17 @@
 <ng-template #editDialog>
   <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="8px">
     <h1 mat-dialog-title>新增或編輯訂閱</h1>
-    <div mat-dialog-content>
-      <mat-form-field appearance="standard">
+    <div mat-dialog-content fxLayout="column">
+      <mat-form-field appearance="standard" fxFlex>
         <mat-label>訂閱名稱</mat-label>
         <input matInput requied formControlName="name">
       </mat-form-field>
-      <div fxLayout="row" fxLayoutGap="8px">
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px">
         <mat-form-field appearance="standard">
           <mat-label>金額</mat-label>
           <input #startDate matInput required formControlName="amount" type="number" min="0">
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 144px">
+        <mat-form-field appearance="outline">
           <mat-label>幣種</mat-label>
           <mat-select formControlName="currency">
             <mat-option *ngFor="let cur of currencyNames" [value]="cur">
