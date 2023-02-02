@@ -32,10 +32,11 @@
     <div fxLayout="column" fxLayoutGap="8px">
       <mat-card fxLayout="row" fxLayoutAlign="space-around center" *ngFor="let i of currencyNames" fxLayoutGap="8px">
         <!-- 轉換為指定的金額 -->
-        <label>{{exchangeCurrency(displayCurrency, i, amount) | number:'0.0-4'}} {{i}}</label>
+        <label style="width: 100%; text-align: right;">{{exchangeCurrency(displayCurrency, i, amount) | number:'0.0-4'}}
+          {{i}}</label>
         <mat-icon>arrow_left</mat-icon>
         <!-- 我們輸入的金額 -->
-        <label>{{amount}} {{displayCurrency}}</label>
+        <label style="width: 100%; text-align: left;">{{amount}} {{displayCurrency}}</label>
       </mat-card>
     </div>
   </div>

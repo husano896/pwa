@@ -58,6 +58,7 @@ export class SubscriptionManageComponent implements OnInit {
 
   openEditDialog() {
     this.dialog.open(this.editDialog);
+    this.formGroup.reset();
   }
 
   SaveForm() {

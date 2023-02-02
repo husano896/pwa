@@ -23,8 +23,9 @@
   </mat-toolbar>
   <div fxLayout="column" style="overflow-y: auto;height: 100%; padding: 8px; box-sizing: border-box;" fxLayoutGap="8px">
     <!-- 不負責的免責聲明 -->
-    <div fxLayout="column" style="color: gray;font-size:small;">
+    <div fxLayout="row wrap" style="color: gray;font-size:small;">
       <span>Powered by <a href="https://tw.rter.info/howto_currencyapi.php" target="_blank">集匯站 全球即時匯率API</a> </span>
+      &nbsp;
       <span>匯率僅供參考，實際付款金額請以發卡方為主。</span>
     </div>
     <!-- 總計花費 -->
@@ -64,7 +65,7 @@
           </div>
         </div>
 
-        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+        <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" cdkDragHandle style="cursor: move;">
           <mat-icon>drag_handle</mat-icon>
         </div>
       </mat-card>
