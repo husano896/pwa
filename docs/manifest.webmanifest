@@ -51,6 +51,9 @@
     }
   ],
   "shortcuts": [
-
+    {
+      "name": "訂閱項目管理",
+      "url": "/subscription_manage"
+    }
   ]
 }

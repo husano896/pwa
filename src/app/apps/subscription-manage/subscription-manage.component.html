@@ -8,8 +8,13 @@
         </button>
         <span>訂閱項目管理</span>
       </div>
-      <!-- 新增按鈕 -->
+
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+        <!-- 匯率按鈕 -->
+        <button mat-icon-button (click)="goToTrend()">
+          <mat-icon>trending_up</mat-icon>
+        </button>
+        <!-- 新增按鈕 -->
         <button mat-icon-button (click)="openEditDialog()">
           <mat-icon>add</mat-icon>
         </button>
@@ -17,10 +22,12 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <div fxLayout="column" style="overflow-y: auto;height: 100%; padding: 8px; box-sizing: border-box;" fxLayoutGap="8px">
-    <div fxLayout="column" style="color: gray">
+    <!-- 不負責的免責聲明 -->
+    <div fxLayout="column" style="color: gray;font-size:small;">
       <span>Powered by <a href="https://tw.rter.info/howto_currencyapi.php" target="_blank">集匯站 全球即時匯率API</a> </span>
       <span>匯率僅供參考，實際付款金額請以發卡方為主。</span>
     </div>
+    <!-- 總計花費 -->
     <div fxLayout="row" fxLayoutAlign="space-between end">
       <span style="font-size: 24pt">總計花費</span>
       <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="8px">
@@ -47,7 +54,7 @@
 
           <div fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="8px" fxFlex>
             <span matListItemTitle>{{i.name}}</span>
-            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="8px" fxFlex style="width: 100%;" >
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="8px" fxFlex style="width: 100%;">
               <!-- 原始金額 -->
               <span>{{i.amount}} {{i.currency}}</span>
               <!-- 轉換後的訂閱金額 -->
@@ -71,11 +78,9 @@
     <div *ngIf="currencyError" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start start">
       <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
         <mat-icon>warning</mat-icon>
-        <span>取得貨幣中發生錯誤：</span>
+        <span>取得貨幣中發生錯誤！</span>
       </div>
-      <span>{{currencyError | json}}</span>
     </div>
-
   </div>
 </div>
 
@@ -90,7 +95,7 @@
       <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px">
         <mat-form-field appearance="standard">
           <mat-label>金額</mat-label>
-          <input #startDate matInput required formControlName="amount" type="number" min="0">
+          <input matInput required formControlName="amount" type="number" min="0">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>幣種</mat-label>

@@ -1,0 +1,42 @@
+<div class="subscription-manage" fxLayout="column" fxFlexFill>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+      <!-- 返回按鈕 -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex>
+        <button mat-icon-button (click)="back();">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>貨幣匯率</span>
+      </div>
+      <a mat-button href="https://tw.rter.info/howto_currencyapi.php" target="_blank">
+        資料來源
+      </a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <!-- 總計花費 -->
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" style="padding: 0px 8px;">
+    <mat-form-field appearance="standard" style="width:100%">
+      <input matInput required [(ngModel)]="amount" type="number" min="0">
+    </mat-form-field>
+    <mat-select [(ngModel)]="displayCurrency">
+      <mat-option *ngFor="let cur of currencyNames" [value]="cur">
+        {{cur}}
+      </mat-option>
+    </mat-select>
+  </div>
+
+  <div fxLayout="column" style="overflow-y: auto;height: 100%; padding: 0px 8px; box-sizing: border-box;"
+    fxLayoutGap="8px">
+
+    <div fxLayout="column" fxLayoutGap="8px">
+      <mat-card fxLayout="row" fxLayoutAlign="space-around center" *ngFor="let i of currencyNames" fxLayoutGap="8px">
+        <!-- 轉換為指定的金額 -->
+        <label>{{exchangeCurrency(displayCurrency, i, amount) | number:'0.0-4'}} {{i}}</label>
+        <mat-icon>arrow_left</mat-icon>
+        <!-- 我們輸入的金額 -->
+        <label>{{amount}} {{displayCurrency}}</label>
+      </mat-card>
+    </div>
+  </div>
+</div>

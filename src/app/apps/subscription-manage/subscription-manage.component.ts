@@ -51,6 +51,11 @@ export class SubscriptionManageComponent implements OnInit {
     this.router.navigate(['..']);
   }
 
+  /** 前往匯率頁 */
+  goToTrend() {
+    this.router.navigate(['./currencies'], {relativeTo: this.route});
+  }
+
   openEditDialog() {
     this.dialog.open(this.editDialog);
   }

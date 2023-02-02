@@ -9,10 +9,11 @@ import _ from 'lodash-es'
 const DEFAULT_SAVE: SubscriptionManageSave = {
   displayCurrency: 'TWD',
   subscriptionItems: [
-    /** 範例用 */
+    /** 範例用
     { name: 'iCloud 50GB', amount: 1, currency: 'USD' },
     { name: 'Spotify', amount: 30, currency: 'TWD' },
     { name: 'Pixiv fanbox', amount: 100, currency: 'JPY' },
+     */
   ]
 }
 
@@ -100,7 +101,10 @@ export class SubscriptionManageService {
               this.currency = resp;
               this._save.currency = resp;
               this.currencyList = Object.entries(resp).map(([name, currency]) => ({ name, ...currency }))
-              this.currencyNames = this.currencyList.map(l => l.name.length > 3 ? l.name.substring(3) : l.name).sort()
+              this.currencyNames = this.currencyList
+                .filter(l => l.name.startsWith('USD'))
+                .map(l => l.name.length > 3 ? l.name.substring(3) : l.name)
+                .sort();
               console.log('[SubscriptionManage] 成功取得貨幣資訊', resp);
               localStorage.setItem(LocalStorageKey.subscriptionManageCurrencies, JSON.stringify(this.currency));
             },
@@ -115,8 +119,7 @@ export class SubscriptionManageService {
     try {
       this._save = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManageSave) || 'null');
       this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManageCurrencies) || 'null');
-      this.currencyList = Object.entries(this.currency).map(([name, currency]) => ({ name, ...currency }))
-      this.currencyNames = this.currencyList.map(l => l.name.length > 3 ? l.name.substring(3) : l.name).sort()
+
     } catch (err) {
       console.warn('[SubscriptionManage] 讀檔時發生錯誤！', err);
     } finally {
@@ -126,6 +129,12 @@ export class SubscriptionManageService {
       if (!this.currency) {
         this.currency = Currencies;
       }
+
+      this.currencyList = Object.entries(this.currency).map(([name, currency]) => ({ name, ...currency }))
+      this.currencyNames = this.currencyList
+        .filter(l => l.name.startsWith('USD'))
+        .map(l => l.name.length > 3 ? l.name.substring(3) : l.name)
+        .sort();
     }
   }
 

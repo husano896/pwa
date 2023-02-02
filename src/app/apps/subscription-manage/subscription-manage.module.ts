@@ -15,15 +15,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { SubscriptionManageService } from './subscription-manage.service';
 import { MatCardModule } from '@angular/material/card';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-const routes: Routes = [{
-  path: '',
-  component: SubscriptionManageComponent
-}];
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CurrenciesComponent } from './currencies/currencies.component';
+const routes: Routes = [
+  {
+    path: 'currencies',
+    component: CurrenciesComponent
+  },
+  {
+    path: '',
+    component: SubscriptionManageComponent
+  }
+];
 
 
 @NgModule({
-  declarations: [SubscriptionManageComponent],
+  declarations: [SubscriptionManageComponent, CurrenciesComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
