@@ -45,6 +45,7 @@ export class SubscriptionManageComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.webServ.hideToolbar = false;
+    this.serv.unsubscribe();
   }
 
   back() {

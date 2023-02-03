@@ -5,8 +5,10 @@ export interface SubscriptionManageSave {
   /** 目前顯示的幣值 */
   displayCurrency: string;
 
-  /** 最後一次取得的幣值清單 */
-  currency?: { [exchangeType: string]: ICurrency }
-
+  /** 訂閱項目 */
   subscriptionItems?: Array<SubscriptionManageDto>
+
+  /** 最後一次的更新時間 */
+  // Date格式他會自動轉成Firebase自有的 只好用成number...
+  time?: number;
 }

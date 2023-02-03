@@ -9,6 +9,7 @@ export enum LocalStorageKey {
   disableAnimation = 'pwa_disable_animation',
   subscriptionManageSave = 'pwa_subscription_manage_save',
   subscriptionManageCurrencies = 'pwa_subscription_manage_currencies',
+  autoSync = 'pwa_auto_sync',
   old_encounterDate = 'encounter_date',
   old_openTimes = 'open_times',
   old_todo = 'todo',

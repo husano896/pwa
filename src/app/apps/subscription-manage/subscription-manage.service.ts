@@ -1,3 +1,7 @@
+import { WebService } from '@shared/services/web.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { of, Subscription, switchMap } from 'rxjs';
+import { FirebaseService } from '@shared/services/firebase.service';
 import { Currencies } from './Currencies';
 import { LocalStorageKey } from '@shared/LocalStorageKey';
 import { HttpClient } from '@angular/common/http';
@@ -28,9 +32,18 @@ export class SubscriptionManageService {
   currencyError?: any
   _save?: SubscriptionManageSave
 
-  constructor(private _http: HttpClient) {
+  private _firebaseSubscription: Subscription;
+
+  constructor(
+    private _http: HttpClient,
+    private firebaseServ: FirebaseService,
+    private webServ: WebService,
+    private afStore: AngularFirestore) {
     this.loadFromLocalStorage();
     this._getCurrencies()
+    if (this.webServ.autoSync) {
+      this.subscribeFromFirebase();
+    }
   }
 
   /** 取得顯示幣種 */
@@ -99,7 +112,6 @@ export class SubscriptionManageService {
           next:
             (resp) => {
               this.currency = resp;
-              this._save.currency = resp;
               this.currencyList = Object.entries(resp).map(([name, currency]) => ({ name, ...currency }))
               this.currencyNames = this.currencyList
                 .filter(l => l.name.startsWith('USD'))
@@ -138,13 +150,72 @@ export class SubscriptionManageService {
     }
   }
 
+  private subscribeFromFirebase() {
+    this.unsubscribe();
+    this._firebaseSubscription = this.user$
+      .pipe(
+        switchMap((user) => {
+          if (!user) {
+            return of(null);
+          }
+          return this.afStore.doc(this.userDocumentPath(user.uid)).snapshotChanges()
+        }),
+      ).subscribe((snapshot) => {
+        // 無User導致snapshot = null時, 不動作
+        if (!snapshot) {
+          return;
+        }
+        const data = snapshot.payload.exists ? snapshot.payload.data() as SubscriptionManageSave : null;
+        console.log('[SubscriptionManage] 線上資料', data, '本地資料', this._save);
+        if (!snapshot.payload.exists || data.time < this._save.time) {
+          // 如果本地版本比線上版本新, 或線上版本不存在時, 備份至線上.
+          this.SaveToFirebase();
+        } else if (!this._save.time || data.time > this._save.time) {
+          // 如果線上版本比本地版本新時, 覆蓋本地
+          this._save = data;
+          localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
+        }
+      })
+  }
+
   /** 存檔至LocalStorage */
   public SaveToLocalStorage() {
+    this._save.time = new Date().getTime();
     try {
       localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
     } catch (err) {
       console.warn('[SubscriptionManage] 存檔時發生錯誤！', err);
     }
+
+    this.SaveToFirebase();
   }
 
+  public SaveToFirebase() {
+    if (this.user$) {
+      const doc = this.afStore.doc(this.userDocumentPath(this.user.uid));
+      doc.set(this._save);
+    }
+  }
+
+  /** 由元件層呼叫：取消聆聽 */
+  public unsubscribe() {
+    // 取消對Firebase的聆聽
+    if (this._firebaseSubscription) {
+      this._firebaseSubscription.unsubscribe();
+      this._firebaseSubscription = null;
+    }
+  }
+
+  private get user() {
+    return this.firebaseServ.User;
+  }
+
+
+  private get user$() {
+    return this.firebaseServ.user$;
+  }
+
+  private userDocumentPath(uid: string) {
+    return `/PWA/Users/${uid}/SubscriptionManage`
+  }
 }

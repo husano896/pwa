@@ -1,3 +1,4 @@
+import { FirebaseService } from '@shared/services/firebase.service';
 import { SubscriptionManageComponent } from './apps/subscription-manage/subscription-manage.component';
 import { SurveyComponent } from './apps/survey/survey.component';
 import { AsiaMinorComponent } from './apps/asiaminor/asiaminor.component';
@@ -34,7 +35,7 @@ export class AppComponent {
     { name: AsiaMinorComponent.AppName, path: 'asiaminor', icon: AsiaMinorComponent.IconName },
     { name: QrcodeComponent.AppName, path: 'qrcode', icon: QrcodeComponent.IconName },
     { name: NotepadComponent.AppName, path: 'notepad', icon: NotepadComponent.IconName },
-    { name: SubscriptionManageComponent.AppName, path: 'subscription_manage', icon: SubscriptionManageComponent.IconName },
+    { name: SubscriptionManageComponent.AppName, path: 'subscription_manage', icon: SubscriptionManageComponent.IconName, sync: true },
     { name: SurveyComponent.AppName, path: 'survey', icon: SurveyComponent.IconName },
     { name: AppSyncComponent.AppName, path: 'app_sync', icon: AppSyncComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },
@@ -53,6 +54,7 @@ export class AppComponent {
     private swUpdate: SwUpdate,
     private swPush: SwPush,
     private translate: TranslateService,
+    private firebaseServ: FirebaseService,
     private snackbar: MatSnackBar
   ) {
 
@@ -106,4 +108,13 @@ export class AppComponent {
     return this.webServ.selectedPortal;
   }
   */
+
+  /** 自動同步 */
+  get autoSync() {
+    return this.webServ.autoSync
+  }
+
+  get user() {
+    return this.firebaseServ.User;
+  }
 }

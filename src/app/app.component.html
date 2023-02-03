@@ -5,9 +5,12 @@
         fxLayoutAlign="space-between center">
         <mat-icon matListIcon> {{link.icon}}</mat-icon>
         <a matLine>{{ link.name }}</a>
+        <!-- 資料量計數用? -->
         <button mat-button color="accent" *ngIf="link.extra">
           {{link.extra()}}
         </button>
+        <!-- 自動同步Icon -->
+        <app-sync-indicate *ngIf="link.sync">{{(autoSync && user) ? 'sync' : 'sync_disabled'}}</app-sync-indicate>
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>

@@ -1,3 +1,4 @@
+import { FirebaseService } from '@shared/services/firebase.service';
 import { ErrorCollectorService } from '@shared/services/error-collector.service';
 import { WebService } from '@shared/services/web.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
@@ -20,14 +21,27 @@ export class SettingsComponent {
   constructor(
     private webServ: WebService,
     private bottomSheet: MatBottomSheet,
-    private errorServ: ErrorCollectorService) { }
+    private errorServ: ErrorCollectorService,
+    private firebaseServ: FirebaseService) { }
 
+  /** 登入項 */
+  login() {
+    if (!this.user) {
+      this.firebaseServ.LoginWithGoogle();
+    }
+  }
+
+  logout() {
+    if (this.user) {
+      this.firebaseServ.Logout();
+    }
+  }
   // 開啟主題設定視窗
   openThemeBottomSheet() {
     this.bottomSheet.open(this.themeDialog);
   }
 
-  // 開啟主題設定視窗
+  // 開啟動畫設定視窗
   openAnimBottomSheet() {
     this.bottomSheet.open(this.animDialog);
   }
@@ -105,4 +119,17 @@ export class SettingsComponent {
     this.webServ.debug = v;
   }
 
+  /** Firebase登入的使用者 */
+  get user() {
+    return this.firebaseServ.User;
+  }
+
+  /** 自動同步 */
+  get autoSync() {
+    return this.webServ.autoSync;
+  }
+
+  set autoSync(v) {
+    this.webServ.autoSync = v;
+  }
 }

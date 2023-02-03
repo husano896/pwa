@@ -17,6 +17,7 @@ import { SubscriptionManageService } from './subscription-manage.service';
 import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CurrenciesComponent } from './currencies/currencies.component';
+import { FirebaseModule } from '@shared/firebase.module';
 const routes: Routes = [
   {
     path: 'currencies',
@@ -47,8 +48,8 @@ const routes: Routes = [
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    DragDropModule
-
+    DragDropModule,
+    FirebaseModule.forChild()
   ],
   providers: [
     SubscriptionManageService

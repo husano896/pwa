@@ -93,6 +93,14 @@ export class WebService {
   setThemeFromLocalStorage() {
     const theme = localStorage.getItem(LocalStorageKey.theme);
     this.theme = theme || '';
+  }
 
+  /** 自動同步 */
+  get autoSync() {
+    return Boolean(localStorage.getItem(LocalStorageKey.autoSync))
+  }
+
+  set autoSync(open: boolean) {
+    localStorage.setItem(LocalStorageKey.autoSync, open ? 'true' : '')
   }
 }

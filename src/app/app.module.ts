@@ -1,3 +1,6 @@
+import { FormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -19,15 +22,17 @@ import { IndexComponent } from './apps/index/index.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
+
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { PortalModule } from '@angular/cdk/portal';
 import { SettingsComponent } from './apps/settings/settings.component';
 import { ErrorCollectorService } from '@shared/services/error-collector.service';
 import { XflyEtherClockComponent } from '@shared/components/xfly-ether-clock/xfly-ether-clock.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FirebaseModule } from '@shared/firebase.module';
 
 const MatModules = [
   MatFormFieldModule,
@@ -41,7 +46,9 @@ const MatModules = [
   FlexLayoutModule,
   MatMenuModule,
   MatBottomSheetModule,
+  MatSlideToggleModule,
   MatSnackBarModule,
+  MatCardModule,
   PortalModule
 ]
 
@@ -76,6 +83,8 @@ function ImportTranslateJson(http: HttpClient) {
     AppRoutingModule,
     XflyEtherClockComponent,
     HttpClientModule,
+    FirebaseModule,
+    FormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
