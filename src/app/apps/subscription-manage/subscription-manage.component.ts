@@ -7,6 +7,7 @@ import { WebService } from '@shared/services/web.service';
 import { SubscriptionManageService } from './subscription-manage.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import _ from 'lodash-es'
+import { Presets } from './presets/Presets';
 
 @Component({
   selector: 'app-subscription-manage',
@@ -54,7 +55,7 @@ export class SubscriptionManageComponent implements OnInit {
 
   /** 前往匯率頁 */
   goToTrend() {
-    this.router.navigate(['./currencies'], {relativeTo: this.route});
+    this.router.navigate(['./currencies'], { relativeTo: this.route });
   }
 
   openEditDialog() {
@@ -64,6 +65,7 @@ export class SubscriptionManageComponent implements OnInit {
 
   SaveForm() {
     this.subscriptionItems.push(this.formGroup.value as SubscriptionManageDto)
+    this.serv.SaveToLocalStorage();
     this.dialog.closeAll();
   }
 
@@ -80,6 +82,15 @@ export class SubscriptionManageComponent implements OnInit {
   deleteItem(item: SubscriptionManageDto) {
     _.remove(this.subscriptionItems, item)
     this.serv.SaveToLocalStorage();
+  }
+
+  /** Preset套用 */
+  onPresetValueChange($event: SubscriptionManageDto) {
+    this.formGroup.patchValue($event);
+  }
+
+  get Presets() {
+    return Presets;
   }
   get currency() {
     return this.serv.currency

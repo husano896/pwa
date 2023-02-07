@@ -12,6 +12,13 @@
         <mat-card-title>{{user?.displayName || '未登入'}}</mat-card-title>
         <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
       </div>
+
+      <div fxLayout="row" fxLayoutAlign="end start" fxFlex>
+        <!-- 同步開關-->
+        <mat-slide-toggle *ngIf="user" [(ngModel)]="autoSync">
+          <mat-icon>{{autoSync ? 'sync' : 'sync_disabled'}}</mat-icon>
+        </mat-slide-toggle>
+      </div>
     </div>
     <mat-card-content>
       <div fxLayout="row" fxLayoutAlign="start center">
@@ -19,10 +26,6 @@
       </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
-      <mat-slide-toggle *ngIf="user" [(ngModel)]="autoSync">
-        <mat-icon>{{autoSync ? 'sync' : 'sync_disabled'}}</mat-icon>
-        <span>同步 {{autoSync ? '開啟' : '關閉'}}</span>
-      </mat-slide-toggle>
 
       <button *ngIf="!user; else logoutButton" mat-button color="primary" (click)="login()">
         登入

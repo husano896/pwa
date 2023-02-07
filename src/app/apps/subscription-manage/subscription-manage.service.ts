@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { WebService } from '@shared/services/web.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { of, Subscription, switchMap } from 'rxjs';
@@ -9,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { ICurrency } from '@shared/entities/SubscriptionManage/ICurrency';
 import { SubscriptionManageSave } from '@shared/entities/SubscriptionManage/';
 import _ from 'lodash-es'
+import dayjs from 'dayjs-es';
 /** 預設使用的存檔 */
 const DEFAULT_SAVE: SubscriptionManageSave = {
   displayCurrency: 'TWD',
@@ -38,7 +40,8 @@ export class SubscriptionManageService {
     private _http: HttpClient,
     private firebaseServ: FirebaseService,
     private webServ: WebService,
-    private afStore: AngularFirestore) {
+    private afStore: AngularFirestore,
+    private matSnackbar: MatSnackBar) {
     this.loadFromLocalStorage();
     this._getCurrencies()
     if (this.webServ.autoSync) {
@@ -172,6 +175,12 @@ export class SubscriptionManageService {
           this.SaveToFirebase();
         } else if (!this._save.time || data.time > this._save.time) {
           // 如果線上版本比本地版本新時, 覆蓋本地
+          console.log('[SubscriptionManage] 自線上取得了存檔', data)
+          this.matSnackbar.open(
+            `自雲端取得 ${dayjs(data.time).format('YYYY/MM/DD HH:mm:ss')} 存檔.`,
+            '',
+            { duration: 3000 }
+          )
           this._save = data;
           localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
         }
@@ -180,7 +189,9 @@ export class SubscriptionManageService {
 
   /** 存檔至LocalStorage */
   public SaveToLocalStorage() {
+    this._save.lastSaveTime = this._save.time;
     this._save.time = new Date().getTime();
+
     try {
       localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
     } catch (err) {
@@ -193,7 +204,9 @@ export class SubscriptionManageService {
   public SaveToFirebase() {
     if (this.user$) {
       const doc = this.afStore.doc(this.userDocumentPath(this.user.uid));
-      doc.set(this._save);
+      doc.set(this._save).then(() => {
+        console.log('[SubscriptionManage] 儲存至Firebase完畢')
+      });
     }
   }
 

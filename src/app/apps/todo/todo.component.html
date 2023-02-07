@@ -1,35 +1,58 @@
-<div fxLayout="row" fxLayout.lt-md="column">
-  <div class="example-container">
-    <h2>代辦事項</h2>
+<div fxLayout="column" fxLayoutGap="8px">
 
-    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" class="example-list"
-      (cdkDropListDropped)="drop($event)" *ngIf="todo?.length">
-      <mat-card class="example-box" fxLayout="row" *ngFor="let item of todo" cdkDrag fxLayoutAlign="space-bewteen center"
-        [ngStyle]="getTodoStyle(item)">
-        <div fxFlex>
-          {{item.name}}
-        </div>
-        <div>
-          <label>{{item.date | date:'yyyy/MM/dd HH:mm:ss'}}</label>
-          <br />
-          <label> {{ item.dueDate ? ((item.dueDate | date:'yyyy/MM/dd HH:mm:ss')) : ''}}</label>
-        </div>
-        <button mat-icon-button color="warn" (click)="Delete(item)">
-          <mat-icon>delete</mat-icon>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+      <!-- 返回按鈕 -->
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex>
+        <button mat-icon-button (click)="back();">
+          <mat-icon>arrow_back</mat-icon>
         </button>
-      </mat-card>
-    </div>
+        <span>代辦事項</span>
+      </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="!todo?.length">
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+
+        <!-- 新增按鈕 -->
+        <button mat-icon-button (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div fxLayout="column" fxLayoutGap="16px" style="height: 100%; overflow: auto;">
+    <mat-tab-group dynamicHeight *ngIf="todo?.length">
+      <mat-tab label="正在進行" *ngIf="InProgress.length">
+        <ng-container *ngFor="let t of InProgress">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+        </ng-container>
+
+      </mat-tab>
+      <mat-tab label="即將到來" *ngIf="InComing.length">
+        <ng-container *ngFor="let t of InComing">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="已過期" *ngIf="OverDue.length">
+        <ng-container *ngFor="let t of OverDue">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="已完成" *ngIf="Completed.length">
+        <ng-container *ngFor="let t of Completed">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+
+
+    <button mat-button fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="!todo?.length"
+      (click)="openCreateDialog()">
       <mat-icon>info</mat-icon>
-      <label>尚未有任何代辦.</label>
-    </div>
+      <label>尚未有任何代辦, 點擊此處或右上角以新增.</label>
+    </button>
   </div>
-  <mat-divider></mat-divider>
 
-  <button mat-fab color="primary" aria-label="add task button" (click)="openCreateDialog()">
-    <mat-icon>add</mat-icon>
-  </button>
 </div>
 
 <ng-template #editDialog>
@@ -42,12 +65,14 @@
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>開始日期</mat-label>
-        <input #startDate matInput required formControlName="date" type="datetime-local" >
+        <input #startDate matInput required formControlName="date" type="datetime-local">
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>結束日期</mat-label>
-        <input #endDate matInput formControlName="dueDate" type="datetime-local" >
+        <input #endDate matInput formControlName="dueDate" type="datetime-local">
       </mat-form-field>
+
+      <mat-checkbox formControlName="completed">已完成</mat-checkbox>
     </div>
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
       <button mat-button mat-dialog-close>取消</button>
@@ -55,4 +80,30 @@
     </div>
   </form>
 
+</ng-template>
+
+<ng-template #itemTemplate let-item>
+  <mat-card class="example-box" *ngFor="let item of todo" fxLayout="column" fxLayoutGap="8px">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+      <span style="font-size: larger;color: red;" *ngIf="item.getCount() as count">{{count}}d</span>
+      <div fxFlex> {{item.name}} </div>
+
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+        <button mat-raised-button (click)="MarkAsComplete(item)" [color]="item.completed? 'accent': 'primary'"
+          [matTooltip]="'標示為' + item.completed ? '未完成' : '已完成'">
+          <mat-icon>{{item.completed ? 'remove_done' : 'done'}}</mat-icon>
+        </button>
+        <button mat-raised-button color="warn" (click)="Delete(item)" [matTooltip]="'刪除項目'">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div>
+      <!-- 開始時間 -->
+      <label>{{item.date.format('YYYY/MM/DD HH:mm:ss') }}</label>
+      <!-- 結束時間 -->
+      <label>{{item.dueDate ? item.dueDate.format('~ YYYY/MM/DD HH:mm:ss') : ''}}</label>
+    </div>
+
+  </mat-card>
 </ng-template>
