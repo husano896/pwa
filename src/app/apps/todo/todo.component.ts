@@ -74,8 +74,8 @@ export class TodoComponent implements OnInit, OnDestroy {
   }
 
   MarkAsComplete(i: TodoDto) {
-    this.snackBar.open(`已完成：${i.name}.`, '', { duration: 3000 });
     this.todoServ.MarkAsComplete(i);
+    this.snackBar.open(`已標記為${i.completed ? '完成' : '未完成'}：${i.name}.`, '', { duration: 3000 });
   }
 
   Delete(i: TodoDto) {

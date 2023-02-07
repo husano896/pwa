@@ -1,3 +1,5 @@
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -36,7 +38,9 @@ const routes: Routes = [{
     MatCardModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatCheckboxModule,
     MatSnackBarModule,
+    MatMenuModule,
     MatButtonModule,
     MatTabsModule,
     DragDropModule,

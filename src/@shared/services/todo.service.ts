@@ -46,6 +46,11 @@ export class TodoService {
     localStorage.setItem(LocalStorageKey.todo, JSON.stringify(this.converter.serializeArray(this.todo, TodoDto)));
   }
 
+  ClearAllOverDue() {
+    this.todo = this.todo.filter(t=>!t.IsOverDue());
+    this.Save();
+  }
+
   /** 各個分類的事件 */
   get InProgress() {
     return this.todo.filter(t => t.IsInProgress());

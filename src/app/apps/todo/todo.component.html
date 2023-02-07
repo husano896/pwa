@@ -82,6 +82,7 @@
 
 </ng-template>
 
+<!-- 每個事件的顯示方式-->
 <ng-template #itemTemplate let-item>
   <mat-card class="example-box" *ngFor="let item of todo" fxLayout="column" fxLayoutGap="8px">
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
@@ -93,8 +94,8 @@
           [matTooltip]="'標示為' + item.completed ? '未完成' : '已完成'">
           <mat-icon>{{item.completed ? 'remove_done' : 'done'}}</mat-icon>
         </button>
-        <button mat-raised-button color="warn" (click)="Delete(item)" [matTooltip]="'刪除項目'">
-          <mat-icon>delete</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
       </div>
     </div>
@@ -106,4 +107,7 @@
     </div>
 
   </mat-card>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="Delete(item)"> <mat-icon>delete</mat-icon> <span>刪除</span> </button>
+  </mat-menu>
 </ng-template>

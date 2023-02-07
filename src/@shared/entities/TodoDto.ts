@@ -21,11 +21,11 @@ export class TodoDto {
   completed?: boolean = undefined;
 
   IsInProgress() {
-    return dayjs().isAfter(this.date) && ((this.dueDate && dayjs().isBefore(this.dueDate)));
+    return !this.completed && dayjs().isAfter(this.date) && ((this.dueDate && dayjs().isBefore(this.dueDate)));
   }
 
   IsInComing() {
-    return dayjs().isBefore(this.date);
+    return !this.completed && dayjs().isBefore(this.date);
   }
 
   /** 是否已過期 */
