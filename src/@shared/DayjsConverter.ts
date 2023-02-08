@@ -9,6 +9,7 @@ export class DayjsConverter implements JsonCustomConvert<dayjs.Dayjs> {
   }
 
   deserialize(date: any): dayjs.Dayjs {
-    return dayjs(date)
+    const d = dayjs(date);
+    return d.isValid() ? d : null
   }
 }

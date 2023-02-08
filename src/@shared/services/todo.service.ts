@@ -26,7 +26,7 @@ export class TodoService {
     const todoString = localStorage.getItem(LocalStorageKey.todo) || localStorage.getItem(LocalStorageKey.old_todo);
     // 讀取本地已有的TODO
     if (todoString) {
-      this.todo = this.converter.deserialize((JSON.parse(todoString) as any[]), TodoDto) as TodoDto[];
+      this.todo = this.converter.deserializeArray((JSON.parse(todoString) as any[]), TodoDto)
       console.log(this.todo)
     }
   }
@@ -59,6 +59,7 @@ export class TodoService {
     this.Save();
   }
   Save() {
+    this.todo.sort((a, b) => a.date > b.date ? 1 : -1);
     localStorage.setItem(LocalStorageKey.todo, JSON.stringify(this.converter.serializeArray(this.todo, TodoDto)));
   }
 
