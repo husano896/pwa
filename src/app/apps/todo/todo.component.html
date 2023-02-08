@@ -24,28 +24,26 @@
     <mat-tab-group dynamicHeight *ngIf="todo?.length">
       <mat-tab label="正在進行" *ngIf="InProgress.length">
         <ng-container *ngFor="let t of InProgress">
-          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
 
       </mat-tab>
       <mat-tab label="即將到來" *ngIf="InComing.length">
         <ng-container *ngFor="let t of InComing">
-          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
       </mat-tab>
       <mat-tab label="已過期" *ngIf="OverDue.length">
         <ng-container *ngFor="let t of OverDue">
-          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
       </mat-tab>
       <mat-tab label="已完成" *ngIf="Completed.length">
         <ng-container *ngFor="let t of Completed">
-          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implict: t}"></ng-container>
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
       </mat-tab>
     </mat-tab-group>
-
-
     <button mat-button fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" *ngIf="!todo?.length"
       (click)="openCreateDialog()">
       <mat-icon>info</mat-icon>
@@ -57,7 +55,7 @@
 
 <ng-template #editDialog>
   <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="8px">
-    <h1 mat-dialog-title>新增或編輯代辦</h1>
+    <h1 mat-dialog-title> {{!formGroup.value.id ? '新增待辦' : '編輯待辦'}}</h1>
     <div mat-dialog-content>
       <mat-form-field appearance="standard">
         <mat-label>事件名稱</mat-label>
@@ -84,14 +82,17 @@
 
 <!-- 每個事件的顯示方式-->
 <ng-template #itemTemplate let-item>
-  <mat-card class="example-box" *ngFor="let item of todo" fxLayout="column" fxLayoutGap="8px">
+  <mat-card class="example-box" fxLayout="column" fxLayoutGap="8px">
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
-      <span style="font-size: larger;color: red;" *ngIf="item.getCount() as count">{{count}}d</span>
+      <!-- 剩餘天數 -->
+      <span style="font-size: larger;color: red;">{{item.getCount()}}d</span>
+      <!-- 項目名稱-->
       <div fxFlex> {{item.name}} </div>
 
+      <!-- 可進行的動作-->
       <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
         <button mat-raised-button (click)="MarkAsComplete(item)" [color]="item.completed? 'accent': 'primary'"
-          [matTooltip]="'標示為' + item.completed ? '未完成' : '已完成'">
+          [matTooltip]="'標示為' + (item.completed ? '未完成' : '已完成')">
           <mat-icon>{{item.completed ? 'remove_done' : 'done'}}</mat-icon>
         </button>
         <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -105,9 +106,12 @@
       <!-- 結束時間 -->
       <label>{{item.dueDate ? item.dueDate.format('~ YYYY/MM/DD HH:mm:ss') : ''}}</label>
     </div>
+    <mat-menu #menu="matMenu">
 
+      <button mat-menu-item (click)="openCreateDialog(item)" color="accent"> <mat-icon>edit</mat-icon> <span>編輯</span>
+      </button>
+      <button mat-menu-item (click)="Delete(item)" color="error"> <mat-icon>delete</mat-icon> <span>刪除</span> </button>
+    </mat-menu>
   </mat-card>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="Delete(item)"> <mat-icon>delete</mat-icon> <span>刪除</span> </button>
-  </mat-menu>
+
 </ng-template>

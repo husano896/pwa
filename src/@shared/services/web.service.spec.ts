@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { WebService } from './web.service';
 
@@ -6,7 +7,12 @@ describe('WebService', () => {
   let service: WebService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [
+        // route 依賴
+        RouterTestingModule,
+      ]
+    });
     service = TestBed.inject(WebService);
   });
 

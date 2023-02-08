@@ -13,6 +13,11 @@ import { BatteryService } from '@shared/services/battery.service';
     FlexLayoutModule
   ]
 })
+
+/**
+ * 神奇的酷酷時鐘
+ * standalone控件
+ */
 export class XflyEtherClockComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;

@@ -27,6 +27,7 @@ export class SubscriptionManageComponent implements OnInit {
     amount: new FormControl(0, [Validators.required]),
     /** 所支付的幣種 */
     currency: new FormControl('TWD', [Validators.required]),
+    id: new FormControl()
   })
 
   constructor(
@@ -36,12 +37,12 @@ export class SubscriptionManageComponent implements OnInit {
     private dialog: MatDialog,
     private serv: SubscriptionManageService) {
 
-    this.route.queryParams.subscribe((params: any) => {
-      this.webServ.hideToolbar = true;
-    })
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: any) => {
+      this.webServ.hideToolbar = true;
+    })
   }
 
   ngOnDestroy(): void {
@@ -50,7 +51,7 @@ export class SubscriptionManageComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['..']);
+    this.webServ.back();
   }
 
   /** 前往匯率頁 */

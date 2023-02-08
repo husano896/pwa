@@ -18,13 +18,12 @@ export class CurrenciesComponent implements OnInit {
     private router: Router,
     private webServ: WebService,
     private serv: SubscriptionManageService) {
-
-    this.route.queryParams.subscribe((params: any) => {
-      this.webServ.hideToolbar = true;
-    })
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: any) => {
+      this.webServ.hideToolbar = true;
+    })
   }
 
   ngOnDestroy(): void {
@@ -32,7 +31,7 @@ export class CurrenciesComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['..'], { relativeTo: this.route });
+    this.webServ.back();
   }
 
   exchangeCurrency(from: string, to: string, amount: number) {

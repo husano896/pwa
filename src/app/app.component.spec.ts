@@ -1,34 +1,44 @@
-import { TestBed } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FirebaseModule } from './../@shared/firebase.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        // WebServ & route 依賴
+        RouterTestingModule,
+        // ServiceWorker系列依賴
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: false,
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerImmediately'
+        }),
+        // 翻譯模組依賴
+        TranslateModule.forRoot(),
+        // Firebase依賴
+        FirebaseModule,
+        // snackBar依賴
+        MatSnackBarModule
       ],
       declarations: [
         AppComponent
       ],
     }).compileComponents();
-  });
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'xfly-pwa'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('xfly-pwa app is running!');
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

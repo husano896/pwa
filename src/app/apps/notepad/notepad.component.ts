@@ -96,7 +96,7 @@ export class NotepadComponent implements OnInit, OnDestroy {
   }
   back() {
     this.checkIfModified();
-    this.router.navigate(['..']);
+    this.webServ.back();
   }
 
   onblur() {

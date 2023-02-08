@@ -8,7 +8,7 @@ describe('XflyEtherClockComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ XflyEtherClockComponent ]
+      imports: [ XflyEtherClockComponent ]
     })
     .compileComponents();
 

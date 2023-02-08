@@ -10,4 +10,5 @@ export interface SubscriptionManageDto {
   /** 所支付的幣種 */
   currency: string;
 
+  id?: string;
 }

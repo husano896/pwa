@@ -51,7 +51,6 @@ export class SurveyComponent implements OnInit, OnDestroy {
 
   constructor(
     private webServ: WebService,
-    private router: Router,
     private route: ActivatedRoute,
     private changeDetectionRef: ChangeDetectorRef) { }
 
@@ -113,7 +112,7 @@ export class SurveyComponent implements OnInit, OnDestroy {
     this.changeDetectionRef.detectChanges();
   }
   back() {
-    this.router.navigate(['..']);
+    this.webServ.back();
   }
 
   isEditingOption(options: Array<string>, index: number) {

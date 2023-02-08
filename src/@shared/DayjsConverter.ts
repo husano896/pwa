@@ -5,7 +5,7 @@ import dayjs from 'dayjs-es'
 @JsonConverter
 export class DayjsConverter implements JsonCustomConvert<dayjs.Dayjs> {
   serialize(date: dayjs.Dayjs): string {
-    return dayjs(date).toISOString()
+    return dayjs(date).format('YYYY-MM-DDTHH:mm:ss')
   }
 
   deserialize(date: any): dayjs.Dayjs {

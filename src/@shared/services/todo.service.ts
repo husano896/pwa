@@ -1,13 +1,15 @@
-import { JsonConvert, JsonConverter } from 'json2typescript';
+import { JsonConvert } from 'json2typescript';
 import { Injectable } from '@angular/core';
 import { LocalStorageKey } from '@shared/LocalStorageKey';
 import { TodoDto } from '@shared/entities/TodoDto';
+import _ from 'lodash-es';
 
 export interface ITodoDto {
   name: string;
   date: string;
   dueDate: string;
   completed: boolean;
+  id: string;
 }
 
 @Injectable({
@@ -25,11 +27,25 @@ export class TodoService {
     // 讀取本地已有的TODO
     if (todoString) {
       this.todo = this.converter.deserialize((JSON.parse(todoString) as any[]), TodoDto) as TodoDto[];
+      console.log(this.todo)
     }
   }
 
-  AddTodo(value: {}) {
-    this.todo.push(this.converter.deserialize<TodoDto>(value, TodoDto) as TodoDto)
+  AddOrEditTodo(value: any) {
+
+    // 複製一份, 不要對外部傳進來的直接改...
+    const v = _.clone(value);
+    // 如果有已存在項目時, 修改原先項目
+    const existedItem = this.todo.find(t => t.id && t.id === v.id);
+    if (existedItem) {
+      Object.assign(existedItem, this.converter.deserializeObject(v, TodoDto));
+    } else {
+      // 新增項目的場合
+      if (!v.id) {
+        v.id = crypto.randomUUID()
+      }
+      this.todo.push(this.converter.deserializeObject(v, TodoDto))
+    }
     this.Save();
   }
 
@@ -47,7 +63,7 @@ export class TodoService {
   }
 
   ClearAllOverDue() {
-    this.todo = this.todo.filter(t=>!t.IsOverDue());
+    this.todo = this.todo.filter(t => !t.IsOverDue());
     this.Save();
   }
 

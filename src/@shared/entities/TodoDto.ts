@@ -1,10 +1,10 @@
 import dayjs from 'dayjs-es';
 import { DayjsConverter } from '@shared/DayjsConverter';
 import { JsonObject, JsonProperty } from 'json2typescript';
-import { DateConverter } from './../DateConverter';
 
 @JsonObject('TodoDto')
 export class TodoDto {
+
   @JsonProperty('name', String)
   name: string | null = null;
 
@@ -19,6 +19,16 @@ export class TodoDto {
 
   @JsonProperty('completed', Boolean, true)
   completed?: boolean = undefined;
+
+  @JsonProperty('id', String, true)
+  id?: string = undefined;
+
+  /** 舊版相容用 */
+  genIdIfNotExist() {
+    if (!this.id) {
+      this.id = crypto.randomUUID()
+    }
+  }
 
   IsInProgress() {
     return !this.completed && dayjs().isAfter(this.date) && ((this.dueDate && dayjs().isBefore(this.dueDate)));

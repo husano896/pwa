@@ -80,7 +80,7 @@ export class SubscriptionManageService {
     try {
       // 並非跟美金轉換時, 先轉換成美金
       // from → USD
-      const ratioToUSD = this.currency[`USD${from}`].Exrate
+      const ratioToUSD = from === 'USD' ? 1 : this.currency[`USD${from}`].Exrate
       const USDAmount = amount / ratioToUSD
       // USD → Target
       const ratioToTarget = this.currency[`USD${to}`].Exrate
@@ -163,26 +163,34 @@ export class SubscriptionManageService {
           }
           return this.afStore.doc(this.userDocumentPath(user.uid)).snapshotChanges()
         }),
-      ).subscribe((snapshot) => {
-        // 無User導致snapshot = null時, 不動作
-        if (!snapshot) {
-          return;
-        }
-        const data = snapshot.payload.exists ? snapshot.payload.data() as SubscriptionManageSave : null;
-        console.log('[SubscriptionManage] 線上資料', data, '本地資料', this._save);
-        if (!snapshot.payload.exists || data.time < this._save.time) {
-          // 如果本地版本比線上版本新, 或線上版本不存在時, 備份至線上.
-          this.SaveToFirebase();
-        } else if (!this._save.time || data.time > this._save.time) {
-          // 如果線上版本比本地版本新時, 覆蓋本地
-          console.log('[SubscriptionManage] 自線上取得了存檔', data)
+      ).subscribe({
+        next: (snapshot) => {
+          // 無User導致snapshot = null時, 不動作
+          if (!snapshot) {
+            return;
+          }
+          const data = snapshot.payload.exists ? snapshot.payload.data() as SubscriptionManageSave : null;
+          console.log('[SubscriptionManage] 線上資料', data, '本地資料', this._save);
+          if (!snapshot.payload.exists || data.time < this._save.time) {
+            // 如果本地版本比線上版本新, 或線上版本不存在時, 備份至線上.
+            this.SaveToFirebase();
+          } else if (!this._save.time || data.time > this._save.time) {
+            // 如果線上版本比本地版本新時, 覆蓋本地
+            console.log('[SubscriptionManage] 自線上取得了存檔', data)
+            this.matSnackbar.open(
+              `自雲端取得 ${dayjs(data.time).format('YYYY/MM/DD HH:mm:ss')} 存檔.`,
+              '',
+              { duration: 3000, panelClass: 'mat-positive-bg' }
+            )
+            this._save = data;
+            localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
+          }
+        }, error: (err) => {
           this.matSnackbar.open(
-            `自雲端取得 ${dayjs(data.time).format('YYYY/MM/DD HH:mm:ss')} 存檔.`,
+            `取得雲端存檔時發生錯誤：${err}`,
             '',
-            { duration: 3000 }
+            { duration: 3000, panelClass: 'mat-warning-bg' }
           )
-          this._save = data;
-          localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
         }
       })
   }

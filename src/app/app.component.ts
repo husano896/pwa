@@ -59,7 +59,7 @@ export class AppComponent {
   ) {
 
     // 目前功能名稱取得
-    router.events.subscribe((event) => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.drawer?.close();
 
@@ -74,7 +74,7 @@ export class AppComponent {
       this.swUpdate.checkForUpdate();
       this.swUpdate.versionUpdates.subscribe(event => {
         if (event.type === 'VERSION_READY') {
-          this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理').onAction().subscribe(() => {
+          this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理', {panelClass: 'mat-positive-bg'}).onAction().subscribe(() => {
             location.reload();
           })
         }

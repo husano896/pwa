@@ -1,4 +1,4 @@
-import { TooltipService } from './../../../@shared/services/tooltip.service';
+import { TooltipService } from '@shared/services/tooltip.service';
 import { Component, OnInit } from '@angular/core';
 import { WebService } from '@shared/services/web.service';
 

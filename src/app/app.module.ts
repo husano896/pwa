@@ -30,9 +30,10 @@ import { ErrorCollectorService } from '@shared/services/error-collector.service'
 import { XflyEtherClockComponent } from '@shared/components/xfly-ether-clock/xfly-ether-clock.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FirebaseModule } from '@shared/firebase.module';
+// import { MatDayjsDateModule } from 'material-dayjs-adapter';
 
 const MatModules = [
   MatFormFieldModule,

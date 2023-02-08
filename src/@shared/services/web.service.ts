@@ -1,5 +1,6 @@
 import { Portal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LocalStorageKey } from '@shared/LocalStorageKey';
 
 @Injectable({
@@ -17,16 +18,24 @@ export class WebService {
   /** 右上角可額外操作的按鈕 */
   selectedPortal?: Portal<any>;
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.setFirstEncounter();
     this.setOpenTimes();
     this.setThemeFromLocalStorage();
   }
 
+  /** 返回上層目錄 */
+  back() {
+    this.router.navigate(['..'], { relativeTo: this.route });
+  }
+
   /**
    * 初次使用設定
    */
-  setFirstEncounter() {
+  private setFirstEncounter() {
     const enounter = localStorage.getItem(LocalStorageKey.encounterDate)
     const oldEncounter = localStorage.getItem(LocalStorageKey.old_encounterDate);
     if (!enounter) {

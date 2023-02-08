@@ -1,18 +1,22 @@
+import { DayjsConverter } from '@shared/DayjsConverter';
+import dayjs from 'dayjs-es';
+import { JsonConvert } from 'json2typescript';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WebService } from '@shared/services/web.service';
 import { TodoService } from '@shared/services/todo.service'
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoDto } from '@shared/entities/TodoDto';
 import { ActivatedRoute, Router } from '@angular/router'
+import _ from 'lodash-es';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
+
 export class TodoComponent implements OnInit, OnDestroy {
 
   static IconName = 'checklist';
@@ -22,10 +26,14 @@ export class TodoComponent implements OnInit, OnDestroy {
 
   formGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    date: new FormControl('', [Validators.required]),
+    date: new FormControl(null, [Validators.required]),
     dueDate: new FormControl(),
-    completed: new FormControl(false)
+    completed: new FormControl(false),
+    id: new FormControl(null)
   })
+
+  private converter = new JsonConvert()
+
   constructor(
     private todoServ: TodoService,
     private dialog: MatDialog,
@@ -35,52 +43,49 @@ export class TodoComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params: any) => {
+    this.route.queryParams.subscribe(() => {
       this.webServ.hideToolbar = true;
     })
   }
+
   ngOnDestroy(): void {
     this.webServ.hideToolbar = false;
   }
 
-  drop(event: CdkDragDrop<TodoDto[]>) {
-    // 在同一個列表移動時
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      // 在不同列表移動時
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-    this.todoServ.Save();
-  }
-
   back() {
-    this.router.navigate(['..']);
+    this.webServ.back();
   }
 
-  openCreateDialog() {
-    this.formGroup.reset();
+  openCreateDialog(item?: TodoDto) {
+    // 因為Date沒辦法餵dayjs物件進去, 目前都直接先轉成string
+    if (!item) {
+      this.formGroup.reset();
+      this.formGroup.patchValue({ date: new DayjsConverter().serialize(dayjs()) })
+    } else {
+      this.formGroup.patchValue(this.converter.serializeObject(item, TodoDto))
+    }
     this.dialog.open(this.editDialog);
   }
 
   Submit() {
-    this.todoServ.AddTodo(this.formGroup.value);
+    this.swapDateIfLater();
+    this.todoServ.AddOrEditTodo(this.formGroup.value);
     this.dialog.closeAll();
+    this.snackBar.open(
+      `已${!this.formGroup.value.id ? '新增' : '編輯'}：${this.formGroup.value.name}.`,
+      'OK',
+      { duration: 3000, panelClass: 'mat-positive-bg' }
+    );
   }
 
   MarkAsComplete(i: TodoDto) {
     this.todoServ.MarkAsComplete(i);
-    this.snackBar.open(`已標記為${i.completed ? '完成' : '未完成'}：${i.name}.`, '', { duration: 3000 });
+    this.snackBar.open(`已標記為${i.completed ? '完成' : '未完成'}：${i.name}.`, 'OK', { duration: 3000, panelClass: 'mat-positive-bg' });
   }
 
   Delete(i: TodoDto) {
-    this.snackBar.open(`已刪除：${i.name}.`, '', { duration: 3000 });
     this.todoServ.Delete(i);
+    this.snackBar.open(`已刪除：${i.name}.`, 'OK', { duration: 3000, panelClass: 'mat-positive-bg' });
   }
 
   get todo() {
@@ -110,4 +115,6 @@ export class TodoComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+
 }
