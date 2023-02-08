@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-
-
 interface BatteryManager {
   charging: boolean;
   chargingTime: number;

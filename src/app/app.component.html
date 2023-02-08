@@ -1,5 +1,6 @@
 <mat-drawer-container class="example-container">
-  <mat-drawer mode="over" #drawer>
+  <mat-drawer mode="over" #drawer fxLayout="column" fxLayoutGap="8px" style="height: '100%' ">
+    <!-- 功能列表-->
     <mat-nav-list>
       <mat-list-item *ngFor="let link of links" [routerLink]="link.path" fxLayout="row" fxLayoutGap="8px"
         fxLayoutAlign="space-between center">
@@ -13,6 +14,7 @@
         <app-sync-indicate *ngIf="link.sync">{{(autoSync && user) ? 'sync' : 'sync_disabled'}}</app-sync-indicate>
       </mat-list-item>
     </mat-nav-list>
+    <span style="color: gray; font-size: small;">{{BUILT_DATE}}</span>
   </mat-drawer>
   <mat-drawer-content>
     <div fxLayout="column" fxFlexFill>

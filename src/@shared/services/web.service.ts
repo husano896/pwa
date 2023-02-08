@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocalStorageKey } from '@shared/LocalStorageKey';
 
+export const BUILT_DATE = new Date().toISOString();
+
 @Injectable({
   providedIn: 'root'
 })

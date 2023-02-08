@@ -1,6 +1,5 @@
 import { FirebaseService } from '@shared/services/firebase.service';
 import { SubscriptionManageComponent } from './apps/subscription-manage/subscription-manage.component';
-import { SurveyComponent } from './apps/survey/survey.component';
 import { AsiaMinorComponent } from './apps/asiaminor/asiaminor.component';
 import { NotepadComponent } from './apps/notepad/notepad.component';
 import { QrcodeComponent } from './apps/qrcode/qrcode.component';
@@ -8,8 +7,8 @@ import { EviatComponent } from './apps/eviat/eviat.component';
 import { AboutComponent } from './apps/about/about.component';
 import { TodoComponent } from './apps/todo/todo.component';
 import { IndexComponent } from './apps/index/index.component';
-import { TodoService } from '../@shared/services/todo.service';
-import { WebService } from '../@shared/services/web.service';
+import { TodoService } from '@shared/services/todo.service';
+import { BUILT_DATE, WebService } from '@shared/services/web.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatDrawer } from '@angular/material/sidenav';
@@ -36,7 +35,7 @@ export class AppComponent {
     { name: QrcodeComponent.AppName, path: 'qrcode', icon: QrcodeComponent.IconName },
     { name: NotepadComponent.AppName, path: 'notepad', icon: NotepadComponent.IconName },
     { name: SubscriptionManageComponent.AppName, path: 'subscription_manage', icon: SubscriptionManageComponent.IconName, sync: true },
-    { name: SurveyComponent.AppName, path: 'survey', icon: SurveyComponent.IconName },
+    // { name: SurveyComponent.AppName, path: 'survey', icon: SurveyComponent.IconName },
     { name: AppSyncComponent.AppName, path: 'app_sync', icon: AppSyncComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },
     { name: AboutComponent.AppName, path: 'about', icon: AboutComponent.IconName },
@@ -116,5 +115,9 @@ export class AppComponent {
 
   get user() {
     return this.firebaseServ.User;
+  }
+
+  get BUILT_DATE() {
+    return BUILT_DATE;
   }
 }

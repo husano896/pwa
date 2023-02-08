@@ -1,7 +1,7 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WebService } from '@shared/services/web.service';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { of, Subscription, switchMap } from 'rxjs';
+import { Action, AngularFirestore, DocumentSnapshot } from '@angular/fire/compat/firestore';
+import { Observable, of, Subscription, switchMap } from 'rxjs';
 import { FirebaseService } from '@shared/services/firebase.service';
 import { Currencies } from './Currencies';
 import { LocalStorageKey } from '@shared/LocalStorageKey';
@@ -11,18 +11,12 @@ import { ICurrency } from '@shared/entities/SubscriptionManage/ICurrency';
 import { SubscriptionManageSave } from '@shared/entities/SubscriptionManage/';
 import _ from 'lodash-es'
 import dayjs from 'dayjs-es';
+
 /** 預設使用的存檔 */
 const DEFAULT_SAVE: SubscriptionManageSave = {
   displayCurrency: 'TWD',
-  subscriptionItems: [
-    /** 範例用
-    { name: 'iCloud 50GB', amount: 1, currency: 'USD' },
-    { name: 'Spotify', amount: 30, currency: 'TWD' },
-    { name: 'Pixiv fanbox', amount: 100, currency: 'JPY' },
-     */
-  ]
+  subscriptionItems: []
 }
-
 
 @Injectable()
 export class SubscriptionManageService {
@@ -40,7 +34,6 @@ export class SubscriptionManageService {
     private _http: HttpClient,
     private firebaseServ: FirebaseService,
     private webServ: WebService,
-    private afStore: AngularFirestore,
     private matSnackbar: MatSnackBar) {
     this.loadFromLocalStorage();
     this._getCurrencies()
@@ -155,15 +148,8 @@ export class SubscriptionManageService {
 
   private subscribeFromFirebase() {
     this.unsubscribe();
-    this._firebaseSubscription = this.user$
-      .pipe(
-        switchMap((user) => {
-          if (!user) {
-            return of(null);
-          }
-          return this.afStore.doc(this.userDocumentPath(user.uid)).snapshotChanges()
-        }),
-      ).subscribe({
+    this._firebaseSubscription = this.firebaseServ.createSyncDataPipe('SubscriptionManage')
+      .subscribe({
         next: (snapshot) => {
           // 無User導致snapshot = null時, 不動作
           if (!snapshot) {
@@ -209,12 +195,10 @@ export class SubscriptionManageService {
     this.SaveToFirebase();
   }
 
-  public SaveToFirebase() {
-    if (this.user$) {
-      const doc = this.afStore.doc(this.userDocumentPath(this.user.uid));
-      doc.set(this._save).then(() => {
-        console.log('[SubscriptionManage] 儲存至Firebase完畢')
-      });
+  public async SaveToFirebase() {
+    const result = await this.firebaseServ.saveSyncData('SubscriptionManage', this._save);
+    if (result) {
+      console.log('[SubscriptionManage] 儲存至Firebase完畢.')
     }
   }
 
@@ -227,16 +211,4 @@ export class SubscriptionManageService {
     }
   }
 
-  private get user() {
-    return this.firebaseServ.User;
-  }
-
-
-  private get user$() {
-    return this.firebaseServ.user$;
-  }
-
-  private userDocumentPath(uid: string) {
-    return `/PWA/Users/${uid}/SubscriptionManage`
-  }
 }
