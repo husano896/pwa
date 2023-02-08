@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
+import { FirebaseModule } from '@shared/firebase.module';
 const routes: Routes = [{
   path: '',
   component: TodoComponent
@@ -44,6 +45,7 @@ const routes: Routes = [{
     MatButtonModule,
     MatTabsModule,
     DragDropModule,
+    FirebaseModule.forChild(),
     RouterModule.forChild(routes)
   ]
 })

@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AppUser } from '@shared/entities/Firebase/AppUser';
 import firebase from 'firebase/compat/app';
 import { map, Observable, of, Subscription, switchMap } from 'rxjs';
+import { WebService } from './web.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class FirebaseService {
   private appUserSubscription?: Subscription;
 
   public user$: Observable<firebase.User>;
-  constructor(private afAuth: AngularFireAuth, private afStore: AngularFirestore) {
+  constructor(private afAuth: AngularFireAuth, private afStore: AngularFirestore, private webServ: WebService) {
     // 偵測登入狀態
     this.user$ = this.afAuth.authState;
     this.user$.subscribe(u => {

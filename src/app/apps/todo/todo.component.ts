@@ -38,7 +38,6 @@ export class TodoComponent implements OnInit, OnDestroy {
     private todoServ: TodoService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router,
     private webServ: WebService,
     private snackBar: MatSnackBar) { }
 
@@ -46,10 +45,14 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe(() => {
       this.webServ.hideToolbar = true;
     })
+    if (this.webServ.autoSync) {
+      this.todoServ.subscribeFromFirebase();
+    }
   }
 
   ngOnDestroy(): void {
     this.webServ.hideToolbar = false;
+    this.todoServ.unsubscribe();
   }
 
   back() {
@@ -60,7 +63,7 @@ export class TodoComponent implements OnInit, OnDestroy {
     // 因為Date沒辦法餵dayjs物件進去, 目前都直接先轉成string
     if (!item) {
       this.formGroup.reset();
-      this.formGroup.patchValue({ date: new DayjsConverter().serialize(dayjs()) })
+      this.formGroup.patchValue({ date: new DayjsConverter().serialize(dayjs().add(1,'day')) })
     } else {
       this.formGroup.patchValue(this.converter.serializeObject(item, TodoDto))
     }

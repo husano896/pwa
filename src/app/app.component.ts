@@ -29,7 +29,7 @@ export class AppComponent {
 
   links = [
     { name: IndexComponent.AppName, path: '', icon: IndexComponent.IconName },
-    { name: TodoComponent.AppName, path: 'todo', icon: TodoComponent.IconName, extra: () => this.todoServ.todo.length },
+    { name: TodoComponent.AppName, path: 'todo', icon: TodoComponent.IconName, sync: true },
     { name: EviatComponent.AppName, path: 'eviat', icon: EviatComponent.IconName },
     { name: AsiaMinorComponent.AppName, path: 'asiaminor', icon: AsiaMinorComponent.IconName },
     { name: QrcodeComponent.AppName, path: 'qrcode', icon: QrcodeComponent.IconName },
@@ -48,7 +48,6 @@ export class AppComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private todoServ: TodoService,
     private webServ: WebService,
     private swUpdate: SwUpdate,
     private swPush: SwPush,
@@ -73,7 +72,7 @@ export class AppComponent {
       this.swUpdate.checkForUpdate();
       this.swUpdate.versionUpdates.subscribe(event => {
         if (event.type === 'VERSION_READY') {
-          this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理', {panelClass: 'mat-positive-bg'}).onAction().subscribe(() => {
+          this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理', { panelClass: 'mat-positive-bg' }).onAction().subscribe(() => {
             location.reload();
           })
         }

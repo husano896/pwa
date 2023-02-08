@@ -18,6 +18,10 @@ const DEFAULT_SAVE: SubscriptionManageSave = {
   subscriptionItems: []
 }
 
+const AppCollectionName = 'SubscriptionManage'
+
+const AppLocalStorageName = LocalStorageKey.subscriptionManageSave;
+
 @Injectable()
 export class SubscriptionManageService {
   currency?: { [exchangeType: string]: ICurrency } = Currencies
@@ -122,33 +126,9 @@ export class SubscriptionManageService {
         })
   }
 
-  /** 自LocalStorage讀取存檔 */
-  public loadFromLocalStorage() {
-    try {
-      this._save = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManageSave) || 'null');
-      this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManageCurrencies) || 'null');
-
-    } catch (err) {
-      console.warn('[SubscriptionManage] 讀檔時發生錯誤！', err);
-    } finally {
-      if (!this._save) {
-        this._save = DEFAULT_SAVE;
-      }
-      if (!this.currency) {
-        this.currency = Currencies;
-      }
-
-      this.currencyList = Object.entries(this.currency).map(([name, currency]) => ({ name, ...currency }))
-      this.currencyNames = this.currencyList
-        .filter(l => l.name.startsWith('USD'))
-        .map(l => l.name.length > 3 ? l.name.substring(3) : l.name)
-        .sort();
-    }
-  }
-
   private subscribeFromFirebase() {
     this.unsubscribe();
-    this._firebaseSubscription = this.firebaseServ.createSyncDataPipe('SubscriptionManage')
+    this._firebaseSubscription = this.firebaseServ.createSyncDataPipe(AppCollectionName)
       .subscribe({
         next: (snapshot) => {
           // 無User導致snapshot = null時, 不動作
@@ -169,7 +149,7 @@ export class SubscriptionManageService {
               { duration: 3000, panelClass: 'mat-positive-bg' }
             )
             this._save = data;
-            localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
+            localStorage.setItem(AppLocalStorageName, JSON.stringify(this._save));
           }
         }, error: (err) => {
           this.matSnackbar.open(
@@ -181,22 +161,8 @@ export class SubscriptionManageService {
       })
   }
 
-  /** 存檔至LocalStorage */
-  public SaveToLocalStorage() {
-    this._save.lastSaveTime = this._save.time;
-    this._save.time = new Date().getTime();
-
-    try {
-      localStorage.setItem(LocalStorageKey.subscriptionManageSave, JSON.stringify(this._save));
-    } catch (err) {
-      console.warn('[SubscriptionManage] 存檔時發生錯誤！', err);
-    }
-
-    this.SaveToFirebase();
-  }
-
   public async SaveToFirebase() {
-    const result = await this.firebaseServ.saveSyncData('SubscriptionManage', this._save);
+    const result = await this.firebaseServ.saveSyncData(AppCollectionName, this._save);
     if (result) {
       console.log('[SubscriptionManage] 儲存至Firebase完畢.')
     }
@@ -211,4 +177,41 @@ export class SubscriptionManageService {
     }
   }
 
+  /** 存檔至LocalStorage */
+  public SaveToLocalStorage() {
+    this._save.lastSaveTime = this._save.time;
+    this._save.time = new Date().getTime();
+
+    try {
+      localStorage.setItem(AppLocalStorageName, JSON.stringify(this._save));
+    } catch (err) {
+      console.warn('[SubscriptionManage] 存檔時發生錯誤！', err);
+    }
+
+    this.SaveToFirebase();
+  }
+
+  /** 自LocalStorage讀取存檔 */
+  public loadFromLocalStorage() {
+    try {
+      this._save = JSON.parse(localStorage.getItem(AppLocalStorageName) || 'null');
+      this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.subscriptionManageCurrencies) || 'null');
+
+    } catch (err) {
+      console.warn('[SubscriptionManage] 讀檔時發生錯誤！', err);
+    } finally {
+      if (!this._save) {
+        this._save = DEFAULT_SAVE;
+      }
+      if (!this.currency) {
+        this.currency = Currencies;
+      }
+
+      this.currencyList = Object.entries(this.currency).map(([name, currency]) => ({ name, ...currency }))
+      this.currencyNames = this.currencyList
+        .filter(l => l.name.startsWith('USD'))
+        .map(l => l.name.length > 3 ? l.name.substring(3) : l.name)
+        .sort();
+    }
+  }
 }
