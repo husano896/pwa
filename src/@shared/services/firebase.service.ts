@@ -82,7 +82,7 @@ export class FirebaseService {
    * @param data 要儲存的資料
    */
   saveSyncData(appName: string, data: any) {
-    if (!this.user) {
+    if (!this.user || !this.webServ.autoSync) {
       return Promise.resolve();
     }
     const doc = this.afStore.doc(this.getDocumentPath(appName));

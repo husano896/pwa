@@ -37,6 +37,19 @@ export class TodoService {
   private converter = new JsonConvert();
   private _firebaseSubscription: Subscription;
 
+  private _cache: {
+    InProgress: TodoDto[],
+    InComing: TodoDto[],
+    Overdue: TodoDto[],
+    Completed: TodoDto[]
+  } = {
+      InProgress: [],
+      InComing: [],
+      Overdue: [],
+      Completed: []
+    }
+
+  private _chartCache = []
   constructor(
     private firebaseServ: FirebaseService,
     private matSnackbar: MatSnackBar) {
@@ -57,7 +70,7 @@ export class TodoService {
       }
       this.todo.push(this.converter.deserializeObject(v, TodoDto))
     }
-    this.Save();
+    this.SaveToLocalStorage();
   }
 
   MarkAsComplete(i: TodoDto) {
@@ -67,9 +80,6 @@ export class TodoService {
 
   Delete(i: TodoDto) {
     this.todo = this.todo.filter(todo => todo !== i);
-    this.SaveToLocalStorage();
-  }
-  Save() {
     this.SaveToLocalStorage();
   }
 
@@ -151,7 +161,7 @@ export class TodoService {
     } catch (err) {
       console.warn(`[${AppCollectionName}] 存檔時發生錯誤！`, err);
     }
-
+    this.recalculateCache();
     this.SaveToFirebase();
   }
 
@@ -178,24 +188,59 @@ export class TodoService {
       if (!this._save) {
         this._save = DEFAULT_SAVE;
       }
+      this.recalculateCache();
     }
   }
 
   /** 各個分類的事件 */
   get InProgress() {
-    return this.todo.filter(t => t.IsInProgress());
+    return this._cache.InProgress
   }
 
   get InComing() {
-    return this.todo.filter(t => t.IsInComing());
+    return this._cache.InComing;
   }
 
   get Overdue() {
-    return this.todo.filter(t => t.IsOverDue());
+    return this._cache.Overdue;
   }
 
   get Completed() {
-    return this.todo.filter(t => t.IsCompleted());
+    return this._cache.Completed;
   }
 
+  get ChartData() {
+    return this._chartCache;
+  }
+
+  /** 重新計算各分類以及圓餅圖的快取 */
+  private recalculateCache() {
+    this._cache = {
+      InProgress: this.todo.filter(t => t.IsInProgress()),
+      InComing: this.todo.filter(t => t.IsInComing()),
+      Overdue: this.todo.filter(t => t.IsOverDue()),
+      Completed: this.todo.filter(t => t.IsCompleted()),
+    };
+    this._chartCache = [
+      {
+        name: '正在進行',
+        value: this.InProgress.length
+      },
+
+      {
+        name: '即將到來',
+        value: this.InComing.length
+      },
+
+      {
+        name: '已過期',
+        value: this.Overdue.length
+      },
+
+      {
+        name: '已完成',
+        value: this.Completed.length
+      },
+    ]
+  }
 }

@@ -19,6 +19,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 import { FirebaseModule } from '@shared/firebase.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 const routes: Routes = [{
   path: '',
   component: TodoComponent
@@ -44,6 +45,7 @@ const routes: Routes = [{
     MatMenuModule,
     MatButtonModule,
     MatTabsModule,
+    NgxChartsModule,
     DragDropModule,
     FirebaseModule.forChild(),
     RouterModule.forChild(routes)

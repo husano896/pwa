@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="8px">
+<div fxLayout="column" fxLayoutGap="8px" style="height: 100%;">
 
   <mat-toolbar color="primary">
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
@@ -23,24 +23,39 @@
 
   <div fxLayout="column" fxLayoutGap="16px" style="height: 100%; overflow: auto;">
     <mat-tab-group dynamicHeight *ngIf="todo?.length">
-      <mat-tab label="正在進行" *ngIf="InProgress.length">
+      <mat-tab label="總覽">
+        <ng-template matTabContent>
+          <!-- 圖表控件-->
+          <div class="-fit-width-or-height">
+            <!-- https://swimlane.gitbook.io/ngx-charts/installing -->
+            <ngx-charts-pie-chart [results]="ChartData" [labels]="true">
+            </ngx-charts-pie-chart>
+          </div>
+        </ng-template>
+      </mat-tab>
+      <mat-tab [label]="'正在進行' + '(' + InProgress.length +')'" *ngIf="InProgress.length">
         <ng-container *ngFor="let t of InProgress">
           <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
 
       </mat-tab>
-      <mat-tab label="即將到來" *ngIf="InComing.length">
+      <mat-tab [label]="'即將到來' + '('  + InComing.length +')'" *ngIf="InComing.length">
         <ng-container *ngFor="let t of InComing">
           <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
       </mat-tab>
-      <mat-tab label="已過期" *ngIf="OverDue.length">
+      <mat-tab [label]="'已過期' + '('  +OverDue.length +')'" *ngIf="OverDue.length">
         <ng-container *ngFor="let t of OverDue">
           <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
       </mat-tab>
-      <mat-tab label="已完成" *ngIf="Completed.length">
+      <mat-tab [label]="'已完成'  + '(' + Completed.length +')'" *ngIf="Completed.length">
         <ng-container *ngFor="let t of Completed">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
+        </ng-container>
+      </mat-tab>
+      <mat-tab [label]="'全部' + '(' + todo.length +')' ">
+        <ng-container *ngFor="let t of todo">
           <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: t}"></ng-container>
         </ng-container>
       </mat-tab>

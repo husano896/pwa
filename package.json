@@ -26,6 +26,7 @@
     "@angular/service-worker": "^14.2.5",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "@swimlane/ngx-charts": "^20.1.2",
     "@zxing/ngx-scanner": "^3.6.2",
     "angularx-qrcode": "^14.0.0",
     "dayjs": "^1.11.7",

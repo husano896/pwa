@@ -34,6 +34,7 @@ export class TodoComponent implements OnInit, OnDestroy {
 
   private converter = new JsonConvert()
 
+  chartData = []
   constructor(
     private todoServ: TodoService,
     private dialog: MatDialog,
@@ -63,7 +64,7 @@ export class TodoComponent implements OnInit, OnDestroy {
     // 因為Date沒辦法餵dayjs物件進去, 目前都直接先轉成string
     if (!item) {
       this.formGroup.reset();
-      this.formGroup.patchValue({ date: new DayjsConverter().serialize(dayjs().add(1,'day')) })
+      this.formGroup.patchValue({ date: new DayjsConverter().serialize(dayjs().add(1, 'day')) })
     } else {
       this.formGroup.patchValue(this.converter.serializeObject(item, TodoDto))
     }
@@ -89,6 +90,10 @@ export class TodoComponent implements OnInit, OnDestroy {
   Delete(i: TodoDto) {
     this.todoServ.Delete(i);
     this.snackBar.open(`已刪除：${i.name}.`, 'OK', { duration: 3000, panelClass: 'mat-positive-bg' });
+  }
+
+  get ChartData() {
+    return this.todoServ.ChartData;
   }
 
   get todo() {
