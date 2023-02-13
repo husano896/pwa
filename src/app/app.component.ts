@@ -71,12 +71,23 @@ export class AppComponent {
       console.log('[ServiceWorker] 已啟用.');
       this.swUpdate.checkForUpdate();
       this.swUpdate.versionUpdates.subscribe(event => {
-        if (event.type === 'VERSION_READY') {
-          this.snackbar.open('新版本已安裝完成！重新整理以載入', '重新整理', { panelClass: 'mat-positive-bg' }).onAction().subscribe(() => {
+        if (event.type === 'VERSION_DETECTED') {
+          this.snackbar.open('偵測到新版本，於背景下載中.', '', { panelClass: 'mat-positive-bg', duration: 3000 })
+        }
+        else if (event.type === 'VERSION_READY') {
+          this.snackbar.open('新版本已安裝完成！重新整理以載入.', '重新整理', { panelClass: 'mat-positive-bg' }).onAction().subscribe(() => {
             location.reload();
           })
+        } else if (event.type === 'VERSION_INSTALLATION_FAILED') {
+          this.snackbar.open('新版本安裝失敗，請確認連線狀態.', '', { panelClass: 'mat-warning-bg', duration: 3000 })
         }
       })
+      this.swUpdate.unrecoverable.subscribe((event) => {
+        this.snackbar.open(`本地版本發生問題：${event.reason}, 需要重新整理！`, '重新整理', { panelClass: 'mat-negative-bg' }).onAction().subscribe(() => {
+          location.reload();
+        })
+      })
+
     }
     this.translate.use('zh-tw');
     this.translate.setDefaultLang('zh-tw');

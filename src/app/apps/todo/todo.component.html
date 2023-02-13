@@ -83,7 +83,7 @@
       </mat-form-field>
       <mat-form-field appearance="standard">
         <mat-label>結束日期</mat-label>
-        <input #endDate matInput formControlName="dueDate" type="datetime-local">
+        <input #endDate matInput formControlName="dueDate" type="datetime-local" [min]="startDate.value">
       </mat-form-field>
 
       <mat-checkbox formControlName="completed">已完成</mat-checkbox>
