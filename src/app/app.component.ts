@@ -9,7 +9,7 @@ import { TodoComponent } from './apps/todo/todo.component';
 import { IndexComponent } from './apps/index/index.component';
 import { TodoService } from '@shared/services/todo.service';
 import { BUILT_DATE, WebService } from '@shared/services/web.service';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -17,13 +17,14 @@ import { SettingsComponent } from './apps/settings/settings.component';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 import { TranslateService } from '@ngx-translate/core';
 import { AppSyncComponent } from './apps/app-sync/app-sync.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 
   @ViewChild(MatDrawer) drawer?: MatDrawer;
 
@@ -44,6 +45,8 @@ export class AppComponent {
 
   sidebarClosed: boolean = false;
   CurrentFunctionName?: string = 'xFly PWA';
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -87,10 +90,17 @@ export class AppComponent {
           location.reload();
         })
       })
-
     }
+
+    // 線上狀態更新部分
+    this.subscriptions.push(this.webServ.online$.subscribe(online => {
+      this.snackbar.open(online ? `網路已連線` : `網路已中斷`, 'OK', { panelClass: online ? 'mat-positive-bg' : 'mat-warning-bg', duration: 3000 })
+    }));
+
+    // 預設使用中文語系
     this.translate.use('zh-tw');
     this.translate.setDefaultLang('zh-tw');
+
     // Query參數訂閱
     this.route.queryParams.subscribe((params: any) => {
       if (!params) {
@@ -104,6 +114,9 @@ export class AppComponent {
     });
   }
 
+  ngOnDestroy() {
+    this.webServ.onDestroy();
+  }
   /**
    * 隱藏網站自身導覽列, 各App內需自備工具列！
   */

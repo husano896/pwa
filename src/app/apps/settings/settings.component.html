@@ -9,7 +9,7 @@
       </ng-template>
 
       <div fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="space-between start">
-        <mat-card-title>{{user?.displayName || '未登入'}}</mat-card-title>
+        <mat-card-title>{{user?.displayName || '未登入或離線中'}}</mat-card-title>
         <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
       </div>
 
@@ -27,14 +27,21 @@
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
 
-      <button *ngIf="!user; else logoutButton" mat-button color="primary" (click)="login()">
-        登入
-      </button>
+      <ng-container *ngIf="online; else offlineTemplate">
 
-      <ng-template #logoutButton>
-        <button mat-button color="error" (click)="logout()">
-          登出
+        <button *ngIf="!user; else logoutButton" mat-raised-button color="primary" (click)="login()">
+          登入
         </button>
+
+        <ng-template #logoutButton>
+          <button mat-raised-button color="error" (click)="logout()">
+            登出
+          </button>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #offlineTemplate>
+        網路未連線
       </ng-template>
     </mat-card-actions>
   </mat-card>

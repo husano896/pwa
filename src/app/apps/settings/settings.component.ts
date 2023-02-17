@@ -111,6 +111,9 @@ export class SettingsComponent {
     }
   }
 
+  get online() {
+    return this.webServ.online;
+  }
   get debugMode() {
     return this.webServ.debug;
   }

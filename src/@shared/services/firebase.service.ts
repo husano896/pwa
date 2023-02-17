@@ -22,7 +22,6 @@ export class FirebaseService {
     this.user$.subscribe(u => {
       console.log('登入使用者：', u);
       this.user = u;
-
       // 如果有前次的使用者訂閱監聽, 取消
       if (this.appUserSubscription) {
         this.appUserSubscription.unsubscribe();

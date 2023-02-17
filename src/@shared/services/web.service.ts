@@ -2,6 +2,7 @@ import { Portal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocalStorageKey } from '@shared/LocalStorageKey';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export const BUILT_DATE = new Date().toISOString();
 
@@ -17,16 +18,24 @@ export class WebService {
   /** 隱藏上方工具列 */
   hideToolbar?: boolean;
 
-  /** 右上角可額外操作的按鈕 */
+  /** 目前未使用：右上角可額外操作的按鈕 */
   selectedPortal?: Portal<any>;
+
+  /** 網站離線/上線事件 */
+  online$: Subject<boolean> = new Subject<boolean>();
+
+  /** 網路是否正常 */
+  online: boolean = true;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.setFirstEncounter();
-    this.setOpenTimes();
+    this._setFirstEncounter();
+    this._setOpenTimes();
     this.setThemeFromLocalStorage();
+    this._registerOnlineOfflineEvent();
+
   }
 
   /** 返回上層目錄 */
@@ -37,7 +46,7 @@ export class WebService {
   /**
    * 初次使用設定
    */
-  private setFirstEncounter() {
+  private _setFirstEncounter() {
     const enounter = localStorage.getItem(LocalStorageKey.encounterDate)
     const oldEncounter = localStorage.getItem(LocalStorageKey.old_encounterDate);
     if (!enounter) {
@@ -50,6 +59,7 @@ export class WebService {
     }
   }
 
+
   get encounterDate() {
     return new Date(localStorage.getItem(LocalStorageKey.encounterDate) || localStorage.getItem(LocalStorageKey.old_encounterDate) || '');
   }
@@ -57,7 +67,7 @@ export class WebService {
   /**
    * 每次App開啟時就把次數+1
    */
-  setOpenTimes() {
+  private _setOpenTimes() {
     this.openedTimes = Number(localStorage.getItem(LocalStorageKey.openTimes) || localStorage.getItem(LocalStorageKey.old_openTimes));
     this.openedTimes += 1;
     localStorage.setItem(LocalStorageKey.openTimes, `${this.openedTimes}`);
@@ -113,5 +123,37 @@ export class WebService {
 
   set autoSync(open: boolean) {
     localStorage.setItem(LocalStorageKey.autoSync, open ? 'true' : '')
+  }
+
+  /** 聆聽網路離線/上線事件 */
+  private _registerOnlineOfflineEvent() {
+    window.addEventListener('online', this._handleOnlineEvent.bind(this));
+    window.addEventListener('offline', this._handleOfflineEvent.bind(this));
+  }
+
+  private _unregisterOnlineOfflineEvent() {
+    window.removeEventListener('online', this._handleOnlineEvent.bind(this));
+    window.removeEventListener('offline', this._handleOfflineEvent.bind(this));
+
+  }
+
+  private _handleOnlineEvent() {
+    if (this.online) {
+      return;
+    }
+    this.online$.next(true);
+    this.online = true;
+  }
+
+  private _handleOfflineEvent() {
+    if (!this.online) {
+      return;
+    }
+    this.online$.next(false);
+    this.online = false;
+  }
+
+  onDestroy() {
+    this._unregisterOnlineOfflineEvent();
   }
 }
