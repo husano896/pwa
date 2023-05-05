@@ -10,7 +10,7 @@
     <button mat-raised-button *ngIf="isOpenable()" (click)="open()" color="accent">在瀏覽器中開啟</button>
     <button mat-raised-button (click)="result = undefined;" color="primary">再次掃描</button>
   </div>
-  <zxing-scanner (scanSuccess)="onScanSuccess($event)" (scanError)="onScanError($event)" *ngIf="!result"
+  <zxing-scanner [formats]="allowedFormats" (scanSuccess)="onScanSuccess($event)" (scanError)="onScanError($event)" *ngIf="!result"
     (scanFailure)="onScanFailure($event)" (scanComplete)="onScanComplete($event)"
     (camerasFound)="onCamerasFound($event)" (camerasNotFound)="onCamerasNotFound($event)"
     (permissionResponse)="onPermissionResponse($event)" (hasDevices)="onHasDevices($event)" style="height: 100%;"></zxing-scanner>

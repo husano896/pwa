@@ -2,13 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 
 import { Exception, Result } from '@zxing/library';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { BarcodeFormat } from '@zxing/library';
 @Component({
   selector: 'app-qrcode',
   templateUrl: './qrcode.component.html',
   styleUrls: ['./qrcode.component.scss']
 })
 export class QrcodeComponent implements OnInit {
+
+
+  allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
 
   static IconName = 'qr_code_scanner';
   static AppName = 'QR Code掃描器'
