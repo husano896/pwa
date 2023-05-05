@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1683295366364,
+  "timestamp": 1683295750916,
   "index": "/pwa/index.html",
   "assetGroups": [
     {
@@ -23,7 +23,7 @@
         "/pwa/814.6e2010479377b6f2.js",
         "/pwa/favicon.ico",
         "/pwa/index.html",
-        "/pwa/main.b57e3fc299157620.js",
+        "/pwa/main.a79c802a3014602d.js",
         "/pwa/manifest.webmanifest",
         "/pwa/polyfills.03a48880c41302d7.js",
         "/pwa/runtime.d76388d9c8e0d232.js",
@@ -93,8 +93,8 @@
     "/pwa/assets/imgs/eviat.webp": "58f67061df17c87b88a8226ddfa789ae1184188b",
     "/pwa/assets/imgs/x.svg": "254cd57802b4e78e6b978914d023f44d7e3b0da5",
     "/pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/pwa/index.html": "eda16d5e683fcb712f99672324afbb0d846b1dae",
-    "/pwa/main.b57e3fc299157620.js": "c25817a12c0b2e125500ea18562e445f92f57a02",
+    "/pwa/index.html": "28fb787933cd25d2c5b286c5533bbbff01915e41",
+    "/pwa/main.a79c802a3014602d.js": "eaa0f3186f77e179e1743af73cff75ef7363450f",
     "/pwa/manifest.webmanifest": "c672e1d1c4381bbc9fcfc422d356e778c1b0d841",
     "/pwa/material-icons-outlined.78a93b2079680a08.woff": "b52ccd8fca4199d257b2a9fe377db29862f2853e",
     "/pwa/material-icons-outlined.f86cb7b0aa53f0fe.woff2": "2f9e28ab559782402f27332633c843c40209d95a",

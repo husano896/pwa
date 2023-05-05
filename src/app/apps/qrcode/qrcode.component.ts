@@ -11,7 +11,7 @@ import { BarcodeFormat } from '@zxing/library';
 export class QrcodeComponent implements OnInit {
 
 
-  allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
+  allowedFormats = [ BarcodeFormat.CODABAR, BarcodeFormat.CODE_39, BarcodeFormat.CODE_93, BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
 
   static IconName = 'qr_code_scanner';
   static AppName = 'QR Code掃描器'
