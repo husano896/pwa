@@ -70,6 +70,9 @@ export class SubscriptionManageService {
    */
   public exchangeCurrency(from: string, to: string, amount: number): number {
     // 幣種相同時直接回傳
+    if (!this.currency) {
+      return 0;
+    }
     if (from === to || amount === 0) {
       return amount
     }
@@ -106,13 +109,13 @@ export class SubscriptionManageService {
  */
   private _getCurrencies() {
     return this._http
-      .get<{ [exchangeType: string]: ICurrency }>('/api/currency')
+      .get<{ data: {[exchangeType: string]: ICurrency }}>('https://xflystudio-backend.fly.dev/api/home/currency')
       .subscribe(
         {
           next:
             (resp) => {
-              this.currency = resp;
-              this.currencyList = Object.entries(resp).map(([name, currency]) => ({ name, ...currency }))
+              this.currency = resp.data;
+              this.currencyList = Object.entries(resp.data).map(([name, currency]) => ({ name, ...currency }))
               this.currencyNames = this.currencyList
                 .filter(l => l.name.startsWith('USD'))
                 .map(l => l.name.length > 3 ? l.name.substring(3) : l.name)

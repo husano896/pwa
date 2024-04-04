@@ -2,7 +2,7 @@
   <mat-drawer mode="over" #drawer fxLayout="column" fxLayoutGap="8px" style="height: '100%' ">
     <!-- 功能列表-->
     <mat-nav-list>
-      <mat-list-item *ngFor="let link of links" [routerLink]="link.path" fxLayout="row" fxLayoutGap="8px"
+      <mat-list-item *ngFor="let link of links" [routerLink]="link.path" fxLayout="row" fxLayoutGap="16px"
         fxLayoutAlign="space-between center">
         <mat-icon matListIcon> {{link.icon}}</mat-icon>
         <a matLine>{{ link.name }}</a>

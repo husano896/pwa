@@ -46,6 +46,14 @@ const routes: Routes = [
     loadChildren: () => import('./apps/survey/survey.module').then(m => m.SurveyModule)
   },
   {
+    path: 'fur_drinksbar',
+    loadChildren: () => import('./apps/furdrinksbar/furdrinksbar.module').then(m => m.FurDrinksBarModule)
+  },
+  {
+    path: 'shop_scanner',
+    loadChildren: () => import('./apps/shop-scanner/shop-scanner.module').then(m => m.ShopScannerModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     component: IndexComponent

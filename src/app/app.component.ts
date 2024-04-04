@@ -18,6 +18,7 @@ import { SwPush, SwUpdate } from '@angular/service-worker';
 import { TranslateService } from '@ngx-translate/core';
 import { AppSyncComponent } from './apps/app-sync/app-sync.component';
 import { Subscription } from 'rxjs';
+import { FurdrinksbarComponent } from './apps/furdrinksbar/furdrinksbar.component';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ export class AppComponent implements OnDestroy {
 
   links = [
     { name: IndexComponent.AppName, path: '', icon: IndexComponent.IconName },
+    { name: FurdrinksbarComponent.AppName, path: 'fur_drinksbar', icon: FurdrinksbarComponent.IconName },
     { name: TodoComponent.AppName, path: 'todo', icon: TodoComponent.IconName, sync: true },
     { name: EviatComponent.AppName, path: 'eviat', icon: EviatComponent.IconName },
     { name: AsiaMinorComponent.AppName, path: 'asiaminor', icon: AsiaMinorComponent.IconName },

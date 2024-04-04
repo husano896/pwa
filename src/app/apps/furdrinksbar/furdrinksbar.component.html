@@ -1,0 +1,56 @@
+<div fxLayout="column" fxFlexFill #top>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" fxFlex>
+                <span>{{AppName}}</span>
+            </div>
+            <!-- 小版顯示點點選單 -->
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+
+                <button mat-icon-button [matMenuTriggerFor]="actionMenu">
+                    <mat-icon>translate</mat-icon>
+                </button>
+                <mat-menu #actionMenu="matMenu">
+                    <ng-container *ngTemplateOutlet="menuActions"></ng-container>
+                </mat-menu>
+            </div>
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <!-- 飲料清單-->
+    <div #DrinksContainer fxLayout="row wrap" style="overflow: auto;">
+        <div *ngFor="let d of drinks" fxFlex.gt-sm="33" fxFlex.lt-md="50"
+            style="padding:8px;box-sizing: border-box;overflow:hidden;">
+            <mat-card  [ngClass]="{disabled: d.disabled}" style="overflow: hidden;">
+                <mat-card-title>{{d.name}}</mat-card-title>
+                <mat-card-subtitle>{{d.ingredients.join(', ')}}</mat-card-subtitle>
+                <mat-card-content>
+                    <img alt="drink" src="/assets/imgs/drink.jpg" style="width:100%" />
+                </mat-card-content>
+                <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+                    <button mat-raised-button color="accent" (click)="d.disabled = !d.disabled">{{d.disabled ? '上市' :'下市'}}</button>
+                    <button mat-raised-button color="error">刪除</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <button mat-fab class="x-fab-screen" (click)="DrinksContainer.scrollTo(0,0)">
+            <mat-icon>arrow_upward</mat-icon>
+        </button>
+    </div>
+</div>
+
+<ng-template #menuActions>
+    <button mat-menu-item>
+        <mat-icon>add</mat-icon>
+        <label>開新檔案</label>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>folder_open</mat-icon>
+        <label>開啟舊檔</label>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>save</mat-icon>
+        <label>儲存</label>
+    </button>
+</ng-template>

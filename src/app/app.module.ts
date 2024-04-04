@@ -1,5 +1,4 @@
 import { FormsModule } from '@angular/forms';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -73,7 +72,7 @@ function ImportTranslateJson(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    ...components,
+    ...components
   ],
   imports: [
     BrowserModule,
