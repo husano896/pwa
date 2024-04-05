@@ -19,6 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AppSyncComponent } from './apps/app-sync/app-sync.component';
 import { Subscription } from 'rxjs';
 import { FurdrinksbarComponent } from './apps/furdrinksbar/furdrinksbar.component';
+import { ShopScannerComponent } from './apps/shop-scanner/shop-scanner.component';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +43,7 @@ export class AppComponent implements OnDestroy {
     { name: AppSyncComponent.AppName, path: 'app_sync', icon: AppSyncComponent.IconName },
     { name: SettingsComponent.AppName, path: 'settings', icon: SettingsComponent.IconName },
     { name: AboutComponent.AppName, path: 'about', icon: AboutComponent.IconName },
-
+    { name: ShopScannerComponent.AppName, path: 'shop_scanner', icon: ShopScannerComponent.IconName }
   ]
 
   sidebarClosed: boolean = false;

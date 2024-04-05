@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes: Routes = [{
   path: '',
@@ -28,7 +30,9 @@ const routes: Routes = [{
     MatCardModule,
     MatButtonModule,
     MatInputModule,
+    MatSlideToggleModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(routes)
