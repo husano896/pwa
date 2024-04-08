@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [{
   path: '',
@@ -33,6 +34,7 @@ const routes: Routes = [{
     MatSlideToggleModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(routes)

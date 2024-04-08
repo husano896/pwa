@@ -13,6 +13,9 @@
   <zxing-scanner [formats]="allowedFormats" (scanSuccess)="onScanSuccess($event)" (scanError)="onScanError($event)" *ngIf="!result"
     (scanFailure)="onScanFailure($event)" (scanComplete)="onScanComplete($event)"
     (camerasFound)="onCamerasFound($event)" (camerasNotFound)="onCamerasNotFound($event)"
-    (permissionResponse)="onPermissionResponse($event)" (hasDevices)="onHasDevices($event)" style="height: 100%;"></zxing-scanner>
+    (permissionResponse)="onPermissionResponse($event)" (hasDevices)="onHasDevices($event)" style="height: 100%;"
+    [timeBetweenScans]="33"
+    [tryHarder]="true"
+    ></zxing-scanner>
 
 </div>
