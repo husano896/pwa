@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1712559665966,
+  "timestamp": 1713064164657,
   "index": "/pwa/index.html",
   "assetGroups": [
     {
@@ -26,10 +26,10 @@
         "/pwa/814.6e2010479377b6f2.js",
         "/pwa/favicon.ico",
         "/pwa/index.html",
-        "/pwa/main.b7c58521602da6a7.js",
+        "/pwa/main.223861dc28361054.js",
         "/pwa/manifest.webmanifest",
         "/pwa/polyfills.03a48880c41302d7.js",
-        "/pwa/runtime.3b15b8861bf2cf83.js",
+        "/pwa/runtime.dea4f2984a84b819.js",
         "/pwa/styles.39a28e12ee42bf96.css"
       ],
       "patterns": []
@@ -101,8 +101,8 @@
     "/pwa/assets/imgs/eviat.webp": "58f67061df17c87b88a8226ddfa789ae1184188b",
     "/pwa/assets/imgs/x.svg": "254cd57802b4e78e6b978914d023f44d7e3b0da5",
     "/pwa/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/pwa/index.html": "5ee8dd35942fb75a58e5be4bd992c9ef8b8cf748",
-    "/pwa/main.b7c58521602da6a7.js": "c56491f54d356d4795b91a8428eaa397fffe50fb",
+    "/pwa/index.html": "c6bbb1abcd2b22ec8b077bfc0bf257b7a7be3000",
+    "/pwa/main.223861dc28361054.js": "d127ae5820db0aa216263afb56a1943e3c5a4241",
     "/pwa/manifest.webmanifest": "c672e1d1c4381bbc9fcfc422d356e778c1b0d841",
     "/pwa/material-icons-outlined.78a93b2079680a08.woff": "b52ccd8fca4199d257b2a9fe377db29862f2853e",
     "/pwa/material-icons-outlined.f86cb7b0aa53f0fe.woff2": "2f9e28ab559782402f27332633c843c40209d95a",
@@ -115,7 +115,7 @@
     "/pwa/material-icons.4ad034d2c499d9b6.woff": "e4bb7c1e40d3febee58df963db276b2bf68c117b",
     "/pwa/material-icons.59322316b3fd6063.woff2": "0bc0c675480d94ec7e8609dda6227f88c5d08d2c",
     "/pwa/polyfills.03a48880c41302d7.js": "da03784baa7ca074f27af45702f993dc27e1be36",
-    "/pwa/runtime.3b15b8861bf2cf83.js": "eccdff5bb375effe8c90eaf9e61f69f86bd94222",
+    "/pwa/runtime.dea4f2984a84b819.js": "c078c1a9b697a5f4f0f982486bae8bdc4b83b767",
     "/pwa/sitka-small-652.c69ba2902c283f8d.ttf": "78890e7057fff4eff8d0c89a09580d2081f37d28",
     "/pwa/styles.39a28e12ee42bf96.css": "c1ad849a76e6df727f1f7329b2139552cb41689d"
   },

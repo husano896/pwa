@@ -18,13 +18,12 @@ interface IProduct {
   styleUrls: ['./shop-scanner.component.scss']
 })
 
-
 export class ShopScannerComponent implements OnInit {
 
   allowedFormats = [BarcodeFormat.CODABAR, BarcodeFormat.CODE_39, BarcodeFormat.CODE_93, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128,];
 
   createForm = new UntypedFormGroup({
-    id: new FormControl('', [Validators.required]),
+    id: new FormControl('', ),
     name: new FormControl(''),
     price: new FormControl(0, [Validators.required, Validators.min(1)])
   })
