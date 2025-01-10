@@ -5,6 +5,8 @@
 }
 .asiaminor {
   transform-origin: left bottom;
+  user-select: none;
+  pointer-events: none;
 }
 
 .asiaminor-container {

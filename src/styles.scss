@@ -72,6 +72,25 @@ textarea::-webkit-input-placeholder {
 mat-drawer-container {
   height: 100vh;
 }
+/** 避免特定位置往下拉時會把整個PWA往下拉的問題 */ 
+body,
+* {
+    overscroll-behavior: contain;
+}
+
+html {
+    overscroll-behavior: none;
+}
+
+/** 禁止選取 */ 
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 a {
   position: relative;
